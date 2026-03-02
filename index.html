@@ -3,87 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedidos Mr. Peanut</title>
+    <title>Mr. Peanut - Mercado en Casa</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; background-color: #f9f9f9; display: flex; flex-wrap: wrap; gap: 20px; }
-        h2 { color: #333; width: 100%; text-align: center; }
+        /* --- ESTILOS TEMÁTICOS DE LA BOLSA DE MALLA ROJA --- */
         
-        /* Sección de Productos */
-        .catalogo { flex: 1; min-width: 300px; }
-        .combo-card { background: white; border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .combo-title { font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 5px; }
-        .combo-desc { font-size: 14px; color: #666; margin-bottom: 10px; }
-        .combo-price { font-size: 16px; font-weight: bold; color: #27ae60; margin-bottom: 10px; }
-        .btn-agregar { background-color: #3498db; color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .btn-agregar:hover { background-color: #2980b9; }
+        :root {
+            --rojo-malla: #d32f2f; /* Rojo base */
+            --rojo-malla-claro: #f44336; /* Líneas de la red */
+            --rojo-oscuro: #b71c1c; /* Sombras y bordes */
+            --color-fondo-sitio: #f1e4d3; /* Color beige rústico tipo papel kraft para el fondo del navegador */
+        }
 
-        /* Sección del Carrito */
-        .panel-carrito { flex: 1; min-width: 300px; background: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd; height: fit-content; position: sticky; top: 20px; }
-        .item-carrito { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        .total-carrito { font-size: 20px; font-weight: bold; color: #27ae60; text-align: right; margin-top: 15px; border-top: 2px solid #ddd; padding-top: 10px; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--color-fondo-sitio);
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Contenedor Principal: LA BOLSA */
+        .bolsa-mercado {
+            background-color: var(--rojo-malla);
+            /* --- EL TRUCO DE LA MALLA (CSS Puro) --- */
+            background-image: 
+                linear-gradient(90deg, var(--rojo-malla-claro) 1px, transparent 1px),
+                linear-gradient(var(--rojo-malla-claro) 1px, transparent 1px);
+            background-size: 15px 15px; /* Tamaño del rombo de la red */
+            
+            width: 100%;
+            max-width: 900px;
+            border-radius: 25px; /* Bordes redondeados para la forma de bolsa */
+            box-shadow: 10px 15px 30px rgba(0,0,0,0.3); /* Sombra para dar volumen */
+            border: 10px solid var(--rojo-oscuro);
+            overflow: hidden; /* Mantiene el contenido dentro de la forma */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Parte superior de la bolsa (donde se cierra) */
+        .boca-bolsa {
+            background-color: var(--rojo-oscuro);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .boca-bolsa h1 { margin: 0; font-size: 24px; }
+        .boca-bolsa p { margin: 5px 0 0; font-size: 14px; opacity: 0.9; }
+
+        /* Contenedor del interior rústico (Contraste para legibilidad) */
+        .interior-bolsa {
+            background-color: rgba(255, 255, 255, 0.92); /* Fondo blanco semi-transparente para leer bien */
+            margin: 20px; /* Margen para que se vea la malla roja alrededor */
+            padding: 25px;
+            border-radius: 15px;
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Catálogo grande, Carrito pequeño */
+            gap: 25px;
+        }
+
+        /* --- ESTILOS DE PRODUCTOS Y CARRITO (Adaptados al tema) --- */
+
+        h2, h3 { color: var(--rojo-oscuro); margin-top: 0; }
+
+        /* Catálogo */
+        .catalogo { display: flex; flex-direction: column; gap: 15px; }
         
-        /* Formulario */
+        .combo-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .combo-card:hover { transform: translateY(-3px); }
+        .combo-title { font-size: 18px; font-weight: bold; color: #333; }
+        .combo-desc { font-size: 14px; color: #666; margin: 5px 0 10px; }
+        .combo-price { font-size: 16px; font-weight: bold; color: #2e7d32; }
+
+        .btn-agregar {
+            background-color: var(--rojo-malla);
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .btn-agregar:hover { background-color: var(--rojo-oscuro); }
+
+        /* Panel Carrito */
+        .panel-carrito {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            height: fit-content;
+            position: sticky; top: 20px;
+        }
+
+        .item-carrito { display: flex; justify-content: space-between; font-size: 14px; padding: 5px 0; border-bottom: 1px solid #eee; }
+        .total-carrito { font-size: 20px; font-weight: bold; color: #2e7d32; text-align: right; margin-top: 15px; border-top: 2px solid #ddd; padding-top: 10px; }
+        
         input, .btn-confirmar { padding: 12px; margin-top: 8px; width: 100%; box-sizing: border-box; border-radius: 5px; border: 1px solid #ccc; }
-        .btn-confirmar { background-color: #27ae60; color: white; border: none; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 15px; }
-        .btn-confirmar:hover { background-color: #219150; }
-        .btn-vaciar { background-color: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 12px; width: 100%; margin-top: 10px; }
+        .btn-confirmar { background-color: #2e7d32; color: white; border: none; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 15px; }
+        .btn-confirmar:hover { background-color: #1b5e20; }
+        .btn-vaciar { background-color: #757575; color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer; font-size: 11px; width: 100%; margin-top: 10px; }
+
+        /* Adaptación Móvil */
+        @media (max-width: 768px) {
+            .interior-bolsa { grid-template-columns: 1fr; }
+            .bolsa-mercado { border-radius: 0; border: none; }
+            body { padding: 0; }
+        }
     </style>
 </head>
 <body>
 
-    <h2>Haz tu pedido aquí 📦</h2>
-
-    <div class="catalogo">
-        <div class="combo-card">
-            <div class="combo-title">Combo Mix Mr. Peanut</div>
-            <div class="combo-desc">Maní Salado, Maní Dulce y Maní Mixto en empaque kraft resellable.</div>
-            <div class="combo-price">$16.500</div>
-            <button class="btn-agregar" onclick="agregarAlCarrito('Combo Mix Mr. Peanut', 16500)">Agregar al Carrito</button>
+    <div class="bolsa-mercado">
+        
+        <div class="boca-bolsa">
+            <h1>Mr. Peanut & Mercado Agrícola</h1>
+            <p>Pedidos frescos entregados en tu puerta en bolsa de malla</p>
         </div>
 
-        <div class="combo-card">
-            <div class="combo-title">Combo Mani Dulce (x3)</div>
-            <div class="combo-desc">3 paquetes de nuestro clásico maní dulce vinotinto.</div>
-            <div class="combo-price">$17.000</div>
-            <button class="btn-agregar" onclick="agregarAlCarrito('Combo Maní Dulce x3', 17000)">Agregar al Carrito</button>
-        </div>
+        <div class="interior-bolsa">
+            
+            <div class="catalogo">
+                <h2>Combos Preestablcidos</h2>
+                
+                <div class="combo-card">
+                    <div class="combo-title">Combo Mix Mr. Peanut</div>
+                    <div class="combo-desc">Maní Salado, Dulce y Mixto en empaque kraft resellable.</div>
+                    <div class="combo-price">$16.500</div>
+                    <button class="btn-agregar" onclick="agregarAlCarrito('Combo Mix Mr. Peanut', 16500)">Agregar a la Bolsa</button>
+                </div>
 
-        <div class="combo-card">
-            <div class="combo-title">Mercado Agrícola Básico</div>
-            <div class="combo-desc">2kg Tomate, 1kg Cebolla, 1kg Zanahoria, Cilantro y 1 Cubeta de Huevos.</div>
-            <div class="combo-price">$35.000</div>
-            <button class="btn-agregar" onclick="agregarAlCarrito('Mercado Agrícola Básico', 35000)">Agregar al Carrito</button>
-        </div>
-    </div>
+                <div class="combo-card">
+                    <div class="combo-title">Mercado Agrícola Básico</div>
+                    <div class="combo-desc">2kg Tomate, 1kg Cebolla, 1kg Zanahoria, Cilantro y 1 Cubeta de Huevos.</div>
+                    <div class="combo-price">$35.000</div>
+                    <button class="btn-agregar" onclick="agregarAlCarrito('Mercado Agrícola Básico', 35000)">Agregar a la Bolsa</button>
+                </div>
+            </div>
 
-    <div class="panel-carrito">
-        <h3 style="margin-top: 0;">🛒 Tu Carrito</h3>
-        <div id="lista-carrito">
-            <p style="color: #999; font-size: 14px; text-align: center;">Tu carrito está vacío</p>
-        </div>
-        <div class="total-carrito">Total: $<span id="gran-total">0</span></div>
-        <button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar Carrito</button>
+            <div class="panel-carrito">
+                <h3 style="margin-top: 0;">🛒 Tu Pedido</h3>
+                <div id="lista-carrito">
+                    <p style="color: #999; font-size: 14px; text-align: center;">Tu bolsa está vacía</p>
+                </div>
+                <div class="total-carrito">Total: $<span id="gran-total">0</span></div>
+                <button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar Bolsa</button>
 
-        <h3 style="margin-top: 25px;">Tus Datos de Entrega</h3>
-        <input type="text" id="nombre" placeholder="Nombre completo" required>
-        <input type="text" id="telefono" placeholder="Teléfono / WhatsApp" required>
-        <input type="text" id="direccion" placeholder="Dirección de entrega" required>
+                <h3 style="margin-top: 25px;">Datos de Entrega</h3>
+                <input type="text" id="nombre" placeholder="Nombre completo" required>
+                <input type="text" id="telefono" placeholder="Teléfono / WhatsApp" required>
+                <input type="text" id="direccion" placeholder="Dirección exacta" required>
 
-        <button class="btn-confirmar" onclick="enviarPedido()">Confirmar Pedido</button>
-    </div>
+                <button class="btn-confirmar" onclick="enviarPedido()">Confirmar y Enviar</button>
+            </div>
 
-    <script>
-        // Memoria del carrito
+        </div> </div> <script>
+        // --- LÓGICA DEL CARRITO (Misma de la respuesta anterior) ---
         let carrito = [];
 
         function agregarAlCarrito(nombre, precio) {
-            // Revisamos si el producto ya está en el carrito
             let productoExistente = carrito.find(item => item.nombre === nombre);
-            
             if (productoExistente) {
-                productoExistente.cantidad++; // Si ya está, sumamos 1 a la cantidad
+                productoExistente.cantidad++;
             } else {
-                carrito.push({ nombre: nombre, precio: precio, cantidad: 1 }); // Si no, lo creamos
+                carrito.push({ nombre: nombre, precio: precio, cantidad: 1 });
             }
             actualizarUI();
         }
@@ -100,13 +197,12 @@
             let total = 0;
 
             if (carrito.length === 0) {
-                listaHTML.innerHTML = '<p style="color: #999; font-size: 14px; text-align: center;">Tu carrito está vacío</p>';
+                listaHTML.innerHTML = '<p style="color: #999; font-size: 14px; text-align: center;">Tu bolsa está vacía</p>';
                 totalVisual.innerText = '0';
                 return;
             }
 
-            // Generamos el HTML para cada item del carrito
-            carrito.forEach((item, index) => {
+            carrito.forEach((item) => {
                 let subtotal = item.precio * item.cantidad;
                 total += subtotal;
                 html += `
@@ -123,7 +219,7 @@
 
         function enviarPedido() {
             if (carrito.length === 0) {
-                alert("Tu carrito está vacío. Agrega algunos productos primero.");
+                alert("Tu bolsa está vacía.");
                 return;
             }
 
@@ -132,11 +228,10 @@
             let direccion = document.getElementById('direccion').value;
 
             if(!nombre || !telefono || !direccion) {
-                alert("Por favor, completa tus datos de entrega.");
+                alert("Por favor, completa tus datos.");
                 return;
             }
 
-            // Convertir el carrito a texto para guardarlo en Google Sheets
             let resumenPedido = carrito.map(item => `${item.cantidad}x ${item.nombre}`).join(' | ');
             let totalAPagar = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
 
@@ -148,23 +243,25 @@
                 total: totalAPagar
             };
 
-            // REEMPLAZA ESTA URL CON LA DE TU GOOGLE APPS SCRIPT
+            // !!! REEMPLAZA ESTA URL !!!
             let urlAppsScript = "URL_DE_TU_APLICACION_WEB_AQUI";
 
+            // Aviso de C-O-R-S: Aunque la interfaz diga "éxito", Google Sheets tarda unos segundos.
+            // Usamos 'no-cors' para evitar errores visuales en consola.
             fetch(urlAppsScript, {
                 method: 'POST',
                 mode: 'no-cors', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(datos)
             }).then(() => {
-                alert("¡Pedido enviado con éxito! Nos comunicaremos pronto.");
+                alert("¡Pedido recibido! Prepararemos tu bolsa de malla roja y te contactaremos pronto.");
                 vaciarCarrito();
                 document.getElementById('nombre').value = '';
                 document.getElementById('telefono').value = '';
                 document.getElementById('direccion').value = '';
             }).catch(error => {
                 console.error('Error:', error);
-                alert("Hubo un error al enviar el pedido.");
+                alert("Hubo un problema al enviar el pedido.");
             });
         }
     </script>
