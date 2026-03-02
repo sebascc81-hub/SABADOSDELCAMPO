@@ -3,42 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mercado Agrícola - Pedidos a Domicilio</title>
+    <title>Pedidos Mr. Peanut</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
-        .producto { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
-        input, button { padding: 10px; margin-top: 5px; width: 100%; box-sizing: border-box; }
-        button { background-color: #4CAF50; color: white; border: none; cursor: pointer; font-size: 16px; }
-        button:hover { background-color: #45a049; }
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; background-color: #f9f9f9; }
+        h2, h3 { color: #333; text-align: center; }
+        .combo-card { background: white; border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .combo-title { font-size: 18px; font-weight: bold; color: #2c3e50; margin-bottom: 5px; }
+        .combo-desc { font-size: 14px; color: #666; margin-bottom: 10px; }
+        .combo-price { font-size: 16px; font-weight: bold; color: #27ae60; margin-bottom: 10px; }
+        input, button { padding: 12px; margin-top: 8px; width: 100%; box-sizing: border-box; border-radius: 5px; border: 1px solid #ccc; }
+        button { background-color: #27ae60; color: white; border: none; cursor: pointer; font-size: 16px; font-weight: bold; }
+        button:hover { background-color: #219150; }
+        .datos-cliente { background: white; padding: 15px; border-radius: 8px; margin-top: 20px; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
 
-    <h2>Haz tu pedido de mercado fresco 🍅🥕</h2>
+    <h2>Nuestros Combos Especiales 📦</h2>
     
     <div id="productos">
-        <div class="producto">
-            <h3>Tomate Chonto (Kilo) - $4.500</h3>
-            <input type="number" id="cant-tomate" placeholder="Cantidad de kilos" min="0">
+        
+        <div class="combo-card">
+            <div class="combo-title">Combo Mix Mr. Peanut</div>
+            <div class="combo-desc">Incluye: Maní Salado, Maní Dulce y Maní Mixto en empaque resellable. Ideal para snacks de la semana.</div>
+            <div class="combo-price">$16.500</div>
+            <label for="cant-combo1">Cantidad:</label>
+            <input type="number" id="cant-combo1" placeholder="¿Cuántos combos deseas?" min="0">
         </div>
-        <div class="producto">
-            <h3>Cebolla Cabezona (Libra) - $2.000</h3>
-            <input type="number" id="cant-cebolla" placeholder="Cantidad de libras" min="0">
+
+        <div class="combo-card">
+            <div class="combo-title">Mercado Agrícola Básico</div>
+            <div class="combo-desc">Incluye: 2kg Tomate, 1kg Cebolla, 1kg Zanahoria, 1 atado de Cilantro y 1 Cubeta de Huevos.</div>
+            <div class="combo-price">$35.000</div>
+            <label for="cant-combo2">Cantidad:</label>
+            <input type="number" id="cant-combo2" placeholder="¿Cuántos combos deseas?" min="0">
         </div>
+
     </div>
 
-    <h3>Tus Datos de Entrega</h3>
-    <input type="text" id="nombre" placeholder="Nombre completo" required>
-    <input type="text" id="telefono" placeholder="Teléfono / WhatsApp" required>
-    <input type="text" id="direccion" placeholder="Dirección de entrega" required>
+    <div class="datos-cliente">
+        <h3>Tus Datos de Entrega</h3>
+        <input type="text" id="nombre" placeholder="Nombre completo" required>
+        <input type="text" id="telefono" placeholder="Teléfono / WhatsApp" required>
+        <input type="text" id="direccion" placeholder="Dirección de entrega" required>
+        <p style="text-align: center; font-size: 12px; margin-top: 15px;"><a href="https://www.instagram.com/mrpeanut1_" target="_blank">Síguenos en Instagram</a></p>
+    </div>
 
     <button onclick="enviarPedido()">Confirmar Pedido</button>
 
     <script>
         function enviarPedido() {
-            // Recolectar datos
-            let cantTomate = document.getElementById('cant-tomate').value || 0;
-            let cantCebolla = document.getElementById('cant-cebolla').value || 0;
+            let cantCombo1 = parseInt(document.getElementById('cant-combo1').value) || 0;
+            let cantCombo2 = parseInt(document.getElementById('cant-combo2').value) || 0;
             let nombre = document.getElementById('nombre').value;
             let telefono = document.getElementById('telefono').value;
             let direccion = document.getElementById('direccion').value;
@@ -48,16 +64,17 @@
                 return;
             }
 
-            // Calcular total y armar el resumen del pedido
-            let total = (cantTomate * 4500) + (cantCebolla * 2000);
-            let resumenPedido = `Tomate: ${cantTomate}kg, Cebolla: ${cantCebolla}lb`;
+            let total = (cantCombo1 * 16500) + (cantCombo2 * 35000);
+            
+            let resumenPedido = "";
+            if (cantCombo1 > 0) resumenPedido += `Combo Mix Mr. Peanut: ${cantCombo1} | `;
+            if (cantCombo2 > 0) resumenPedido += `Mercado Básico: ${cantCombo2}`;
 
             if(total === 0) {
-                alert("Agrega al menos un producto a tu pedido.");
+                alert("Agrega al menos un combo a tu pedido.");
                 return;
             }
 
-            // Datos a enviar a Google Apps Script
             let datos = {
                 nombre: nombre,
                 telefono: telefono,
@@ -69,17 +86,15 @@
             // REEMPLAZA ESTA URL CON LA QUE COPIASTE DE APPS SCRIPT
             let urlAppsScript = "URL_DE_TU_APLICACION_WEB_AQUI";
 
-            // Enviar los datos
             fetch(urlAppsScript, {
                 method: 'POST',
-                mode: 'no-cors', // Importante para evitar errores de CORS con Google Scripts
+                mode: 'no-cors', 
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(datos)
             }).then(() => {
                 alert("¡Pedido enviado con éxito! Nos comunicaremos pronto.");
-                // Opcional: recargar la página para limpiar el formulario
                 window.location.reload();
             }).catch(error => {
                 console.error('Error:', error);
