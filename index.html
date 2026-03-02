@@ -125,10 +125,39 @@
         .item-carrito { display: flex; justify-content: space-between; font-size: 14px; padding: 5px 0; border-bottom: 1px solid #eee; }
         .total-carrito { font-size: 20px; font-weight: bold; color: #2e7d32; text-align: right; margin-top: 15px; border-top: 2px solid #ddd; padding-top: 10px; }
         
-        input, .btn-confirmar { padding: 12px; margin-top: 8px; width: 100%; box-sizing: border-box; border-radius: 5px; border: 1px solid #ccc; }
+        input, textarea, .btn-confirmar { padding: 12px; margin-top: 8px; width: 100%; box-sizing: border-box; border-radius: 5px; border: 1px solid #ccc; font-family: inherit;}
+        textarea { resize: vertical; } /* Permite hacer más grande el cuadro de texto solo hacia abajo */
+        
         .btn-confirmar { background-color: #2e7d32; color: white; border: none; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 15px; }
         .btn-confirmar:hover { background-color: #1b5e20; }
         .btn-vaciar { background-color: #757575; color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer; font-size: 11px; width: 100%; margin-top: 10px; }
+
+        /* --- ESTILOS DE LA NOTIFICACIÓN (TOAST) --- */
+        .toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #2e7d32;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            padding: 15px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.5s, bottom 0.5s;
+        }
+
+        .toast.mostrar {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
 
         @media (max-width: 768px) {
             .interior-bolsa { grid-template-columns: 1fr; }
@@ -180,12 +209,16 @@
                 <input type="text" id="nombre" placeholder="Nombre completo" required>
                 <input type="text" id="telefono" placeholder="Teléfono / WhatsApp" required>
                 <input type="text" id="direccion" placeholder="Dirección exacta" required>
+                
+                <textarea id="peticiones" placeholder="¿Necesitas alguna verdura extra o tienes una petición especial? Escríbela aquí." rows="3"></textarea>
 
                 <button class="btn-confirmar" onclick="enviarPedido()">Confirmar y Enviar</button>
             </div>
 
         </div> 
     </div> 
+
+    <div id="notificacion-toast" class="toast">¡Combo añadido a la bolsa! 🛒</div>
     
     <script>
         const combosBD = [
@@ -216,7 +249,7 @@
                 desc: '• Papa Nevada (1 Kilo)<br>• Mango (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (0.5 Kilo)<br>• Plátano Verde(1 Libra)<br>• Plátano Maduro (1 Libra)<br>• Zanahoria (1 Kilo)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>',
                 precioTexto: '$45.000',
                 precioValor: 45000
-            }, // CORRECCIÓN 2: Se añadió esta coma faltante
+            },
             {
                 nombreCarrito: 'Combo Keto',
                 titulo: 'Combo Keto (2-3 PERSONAS)',
@@ -242,6 +275,16 @@
             mostrarComboSeleccionado();
         };
 
+        // --- LÓGICA DEL TOAST ---
+        function mostrarNotificacion(mensaje) {
+            let toast = document.getElementById("notificacion-toast");
+            toast.innerText = mensaje;
+            toast.className = "toast mostrar";
+            setTimeout(function(){ 
+                toast.className = toast.className.replace("mostrar", ""); 
+            }, 3000);
+        }
+
         let carrito = [];
 
         function agregarAlCarrito(nombre, precio) {
@@ -252,6 +295,7 @@
                 carrito.push({ nombre: nombre, precio: precio, cantidad: 1 });
             }
             actualizarUI();
+            mostrarNotificacion(`¡${nombre} añadido a la bolsa! 🛒`);
         }
 
         function vaciarCarrito() {
@@ -295,20 +339,23 @@
             let nombre = document.getElementById('nombre').value;
             let telefono = document.getElementById('telefono').value;
             let direccion = document.getElementById('direccion').value;
+            let peticiones = document.getElementById('peticiones').value; // Capturamos las peticiones
 
             if(!nombre || !telefono || !direccion) {
-                alert("Por favor, completa tus datos.");
+                alert("Por favor, completa tus datos de entrega.");
                 return;
             }
 
             let resumenPedido = carrito.map(item => `${item.cantidad}x ${item.nombre}`).join(' | ');
             let totalAPagar = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
 
+            // Añadimos las peticiones al objeto que se envía a Google Apps Script
             let datos = {
                 nombre: nombre,
                 telefono: telefono,
                 direccion: direccion,
                 pedido: resumenPedido,
+                peticiones: peticiones || "Ninguna", // Si lo dejan vacío, mandamos "Ninguna"
                 total: totalAPagar
             };
 
@@ -325,6 +372,7 @@
                 document.getElementById('nombre').value = '';
                 document.getElementById('telefono').value = '';
                 document.getElementById('direccion').value = '';
+                document.getElementById('peticiones').value = ''; // Limpiamos el campo de peticiones
             }).catch(error => {
                 console.error('Error:', error);
                 alert("Hubo un problema al enviar el pedido.");
