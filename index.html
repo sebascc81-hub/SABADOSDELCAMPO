@@ -60,7 +60,7 @@
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 25px;
-            min-height: 500px; /* Evita que la bolsa se encoja mucho al cambiar de pestaña */
+            min-height: 500px;
         }
 
         h2, h3 { color: var(--rojo-oscuro); margin-top: 0; }
@@ -96,18 +96,15 @@
             color: white;
         }
 
-        /* Oculta las secciones por defecto */
         .tab-content {
             display: none;
             animation: fadeIn 0.4s ease-in-out;
         }
 
-        /* Muestra la sección activa */
         .tab-content.active {
             display: block;
         }
 
-        /* Animación suave al cambiar de pestaña */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
@@ -161,6 +158,10 @@
 
         .toast { visibility: hidden; min-width: 250px; background-color: #2e7d32; color: white; text-align: center; border-radius: 8px; padding: 15px; position: fixed; z-index: 1000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 16px; font-weight: bold; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.5s, bottom 0.5s; }
         .toast.mostrar { visibility: visible; opacity: 1; bottom: 50px; }
+
+        /* Estilos específicos para la receta */
+        .receta-pasos { margin-top: 10px; padding-left: 20px; color: #444; font-size: 14px; line-height: 1.6;}
+        .receta-ingredientes { font-weight: bold; color: #b71c1c; margin-top: 10px; margin-bottom: 5px;}
 
         @media (max-width: 768px) {
             .interior-bolsa { grid-template-columns: 1fr; }
@@ -225,36 +226,48 @@
                 </div>
 
                 <div id="seccion-recetas" class="tab-content">
-                    <h2>Kits de Recetas</h2>
-                    <p style="color: #555; margin-bottom: 20px; font-size: 15px;">Añade a tu bolsa los ingredientes exactos y lavados listos para preparar estos deliciosos platos típicos.</p>
+                    <h2>Recetas de la Abuela</h2>
+                    <p style="color: #555; margin-bottom: 20px; font-size: 15px;">Inspiración para cocinar en casa usando los ingredientes frescos de nuestros combos.</p>
 
                     <div class="combo-card" style="margin-bottom: 15px;">
-                        <div class="combo-title">Kit Sancocho de Gallina (Para 4)</div>
+                        <div class="combo-title">Hogao Tradicional Colombiano</div>
                         <div class="combo-desc">
-                            • Gallina de campo (Despresada - 1.5 Kilo)<br>
-                            • Papa Pastusa (4 und), Yuca (4 trozos)<br>
-                            • Plátano verde (1 und), Mazorca (1 und)<br>
-                            • Atado de hierbas: Cilantro y Cimarrón<br>
-                            • Hogao listo (Cebolla y tomate picado)<br>
-                            <br><em>* Incluye receta paso a paso impresa.</em>
+                            <div class="receta-ingredientes">Ingredientes (De tu combo):</div>
+                            • 3 Tomates Chonto maduros<br>
+                            • 2 tallos de Cebolla Larga<br>
+                            • Sal, comino y color al gusto<br>
+                            • 2 cucharadas de aceite
+                            
+                            <div class="receta-ingredientes">Preparación:</div>
+                            <ol class="receta-pasos">
+                                <li>Pica el tomate y la cebolla finamente.</li>
+                                <li>En un sartén a fuego medio, calienta el aceite.</li>
+                                <li>Agrega la cebolla y sofríe por 3 minutos hasta que esté transparente.</li>
+                                <li>Añade el tomate, la sal, el comino y el color.</li>
+                                <li>Tapa y deja cocinar a fuego lento por 10-15 minutos revolviendo ocasionalmente.</li>
+                            </ol>
+                            <em>Ideal para acompañar papas nevadas, yuca, o arepas.</em>
                         </div>
-                        <div class="combo-price">$55.000</div>
-                        <button class="btn-agregar" onclick="agregarAlCarrito('Kit Sancocho Gallina', 55000)">Añadir Kit a la Bolsa</button>
                     </div>
 
                     <div class="combo-card">
-                        <div class="combo-title">Kit Bandeja Paisa Exprés (Para 2)</div>
+                        <div class="combo-title">Sopa Rápida de Plátano y Papa</div>
                         <div class="combo-desc">
-                            • Frijol Cargamanto remojado (1 Libra)<br>
-                            • Chicharrón carnudo (1 Libra)<br>
-                            • Carne molida condimentada (1 Libra)<br>
-                            • Plátano Maduro para tajadas (1 und)<br>
-                            • Aguacate Hass (1 und grande)<br>
-                            • Arepitas de maíz (4 und)<br>
-                            <br><em>* Listo para cocinar sin complicaciones.</em>
+                            <div class="receta-ingredientes">Ingredientes (De tu combo):</div>
+                            • 1 Plátano Verde pelado y picado con la mano<br>
+                            • 2 Papas Nevadas peladas y en cubos<br>
+                            • 1/2 Cebolla de Huevo finamente picada<br>
+                            • Cilantro fresco<br>
+                            
+                            <div class="receta-ingredientes">Preparación:</div>
+                            <ol class="receta-pasos">
+                                <li>En una olla, sofríe la cebolla con un poco de aceite hasta dorar.</li>
+                                <li>Agrega agua o caldo, y añade los trozos de plátano verde.</li>
+                                <li>Deja cocinar por 15 minutos y luego incorpora la papa nevada.</li>
+                                <li>Cocina hasta que la papa esté suave y la sopa espese ligeramente.</li>
+                                <li>Sirve caliente y espolvorea cilantro fresco por encima.</li>
+                            </ol>
                         </div>
-                        <div class="combo-price">$48.000</div>
-                        <button class="btn-agregar" onclick="agregarAlCarrito('Kit Bandeja Paisa', 48000)">Añadir Kit a la Bolsa</button>
                     </div>
                 </div>
 
@@ -284,22 +297,19 @@
     <div id="notificacion-toast" class="toast">¡Añadido a la bolsa! 🛒</div>
     
     <script>
-        // --- FUNCIÓN PARA CAMBIAR ENTRE PESTAÑAS (TABS) ---
+        // --- FUNCIÓN PARA CAMBIAR ENTRE PESTAÑAS ---
         function cambiarPestana(idSeccion, botonClicado) {
-            // 1. Ocultar todos los contenidos de las pestañas
             let contenidos = document.querySelectorAll('.tab-content');
             contenidos.forEach(c => c.classList.remove('active'));
 
-            // 2. Quitar el estado "activo" de todos los botones
             let botones = document.querySelectorAll('.tab-btn');
             botones.forEach(b => b.classList.remove('active'));
 
-            // 3. Mostrar la sección seleccionada y activar su botón
             document.getElementById(idSeccion).classList.add('active');
             botonClicado.classList.add('active');
         }
 
-        // --- BASES DE DATOS (Mantenemos la misma lógica) ---
+        // --- BASES DE DATOS ---
         const combosBD = [
             { nombreCarrito: 'Combo Familiar', titulo: 'Combo Familiar (4-5 PERSONAS)', desc: '• Papa Nevada (3 Kilo)<br>• Tomate Árbol (3 Kilo)<br>• Tomate Chonto (1.5 Kilo)<br>• Cebolla Huevo (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Plátano Verde (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$75.000', precioValor: 75000 },
             { nombreCarrito: 'Combo Sancochero', titulo: 'Combo Sancochero (4-5 PERSONAS)', desc: '• Papa Nevada (2 Kilo)<br>• Tomate Chonto (1.5 Kilo)<br>• Cilantro (1 Manojo)<br>• Yuca (1 Libra)<br>• Mazorca (1 Bandeja)<br>• Aguacate (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Plátano Verde (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Papa Criolla (1 Kilo)<br>• Banano (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$75.000', precioValor: 75000 },
@@ -318,7 +328,6 @@
         function mostrarComboSeleccionado() {
             let indiceSeleccionado = document.getElementById("selector-combo").value;
             let combo = combosBD[indiceSeleccionado];
-
             document.getElementById("combo-titulo").innerText = combo.titulo;
             document.getElementById("combo-desc").innerHTML = combo.desc;
             document.getElementById("combo-precio").innerText = combo.precioTexto;
@@ -329,7 +338,6 @@
         function mostrarToppingSeleccionado() {
             let indiceSeleccionado = document.getElementById("selector-topping").value;
             let topping = toppingsBD[indiceSeleccionado];
-
             document.getElementById("topping-titulo").innerText = topping.titulo;
             document.getElementById("topping-desc").innerHTML = topping.desc;
             document.getElementById("topping-precio").innerText = topping.precioTexto;
