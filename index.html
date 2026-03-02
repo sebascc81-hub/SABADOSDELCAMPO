@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercado Agrícola - Pedidos a Domicilio</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+        .producto { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+        input, button { padding: 10px; margin-top: 5px; width: 100%; box-sizing: border-box; }
+        button { background-color: #4CAF50; color: white; border: none; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+
+    <h2>Haz tu pedido de mercado fresco 🍅🥕</h2>
+    
+    <div id="productos">
+        <div class="producto">
+            <h3>Tomate Chonto (Kilo) - $4.500</h3>
+            <input type="number" id="cant-tomate" placeholder="Cantidad de kilos" min="0">
+        </div>
+        <div class="producto">
+            <h3>Cebolla Cabezona (Libra) - $2.000</h3>
+            <input type="number" id="cant-cebolla" placeholder="Cantidad de libras" min="0">
+        </div>
+    </div>
+
+    <h3>Tus Datos de Entrega</h3>
+    <input type="text" id="nombre" placeholder="Nombre completo" required>
+    <input type="text" id="telefono" placeholder="Teléfono / WhatsApp" required>
+    <input type="text" id="direccion" placeholder="Dirección de entrega" required>
+
+    <button onclick="enviarPedido()">Confirmar Pedido</button>
+
+    <script>
+        function enviarPedido() {
+            // Recolectar datos
+            let cantTomate = document.getElementById('cant-tomate').value || 0;
+            let cantCebolla = document.getElementById('cant-cebolla').value || 0;
+            let nombre = document.getElementById('nombre').value;
+            let telefono = document.getElementById('telefono').value;
+            let direccion = document.getElementById('direccion').value;
+
+            if(!nombre || !telefono || !direccion) {
+                alert("Por favor, completa tus datos de entrega.");
+                return;
+            }
+
+            // Calcular total y armar el resumen del pedido
+            let total = (cantTomate * 4500) + (cantCebolla * 2000);
+            let resumenPedido = `Tomate: ${cantTomate}kg, Cebolla: ${cantCebolla}lb`;
+
+            if(total === 0) {
+                alert("Agrega al menos un producto a tu pedido.");
+                return;
+            }
+
+            // Datos a enviar a Google Apps Script
+            let datos = {
+                nombre: nombre,
+                telefono: telefono,
+                direccion: direccion,
+                pedido: resumenPedido,
+                total: total
+            };
+
+            // REEMPLAZA ESTA URL CON LA QUE COPIASTE DE APPS SCRIPT
+            let urlAppsScript = "URL_DE_TU_APLICACION_WEB_AQUI";
+
+            // Enviar los datos
+            fetch(urlAppsScript, {
+                method: 'POST',
+                mode: 'no-cors', // Importante para evitar errores de CORS con Google Scripts
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datos)
+            }).then(() => {
+                alert("¡Pedido enviado con éxito! Nos comunicaremos pronto.");
+                // Opcional: recargar la página para limpiar el formulario
+                window.location.reload();
+            }).catch(error => {
+                console.error('Error:', error);
+                alert("Hubo un error al enviar el pedido.");
+            });
+        }
+    </script>
+</body>
+</html>
