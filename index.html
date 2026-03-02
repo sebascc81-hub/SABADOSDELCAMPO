@@ -126,7 +126,7 @@
         .total-carrito { font-size: 20px; font-weight: bold; color: #2e7d32; text-align: right; margin-top: 15px; border-top: 2px solid #ddd; padding-top: 10px; }
         
         input, textarea, .btn-confirmar { padding: 12px; margin-top: 8px; width: 100%; box-sizing: border-box; border-radius: 5px; border: 1px solid #ccc; font-family: inherit;}
-        textarea { resize: vertical; } /* Permite hacer más grande el cuadro de texto solo hacia abajo */
+        textarea { resize: vertical; } 
         
         .btn-confirmar { background-color: #2e7d32; color: white; border: none; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 15px; }
         .btn-confirmar:hover { background-color: #1b5e20; }
@@ -195,6 +195,24 @@
                     <button class="btn-agregar" id="btn-agregar-combo" onclick="agregarAlCarrito('Combo Familiar', 75000)">Agregar a la Bolsa</button>
                 </div>
 
+                <hr style="border: 1px dashed #ccc; width: 100%; margin: 25px 0;">
+
+                <h2>Agrega Extras de la Granja</h2>
+                
+                <select class="select-combo" id="selector-topping" onchange="mostrarToppingSeleccionado()">
+                    <option value="0">Cubeta de Huevos Campesinos (x30)</option>
+                    <option value="1">Queso Campesino Finca (1 Libra)</option>
+                    <option value="2">Miel Pura de Abejas (500ml)</option>
+                    <option value="3">Café Artesanal Molido (500g)</option>
+                </select>
+
+                <div class="combo-card">
+                    <div class="combo-title" id="topping-titulo">Cubeta de Huevos Campesinos (x30)</div>
+                    <div class="combo-desc" id="topping-desc"></div>
+                    <div class="combo-price" id="topping-precio">$18.000</div>
+                    <button class="btn-agregar" id="btn-agregar-topping" onclick="agregarAlCarrito('Huevos Campesinos', 18000)">Añadir Extra</button>
+                </div>
+
             </div>
 
             <div class="panel-carrito">
@@ -218,9 +236,10 @@
         </div> 
     </div> 
 
-    <div id="notificacion-toast" class="toast">¡Combo añadido a la bolsa! 🛒</div>
+    <div id="notificacion-toast" class="toast">¡Añadido a la bolsa! 🛒</div>
     
     <script>
+        // --- BASE DE DATOS DE COMBOS ---
         const combosBD = [
             {
                 nombreCarrito: 'Combo Familiar',
@@ -259,6 +278,39 @@
             }
         ];
 
+        // --- BASE DE DATOS DE EXTRAS (TOPPINGS) ---
+        const toppingsBD = [
+            {
+                nombreCarrito: 'Huevos Campesinos',
+                titulo: 'Cubeta de Huevos Campesinos (x30)',
+                desc: '• Huevos frescos de gallinas felices<br>• Tamaño AA ideal para el desayuno',
+                precioTexto: '$18.000',
+                precioValor: 18000
+            },
+            {
+                nombreCarrito: 'Queso Campesino',
+                titulo: 'Queso Campesino Finca (1 Libra)',
+                desc: '• Queso fresco artesanal<br>• Bajo en sal, textura suave',
+                precioTexto: '$12.000',
+                precioValor: 12000
+            },
+            {
+                nombreCarrito: 'Miel Pura',
+                titulo: 'Miel Pura de Abejas (500ml)',
+                desc: '• Miel 100% natural recolectada artesanalmente<br>• Sin azúcares añadidos ni conservantes',
+                precioTexto: '$22.000',
+                precioValor: 22000
+            },
+            {
+                nombreCarrito: 'Café Artesanal',
+                titulo: 'Café Artesanal Molido (500g)',
+                desc: '• Café de origen, tostión media<br>• Cultivado en nuestras fincas aliadas',
+                precioTexto: '$25.000',
+                precioValor: 25000
+            }
+        ];
+
+        // Función para actualizar Combo
         function mostrarComboSeleccionado() {
             let indiceSeleccionado = document.getElementById("selector-combo").value;
             let combo = combosBD[indiceSeleccionado];
@@ -271,8 +323,23 @@
             btnAgregar.setAttribute("onclick", `agregarAlCarrito('${combo.nombreCarrito}', ${combo.precioValor})`);
         }
 
+        // Función para actualizar Extra (Topping)
+        function mostrarToppingSeleccionado() {
+            let indiceSeleccionado = document.getElementById("selector-topping").value;
+            let topping = toppingsBD[indiceSeleccionado];
+
+            document.getElementById("topping-titulo").innerText = topping.titulo;
+            document.getElementById("topping-desc").innerHTML = topping.desc;
+            document.getElementById("topping-precio").innerText = topping.precioTexto;
+            
+            let btnAgregar = document.getElementById("btn-agregar-topping");
+            btnAgregar.setAttribute("onclick", `agregarAlCarrito('${topping.nombreCarrito}', ${topping.precioValor})`);
+        }
+
+        // Inicializar ambos selectores al cargar la página
         window.onload = function() {
             mostrarComboSeleccionado();
+            mostrarToppingSeleccionado();
         };
 
         // --- LÓGICA DEL TOAST ---
@@ -339,7 +406,7 @@
             let nombre = document.getElementById('nombre').value;
             let telefono = document.getElementById('telefono').value;
             let direccion = document.getElementById('direccion').value;
-            let peticiones = document.getElementById('peticiones').value; // Capturamos las peticiones
+            let peticiones = document.getElementById('peticiones').value;
 
             if(!nombre || !telefono || !direccion) {
                 alert("Por favor, completa tus datos de entrega.");
@@ -349,13 +416,12 @@
             let resumenPedido = carrito.map(item => `${item.cantidad}x ${item.nombre}`).join(' | ');
             let totalAPagar = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
 
-            // Añadimos las peticiones al objeto que se envía a Google Apps Script
             let datos = {
                 nombre: nombre,
                 telefono: telefono,
                 direccion: direccion,
                 pedido: resumenPedido,
-                peticiones: peticiones || "Ninguna", // Si lo dejan vacío, mandamos "Ninguna"
+                peticiones: peticiones || "Ninguna",
                 total: totalAPagar
             };
 
@@ -372,7 +438,7 @@
                 document.getElementById('nombre').value = '';
                 document.getElementById('telefono').value = '';
                 document.getElementById('direccion').value = '';
-                document.getElementById('peticiones').value = ''; // Limpiamos el campo de peticiones
+                document.getElementById('peticiones').value = '';
             }).catch(error => {
                 console.error('Error:', error);
                 alert("Hubo un problema al enviar el pedido.");
