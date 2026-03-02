@@ -11,7 +11,7 @@
             --rojo-malla: #d32f2f; /* Rojo base */
             --rojo-malla-claro: #f44336; /* Líneas de la red */
             --rojo-oscuro: #b71c1c; /* Sombras y bordes */
-            --color-fondo-sitio: #f1e4d3; /* Color beige rústico tipo papel kraft para el fondo del navegador */
+            --color-fondo-sitio: #f1e4d3; /* Color beige rústico tipo papel kraft */
         }
 
         body {
@@ -55,10 +55,10 @@
         .boca-bolsa h1 { margin: 0; font-size: 24px; }
         .boca-bolsa p { margin: 5px 0 0; font-size: 14px; opacity: 0.9; }
 
-        /* Contenedor del interior rústico (Contraste para legibilidad) */
+        /* Contenedor del interior rústico */
         .interior-bolsa {
-            background-color: rgba(255, 255, 255, 0.92); /* Fondo blanco semi-transparente para leer bien */
-            margin: 20px; /* Margen para que se vea la malla roja alrededor */
+            background-color: rgba(255, 255, 255, 0.92);
+            margin: 20px; 
             padding: 25px;
             border-radius: 15px;
             display: grid;
@@ -66,9 +66,30 @@
             gap: 25px;
         }
 
-        /* --- ESTILOS DE PRODUCTOS Y CARRITO (Adaptados al tema) --- */
+        /* --- ESTILOS DE PRODUCTOS Y CARRITO --- */
 
         h2, h3 { color: var(--rojo-oscuro); margin-top: 0; }
+
+        /* Menú Desplegable */
+        .select-combo {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid var(--rojo-oscuro);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background-color: white;
+            color: #333;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+        }
+
+        .select-combo:focus {
+            outline: none;
+            border-color: #ffca28;
+            box-shadow: 0 0 5px rgba(255, 202, 40, 0.5);
+        }
 
         /* Catálogo */
         .catalogo { display: flex; flex-direction: column; gap: 15px; }
@@ -138,82 +159,23 @@
         <div class="interior-bolsa">
             
             <div class="catalogo">
-                <h2>Combos Preestablecidos</h2>
+                <h2>Elige tu Combo</h2>
                 
-                <div class="combo-card">
-                    <div class="combo-title">Combo Familiar (4-5 PERSONAS)</div>
-                    <div class="combo-desc">
-                        • Papa Nevada (3 Kilo)<br>
-                        • Tomate Árbol (3 Kilo)<br>
-                        • Tomate Chonto (1.5 Kilo)<br>
-                        • Cebolla Huevo (1 Kilo)<br>
-                        • Cebolla Larga (1 Kilo)<br>
-                        • Plátano (2 Kilo)<br>
-                        • Zanahoria (1 Kilo)<br>
-                        • Banano (1 Kilo)<br>
-                        • Limón Tahití (1 Kilo)<br>
-                        • Lechuga Crespa (1 Und)<br>
-                        • Papa Criolla (1 Kilo)
-                        <br><em>* Incluye Domicilio/Empaque (1 Und)</em>
-                    </div>
-                    <div class="combo-price">$75.000</div>
-                    <button class="btn-agregar" onclick="agregarAlCarrito('Combo Familiar', 65000)">Agregar a la Bolsa</button>
-                </div>
+                <select class="select-combo" id="selector-combo" onchange="mostrarComboSeleccionado()">
+                    <option value="0">Combo Familiar (4-5 PERSONAS)</option>
+                    <option value="1">Combo Sancochero (4-5 PERSONAS)</option>
+                    <option value="2">Combo Paisa (4-5 PERSONAS)</option>
+                    <option value="3">Combo Apartamentero (1-2 PERSONAS)</option>
+                </select>
 
                 <div class="combo-card">
-                    <div class="combo-title">Combo Sancochero (4-5 PERSONAS)</div>
-                    <div class="combo-desc">
-                        • Papa Nevada (2 Kilo)<br>
-                        • Tomate Chonto (1.5 Kilo)<br>
-                        • Cilantro (1 Manojo)<br>
-                        • Yuca (1 Libra)<br>
-                        • Mazorca (1 Bandeja)<br>
-                        • Aguacate (1 Kilo)<br>
-                        • Plátano (2 Kilo)<br>
-                        • Cebolla Larga (1 Kilo)<br>
-                        • Limón Tahití (1 Kilo)<br>
-                        • Papa Criolla (1 Kilo)<br>
-                        • Banano (1 Kilo)
-                        <br><em>* Incluye Domicilio/Empaque (1 Und)</em>
-                    </div>
-                    <div class="combo-price">$75.000</div>
-                    <button class="btn-agregar" onclick="agregarAlCarrito('Combo Sancochero', 55000)">Agregar a la Bolsa</button>
+                    <div class="combo-title" id="combo-titulo">Combo Familiar (4-5 PERSONAS)</div>
+                    <div class="combo-desc" id="combo-desc">
+                        </div>
+                    <div class="combo-price" id="combo-precio">$75.000</div>
+                    <button class="btn-agregar" id="btn-agregar-combo" onclick="agregarAlCarrito('Combo Familiar', 65000)">Agregar a la Bolsa</button>
                 </div>
 
-                <div class="combo-card">
-                    <div class="combo-title">Combo Paisa(4-5 PERSONAS)</div>
-                    <div class="combo-desc">
-                        • Frijol Verde (2 Libras)<br>
-                        • Plátano (2 Kilo)<br>
-                        • Tomate Chonto (1 Kilo)<br>
-                        • Cebolla Huevo (1 Kilo)<br>
-                        • Zanahoria (1 Kilo)<br>
-                        • Cebolla Larga (1 Kilo)<br>
-                        • Aguacate (2 Kilo)<br>
-                        <br><em>* Incluye Domicilio/Empaque (1 Und)</em>
-                    </div>
-                    <div class="combo-price">$65.000</div>
-                    <button class="btn-agregar" onclick="agregarAlCarrito('Combo Paisa', 45000)">Agregar a la Bolsa</button>
-                </div>
-
-                <div class="combo-card">
-                    <div class="combo-title">Combo Apartamentero (1-2 PERSONAS)</div>
-                    <div class="combo-desc">
-                        • Papa Nevada (1 Kilo)<br>
-                        • Mango (1 Kilo)<br>
-                        • Tomate Chonto (1 Kilo)<br>
-                        • Cebolla Huevo (0.5 Kilo)<br>
-                        • Plátano (1 Kilo)<br>
-                        • Zanahoria (1 Kilo)<br>
-                        • Banano (1 Kilo)<br>
-                        • Limón Tahití (1 Kilo)<br>
-                        • Lechuga Crespa (1 Und)<br>
-                        • Papa Criolla (1 Kilo)
-                        <br><em>* Incluye Domicilio/Empaque (1 Und)</em>
-                    </div>
-                    <div class="combo-price">$45.000</div>
-                    <button class="btn-agregar" onclick="agregarAlCarrito('Combo Apartamentero', 35000)">Agregar a la Bolsa</button>
-                </div>
             </div>
 
             <div class="panel-carrito">
@@ -236,7 +198,58 @@
     </div> 
     
     <script>
-        // --- LÓGICA DEL CARRITO ---
+        // --- BASE DE DATOS DE COMBOS ---
+        const combosBD = [
+            {
+                nombreCarrito: 'Combo Familiar',
+                titulo: 'Combo Familiar (4-5 PERSONAS)',
+                desc: '• Papa Nevada (3 Kilo)<br>• Tomate Árbol (3 Kilo)<br>• Tomate Chonto (1.5 Kilo)<br>• Cebolla Huevo (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Plátano (2 Kilo)<br>• Zanahoria (1 Kilo)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>',
+                precioTexto: '$75.000',
+                precioValor: 65000
+            },
+            {
+                nombreCarrito: 'Combo Sancochero',
+                titulo: 'Combo Sancochero (4-5 PERSONAS)',
+                desc: '• Papa Nevada (2 Kilo)<br>• Tomate Chonto (1.5 Kilo)<br>• Cilantro (1 Manojo)<br>• Yuca (1 Libra)<br>• Mazorca (1 Bandeja)<br>• Aguacate (1 Kilo)<br>• Plátano (2 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Papa Criolla (1 Kilo)<br>• Banano (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>',
+                precioTexto: '$75.000',
+                precioValor: 55000
+            },
+            {
+                nombreCarrito: 'Combo Paisa',
+                titulo: 'Combo Paisa (4-5 PERSONAS)',
+                desc: '• Frijol Verde (2 Libras)<br>• Plátano (2 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Aguacate (2 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>',
+                precioTexto: '$65.000',
+                precioValor: 45000
+            },
+            {
+                nombreCarrito: 'Combo Apartamentero',
+                titulo: 'Combo Apartamentero (1-2 PERSONAS)',
+                desc: '• Papa Nevada (1 Kilo)<br>• Mango (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (0.5 Kilo)<br>• Plátano (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>',
+                precioTexto: '$45.000',
+                precioValor: 35000
+            }
+        ];
+
+        // --- FUNCIÓN PARA ACTUALIZAR LA TARJETA DEL COMBO ---
+        function mostrarComboSeleccionado() {
+            let indiceSeleccionado = document.getElementById("selector-combo").value;
+            let combo = combosBD[indiceSeleccionado];
+
+            document.getElementById("combo-titulo").innerText = combo.titulo;
+            document.getElementById("combo-desc").innerHTML = combo.desc;
+            document.getElementById("combo-precio").innerText = combo.precioTexto;
+            
+            // Actualizamos la acción del botón de agregar
+            let btnAgregar = document.getElementById("btn-agregar-combo");
+            btnAgregar.setAttribute("onclick", `agregarAlCarrito('${combo.nombreCarrito}', ${combo.precioValor})`);
+        }
+
+        // Inicializar la vista con el primer combo al cargar la página
+        window.onload = function() {
+            mostrarComboSeleccionado();
+        };
+
+        // --- LÓGICA DEL CARRITO (Original) ---
         let carrito = [];
 
         function agregarAlCarrito(nombre, precio) {
