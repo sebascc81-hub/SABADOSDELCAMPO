@@ -8,10 +8,10 @@
         /* --- ESTILOS TEMÁTICOS DE LA BOLSA DE MALLA ROJA --- */
         
         :root {
-            --rojo-malla: #d32f2f; /* Rojo base */
-            --rojo-malla-claro: #f44336; /* Líneas de la red */
-            --rojo-oscuro: #b71c1c; /* Sombras y bordes */
-            --color-fondo-sitio: #f1e4d3; /* Color beige rústico tipo papel kraft */
+            --rojo-malla: #d32f2f;
+            --rojo-malla-claro: #f44336;
+            --rojo-oscuro: #b71c1c;
+            --color-fondo-sitio: #f1e4d3;
         }
 
         body {
@@ -23,26 +23,23 @@
             justify-content: center;
         }
 
-        /* Contenedor Principal: LA BOLSA */
         .bolsa-mercado {
             background-color: var(--rojo-malla);
-            /* --- EL TRUCO DE LA MALLA (CSS Puro) --- */
             background-image: 
                 linear-gradient(90deg, var(--rojo-malla-claro) 1px, transparent 1px),
                 linear-gradient(var(--rojo-malla-claro) 1px, transparent 1px);
-            background-size: 15px 15px; /* Tamaño del rombo de la red */
+            background-size: 15px 15px; 
             
             width: 100%;
             max-width: 900px;
-            border-radius: 25px; /* Bordes redondeados para la forma de bolsa */
-            box-shadow: 10px 15px 30px rgba(0,0,0,0.3); /* Sombra para dar volumen */
+            border-radius: 25px;
+            box-shadow: 10px 15px 30px rgba(0,0,0,0.3);
             border: 10px solid var(--rojo-oscuro);
-            overflow: hidden; /* Mantiene el contenido dentro de la forma */
+            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
-        /* Parte superior de la bolsa (donde se cierra) */
         .boca-bolsa {
             background-color: var(--rojo-oscuro);
             padding: 20px;
@@ -55,22 +52,18 @@
         .boca-bolsa h1 { margin: 0; font-size: 24px; }
         .boca-bolsa p { margin: 5px 0 0; font-size: 14px; opacity: 0.9; }
 
-        /* Contenedor del interior rústico */
         .interior-bolsa {
             background-color: rgba(255, 255, 255, 0.92);
             margin: 20px; 
             padding: 25px;
             border-radius: 15px;
             display: grid;
-            grid-template-columns: 2fr 1fr; /* Catálogo grande, Carrito pequeño */
+            grid-template-columns: 2fr 1fr;
             gap: 25px;
         }
 
-        /* --- ESTILOS DE PRODUCTOS Y CARRITO --- */
-
         h2, h3 { color: var(--rojo-oscuro); margin-top: 0; }
 
-        /* Menú Desplegable */
         .select-combo {
             width: 100%;
             padding: 12px;
@@ -91,7 +84,6 @@
             box-shadow: 0 0 5px rgba(255, 202, 40, 0.5);
         }
 
-        /* Catálogo */
         .catalogo { display: flex; flex-direction: column; gap: 15px; }
         
         .combo-card {
@@ -121,7 +113,6 @@
         }
         .btn-agregar:hover { background-color: var(--rojo-oscuro); }
 
-        /* Panel Carrito */
         .panel-carrito {
             background-color: #f9f9f9;
             padding: 20px;
@@ -139,7 +130,6 @@
         .btn-confirmar:hover { background-color: #1b5e20; }
         .btn-vaciar { background-color: #757575; color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer; font-size: 11px; width: 100%; margin-top: 10px; }
 
-        /* Adaptación Móvil */
         @media (max-width: 768px) {
             .interior-bolsa { grid-template-columns: 1fr; }
             .bolsa-mercado { border-radius: 0; border: none; }
@@ -166,15 +156,14 @@
                     <option value="1">Combo Sancochero (4-5 PERSONAS)</option>
                     <option value="2">Combo Paisa (4-5 PERSONAS)</option>
                     <option value="3">Combo Apartamentero (1-2 PERSONAS)</option>
-                    <option value="3">Combo Keto (2-3 PERSONAS)</option>
+                    <option value="4">Combo Keto (2-3 PERSONAS)</option>
                 </select>
 
                 <div class="combo-card">
                     <div class="combo-title" id="combo-titulo">Combo Familiar (4-5 PERSONAS)</div>
-                    <div class="combo-desc" id="combo-desc">
-                        </div>
+                    <div class="combo-desc" id="combo-desc"></div>
                     <div class="combo-price" id="combo-precio">$75.000</div>
-                    <button class="btn-agregar" id="btn-agregar-combo" onclick="agregarAlCarrito('Combo Familiar', 65000)">Agregar a la Bolsa</button>
+                    <button class="btn-agregar" id="btn-agregar-combo" onclick="agregarAlCarrito('Combo Familiar', 75000)">Agregar a la Bolsa</button>
                 </div>
 
             </div>
@@ -199,7 +188,6 @@
     </div> 
     
     <script>
-        // --- BASE DE DATOS DE COMBOS ---
         const combosBD = [
             {
                 nombreCarrito: 'Combo Familiar',
@@ -228,7 +216,7 @@
                 desc: '• Papa Nevada (1 Kilo)<br>• Mango (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (0.5 Kilo)<br>• Plátano Verde(1 Libra)<br>• Plátano Maduro (1 Libra)<br>• Zanahoria (1 Kilo)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>',
                 precioTexto: '$45.000',
                 precioValor: 45000
-            }
+            }, // CORRECCIÓN 2: Se añadió esta coma faltante
             {
                 nombreCarrito: 'Combo Keto',
                 titulo: 'Combo Keto (2-3 PERSONAS)',
@@ -238,7 +226,6 @@
             }
         ];
 
-        // --- FUNCIÓN PARA ACTUALIZAR LA TARJETA DEL COMBO ---
         function mostrarComboSeleccionado() {
             let indiceSeleccionado = document.getElementById("selector-combo").value;
             let combo = combosBD[indiceSeleccionado];
@@ -247,17 +234,14 @@
             document.getElementById("combo-desc").innerHTML = combo.desc;
             document.getElementById("combo-precio").innerText = combo.precioTexto;
             
-            // Actualizamos la acción del botón de agregar
             let btnAgregar = document.getElementById("btn-agregar-combo");
             btnAgregar.setAttribute("onclick", `agregarAlCarrito('${combo.nombreCarrito}', ${combo.precioValor})`);
         }
 
-        // Inicializar la vista con el primer combo al cargar la página
         window.onload = function() {
             mostrarComboSeleccionado();
         };
 
-        // --- LÓGICA DEL CARRITO (Original) ---
         let carrito = [];
 
         function agregarAlCarrito(nombre, precio) {
@@ -328,7 +312,6 @@
                 total: totalAPagar
             };
 
-            // !!! REEMPLAZA ESTA URL CON LA DE GOOGLE APPS SCRIPT !!!
             let urlAppsScript = "URL_DE_TU_APLICACION_WEB_AQUI";
 
             fetch(urlAppsScript, {
