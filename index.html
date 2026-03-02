@@ -60,9 +60,58 @@
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 25px;
+            min-height: 500px; /* Evita que la bolsa se encoja mucho al cambiar de pestaña */
         }
 
         h2, h3 { color: var(--rojo-oscuro); margin-top: 0; }
+
+        /* --- ESTILOS DE LAS PESTAÑAS (TABS) --- */
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--rojo-oscuro);
+            padding-bottom: 0;
+        }
+
+        .tab-btn {
+            background-color: transparent;
+            border: none;
+            color: #757575;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--rojo-oscuro);
+            background-color: rgba(183, 28, 28, 0.05);
+        }
+
+        .tab-btn.active {
+            background-color: var(--rojo-oscuro);
+            color: white;
+        }
+
+        /* Oculta las secciones por defecto */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        /* Muestra la sección activa */
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Animación suave al cambiar de pestaña */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .select-combo {
             width: 100%;
@@ -78,11 +127,7 @@
             font-family: inherit;
         }
 
-        .select-combo:focus {
-            outline: none;
-            border-color: #ffca28;
-            box-shadow: 0 0 5px rgba(255, 202, 40, 0.5);
-        }
+        .select-combo:focus { outline: none; border-color: #ffca28; box-shadow: 0 0 5px rgba(255, 202, 40, 0.5); }
 
         .catalogo { display: flex; flex-direction: column; gap: 15px; }
         
@@ -100,28 +145,10 @@
         .combo-desc { font-size: 14px; color: #555; margin: 5px 0 15px; line-height: 1.5; }
         .combo-price { font-size: 18px; font-weight: bold; color: #2e7d32; text-align: center; }
 
-        .btn-agregar {
-            background-color: var(--rojo-malla);
-            color: white;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-        }
+        .btn-agregar { background-color: var(--rojo-malla); color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
         .btn-agregar:hover { background-color: var(--rojo-oscuro); }
 
-        .panel-carrito {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #eee;
-            height: fit-content;
-            position: sticky; top: 20px;
-        }
-
+        .panel-carrito { background-color: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #eee; height: fit-content; position: sticky; top: 20px; }
         .item-carrito { display: flex; justify-content: space-between; font-size: 14px; padding: 5px 0; border-bottom: 1px solid #eee; }
         .total-carrito { font-size: 20px; font-weight: bold; color: #2e7d32; text-align: right; margin-top: 15px; border-top: 2px solid #ddd; padding-top: 10px; }
         
@@ -132,32 +159,8 @@
         .btn-confirmar:hover { background-color: #1b5e20; }
         .btn-vaciar { background-color: #757575; color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer; font-size: 11px; width: 100%; margin-top: 10px; }
 
-        /* --- ESTILOS DE LA NOTIFICACIÓN (TOAST) --- */
-        .toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #2e7d32;
-            color: white;
-            text-align: center;
-            border-radius: 8px;
-            padding: 15px;
-            position: fixed;
-            z-index: 1000;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            font-size: 16px;
-            font-weight: bold;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
-            opacity: 0;
-            transition: opacity 0.5s, bottom 0.5s;
-        }
-
-        .toast.mostrar {
-            visibility: visible;
-            opacity: 1;
-            bottom: 50px;
-        }
+        .toast { visibility: hidden; min-width: 250px; background-color: #2e7d32; color: white; text-align: center; border-radius: 8px; padding: 15px; position: fixed; z-index: 1000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 16px; font-weight: bold; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.5s, bottom 0.5s; }
+        .toast.mostrar { visibility: visible; opacity: 1; bottom: 50px; }
 
         @media (max-width: 768px) {
             .interior-bolsa { grid-template-columns: 1fr; }
@@ -178,39 +181,81 @@
         <div class="interior-bolsa">
             
             <div class="catalogo">
-                <h2>Elige tu Combo</h2>
                 
-                <select class="select-combo" id="selector-combo" onchange="mostrarComboSeleccionado()">
-                    <option value="0">Combo Familiar (4-5 PERSONAS)</option>
-                    <option value="1">Combo Sancochero (4-5 PERSONAS)</option>
-                    <option value="2">Combo Paisa (4-5 PERSONAS)</option>
-                    <option value="3">Combo Apartamentero (1-2 PERSONAS)</option>
-                    <option value="4">Combo Keto (2-3 PERSONAS)</option>
-                </select>
-
-                <div class="combo-card">
-                    <div class="combo-title" id="combo-titulo">Combo Familiar (4-5 PERSONAS)</div>
-                    <div class="combo-desc" id="combo-desc"></div>
-                    <div class="combo-price" id="combo-precio">$75.000</div>
-                    <button class="btn-agregar" id="btn-agregar-combo" onclick="agregarAlCarrito('Combo Familiar', 75000)">Agregar a la Bolsa</button>
+                <div class="tabs-container">
+                    <button class="tab-btn active" onclick="cambiarPestana('seccion-mercado', this)">🛒 Tu Mercado</button>
+                    <button class="tab-btn" onclick="cambiarPestana('seccion-recetas', this)">🍲 Recetas</button>
                 </div>
 
-                <hr style="border: 1px dashed #ccc; width: 100%; margin: 25px 0;">
+                <div id="seccion-mercado" class="tab-content active">
+                    <h2>Elige tu Combo</h2>
+                    
+                    <select class="select-combo" id="selector-combo" onchange="mostrarComboSeleccionado()">
+                        <option value="0">Combo Familiar (4-5 PERSONAS)</option>
+                        <option value="1">Combo Sancochero (4-5 PERSONAS)</option>
+                        <option value="2">Combo Paisa (4-5 PERSONAS)</option>
+                        <option value="3">Combo Apartamentero (1-2 PERSONAS)</option>
+                        <option value="4">Combo Keto (2-3 PERSONAS)</option>
+                    </select>
 
-                <h2>Agrega Extras de la Granja</h2>
-                
-                <select class="select-combo" id="selector-topping" onchange="mostrarToppingSeleccionado()">
-                    <option value="0">Cubeta de Huevos Campesinos (x30)</option>
-                    <option value="1">Queso Campesino Finca (1 Libra)</option>
-                    <option value="2">Miel Pura de Abejas (500ml)</option>
-                    <option value="3">Café Artesanal Molido (500g)</option>
-                </select>
+                    <div class="combo-card">
+                        <div class="combo-title" id="combo-titulo">Combo Familiar (4-5 PERSONAS)</div>
+                        <div class="combo-desc" id="combo-desc"></div>
+                        <div class="combo-price" id="combo-precio">$75.000</div>
+                        <button class="btn-agregar" id="btn-agregar-combo" onclick="agregarAlCarrito('Combo Familiar', 75000)">Agregar a la Bolsa</button>
+                    </div>
 
-                <div class="combo-card">
-                    <div class="combo-title" id="topping-titulo">Cubeta de Huevos Campesinos (x30)</div>
-                    <div class="combo-desc" id="topping-desc"></div>
-                    <div class="combo-price" id="topping-precio">$18.000</div>
-                    <button class="btn-agregar" id="btn-agregar-topping" onclick="agregarAlCarrito('Huevos Campesinos', 18000)">Añadir Extra</button>
+                    <hr style="border: 1px dashed #ccc; width: 100%; margin: 25px 0;">
+
+                    <h2>Agrega Extras de la Granja</h2>
+                    
+                    <select class="select-combo" id="selector-topping" onchange="mostrarToppingSeleccionado()">
+                        <option value="0">Cubeta de Huevos Campesinos (x30)</option>
+                        <option value="1">Queso Campesino Finca (1 Libra)</option>
+                        <option value="2">Miel Pura de Abejas (500ml)</option>
+                        <option value="3">Café Artesanal Molido (500g)</option>
+                    </select>
+
+                    <div class="combo-card">
+                        <div class="combo-title" id="topping-titulo">Cubeta de Huevos Campesinos (x30)</div>
+                        <div class="combo-desc" id="topping-desc"></div>
+                        <div class="combo-price" id="topping-precio">$18.000</div>
+                        <button class="btn-agregar" id="btn-agregar-topping" onclick="agregarAlCarrito('Huevos Campesinos', 18000)">Añadir Extra</button>
+                    </div>
+                </div>
+
+                <div id="seccion-recetas" class="tab-content">
+                    <h2>Kits de Recetas</h2>
+                    <p style="color: #555; margin-bottom: 20px; font-size: 15px;">Añade a tu bolsa los ingredientes exactos y lavados listos para preparar estos deliciosos platos típicos.</p>
+
+                    <div class="combo-card" style="margin-bottom: 15px;">
+                        <div class="combo-title">Kit Sancocho de Gallina (Para 4)</div>
+                        <div class="combo-desc">
+                            • Gallina de campo (Despresada - 1.5 Kilo)<br>
+                            • Papa Pastusa (4 und), Yuca (4 trozos)<br>
+                            • Plátano verde (1 und), Mazorca (1 und)<br>
+                            • Atado de hierbas: Cilantro y Cimarrón<br>
+                            • Hogao listo (Cebolla y tomate picado)<br>
+                            <br><em>* Incluye receta paso a paso impresa.</em>
+                        </div>
+                        <div class="combo-price">$55.000</div>
+                        <button class="btn-agregar" onclick="agregarAlCarrito('Kit Sancocho Gallina', 55000)">Añadir Kit a la Bolsa</button>
+                    </div>
+
+                    <div class="combo-card">
+                        <div class="combo-title">Kit Bandeja Paisa Exprés (Para 2)</div>
+                        <div class="combo-desc">
+                            • Frijol Cargamanto remojado (1 Libra)<br>
+                            • Chicharrón carnudo (1 Libra)<br>
+                            • Carne molida condimentada (1 Libra)<br>
+                            • Plátano Maduro para tajadas (1 und)<br>
+                            • Aguacate Hass (1 und grande)<br>
+                            • Arepitas de maíz (4 und)<br>
+                            <br><em>* Listo para cocinar sin complicaciones.</em>
+                        </div>
+                        <div class="combo-price">$48.000</div>
+                        <button class="btn-agregar" onclick="agregarAlCarrito('Kit Bandeja Paisa', 48000)">Añadir Kit a la Bolsa</button>
+                    </div>
                 </div>
 
             </div>
@@ -239,78 +284,37 @@
     <div id="notificacion-toast" class="toast">¡Añadido a la bolsa! 🛒</div>
     
     <script>
-        // --- BASE DE DATOS DE COMBOS ---
+        // --- FUNCIÓN PARA CAMBIAR ENTRE PESTAÑAS (TABS) ---
+        function cambiarPestana(idSeccion, botonClicado) {
+            // 1. Ocultar todos los contenidos de las pestañas
+            let contenidos = document.querySelectorAll('.tab-content');
+            contenidos.forEach(c => c.classList.remove('active'));
+
+            // 2. Quitar el estado "activo" de todos los botones
+            let botones = document.querySelectorAll('.tab-btn');
+            botones.forEach(b => b.classList.remove('active'));
+
+            // 3. Mostrar la sección seleccionada y activar su botón
+            document.getElementById(idSeccion).classList.add('active');
+            botonClicado.classList.add('active');
+        }
+
+        // --- BASES DE DATOS (Mantenemos la misma lógica) ---
         const combosBD = [
-            {
-                nombreCarrito: 'Combo Familiar',
-                titulo: 'Combo Familiar (4-5 PERSONAS)',
-                desc: '• Papa Nevada (3 Kilo)<br>• Tomate Árbol (3 Kilo)<br>• Tomate Chonto (1.5 Kilo)<br>• Cebolla Huevo (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Plátano Verde (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>',
-                precioTexto: '$75.000',
-                precioValor: 75000
-            },
-            {
-                nombreCarrito: 'Combo Sancochero',
-                titulo: 'Combo Sancochero (4-5 PERSONAS)',
-                desc: '• Papa Nevada (2 Kilo)<br>• Tomate Chonto (1.5 Kilo)<br>• Cilantro (1 Manojo)<br>• Yuca (1 Libra)<br>• Mazorca (1 Bandeja)<br>• Aguacate (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Plátano Verde (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Papa Criolla (1 Kilo)<br>• Banano (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>',
-                precioTexto: '$75.000',
-                precioValor: 75000
-            },
-            {
-                nombreCarrito: 'Combo Paisa',
-                titulo: 'Combo Paisa (4-5 PERSONAS)',
-                desc: '• Frijol Verde (2 Libras)<br>• Plátano Verde (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Aguacate (2 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>',
-                precioTexto: '$65.000',
-                precioValor: 65000
-            },
-            {
-                nombreCarrito: 'Combo Apartamentero',
-                titulo: 'Combo Apartamentero (1-2 PERSONAS)',
-                desc: '• Papa Nevada (1 Kilo)<br>• Mango (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (0.5 Kilo)<br>• Plátano Verde(1 Libra)<br>• Plátano Maduro (1 Libra)<br>• Zanahoria (1 Kilo)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>',
-                precioTexto: '$45.000',
-                precioValor: 45000
-            },
-            {
-                nombreCarrito: 'Combo Keto',
-                titulo: 'Combo Keto (2-3 PERSONAS)',
-                desc: '• Papa Nevada (1 Kilo)<br>• Mango (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (0.5 Kilo)<br>• Plátano Verde(1 Libra)<br>• Plátano Maduro (1 Libra)<br>• Zanahoria (1 Kilo)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>',
-                precioTexto: '$45.000',
-                precioValor: 45000
-            }
+            { nombreCarrito: 'Combo Familiar', titulo: 'Combo Familiar (4-5 PERSONAS)', desc: '• Papa Nevada (3 Kilo)<br>• Tomate Árbol (3 Kilo)<br>• Tomate Chonto (1.5 Kilo)<br>• Cebolla Huevo (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Plátano Verde (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$75.000', precioValor: 75000 },
+            { nombreCarrito: 'Combo Sancochero', titulo: 'Combo Sancochero (4-5 PERSONAS)', desc: '• Papa Nevada (2 Kilo)<br>• Tomate Chonto (1.5 Kilo)<br>• Cilantro (1 Manojo)<br>• Yuca (1 Libra)<br>• Mazorca (1 Bandeja)<br>• Aguacate (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Plátano Verde (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Papa Criolla (1 Kilo)<br>• Banano (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$75.000', precioValor: 75000 },
+            { nombreCarrito: 'Combo Paisa', titulo: 'Combo Paisa (4-5 PERSONAS)', desc: '• Frijol Verde (2 Libras)<br>• Plátano Verde (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Aguacate (2 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$65.000', precioValor: 65000 },
+            { nombreCarrito: 'Combo Apartamentero', titulo: 'Combo Apartamentero (1-2 PERSONAS)', desc: '• Papa Nevada (1 Kilo)<br>• Mango (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (0.5 Kilo)<br>• Plátano Verde(1 Libra)<br>• Plátano Maduro (1 Libra)<br>• Zanahoria (1 Kilo)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$45.000', precioValor: 45000 },
+            { nombreCarrito: 'Combo Keto', titulo: 'Combo Keto (2-3 PERSONAS)', desc: '• Papa Nevada (1 Kilo)<br>• Mango (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (0.5 Kilo)<br>• Plátano Verde(1 Libra)<br>• Plátano Maduro (1 Libra)<br>• Zanahoria (1 Kilo)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$45.000', precioValor: 45000 }
         ];
 
-        // --- BASE DE DATOS DE EXTRAS (TOPPINGS) ---
         const toppingsBD = [
-            {
-                nombreCarrito: 'Huevos Campesinos',
-                titulo: 'Cubeta de Huevos Campesinos (x30)',
-                desc: '• Huevos frescos de gallinas felices<br>• Tamaño AA ideal para el desayuno',
-                precioTexto: '$18.000',
-                precioValor: 18000
-            },
-            {
-                nombreCarrito: 'Queso Campesino',
-                titulo: 'Queso Campesino Finca (1 Libra)',
-                desc: '• Queso fresco artesanal<br>• Bajo en sal, textura suave',
-                precioTexto: '$12.000',
-                precioValor: 12000
-            },
-            {
-                nombreCarrito: 'Miel Pura',
-                titulo: 'Miel Pura de Abejas (500ml)',
-                desc: '• Miel 100% natural recolectada artesanalmente<br>• Sin azúcares añadidos ni conservantes',
-                precioTexto: '$22.000',
-                precioValor: 22000
-            },
-            {
-                nombreCarrito: 'Café Artesanal',
-                titulo: 'Café Artesanal Molido (500g)',
-                desc: '• Café de origen, tostión media<br>• Cultivado en nuestras fincas aliadas',
-                precioTexto: '$25.000',
-                precioValor: 25000
-            }
+            { nombreCarrito: 'Huevos Campesinos', titulo: 'Cubeta de Huevos Campesinos (x30)', desc: '• Huevos frescos de gallinas felices<br>• Tamaño AA ideal para el desayuno', precioTexto: '$18.000', precioValor: 18000 },
+            { nombreCarrito: 'Queso Campesino', titulo: 'Queso Campesino Finca (1 Libra)', desc: '• Queso fresco artesanal<br>• Bajo en sal, textura suave', precioTexto: '$12.000', precioValor: 12000 },
+            { nombreCarrito: 'Miel Pura', titulo: 'Miel Pura de Abejas (500ml)', desc: '• Miel 100% natural recolectada artesanalmente<br>• Sin azúcares añadidos ni conservantes', precioTexto: '$22.000', precioValor: 22000 },
+            { nombreCarrito: 'Café Artesanal', titulo: 'Café Artesanal Molido (500g)', desc: '• Café de origen, tostión media<br>• Cultivado en nuestras fincas aliadas', precioTexto: '$25.000', precioValor: 25000 }
         ];
 
-        // Función para actualizar Combo
         function mostrarComboSeleccionado() {
             let indiceSeleccionado = document.getElementById("selector-combo").value;
             let combo = combosBD[indiceSeleccionado];
@@ -318,12 +322,10 @@
             document.getElementById("combo-titulo").innerText = combo.titulo;
             document.getElementById("combo-desc").innerHTML = combo.desc;
             document.getElementById("combo-precio").innerText = combo.precioTexto;
-            
             let btnAgregar = document.getElementById("btn-agregar-combo");
             btnAgregar.setAttribute("onclick", `agregarAlCarrito('${combo.nombreCarrito}', ${combo.precioValor})`);
         }
 
-        // Función para actualizar Extra (Topping)
         function mostrarToppingSeleccionado() {
             let indiceSeleccionado = document.getElementById("selector-topping").value;
             let topping = toppingsBD[indiceSeleccionado];
@@ -331,25 +333,21 @@
             document.getElementById("topping-titulo").innerText = topping.titulo;
             document.getElementById("topping-desc").innerHTML = topping.desc;
             document.getElementById("topping-precio").innerText = topping.precioTexto;
-            
             let btnAgregar = document.getElementById("btn-agregar-topping");
             btnAgregar.setAttribute("onclick", `agregarAlCarrito('${topping.nombreCarrito}', ${topping.precioValor})`);
         }
 
-        // Inicializar ambos selectores al cargar la página
         window.onload = function() {
             mostrarComboSeleccionado();
             mostrarToppingSeleccionado();
         };
 
-        // --- LÓGICA DEL TOAST ---
+        // --- LÓGICA DEL CARRITO ---
         function mostrarNotificacion(mensaje) {
             let toast = document.getElementById("notificacion-toast");
             toast.innerText = mensaje;
             toast.className = "toast mostrar";
-            setTimeout(function(){ 
-                toast.className = toast.className.replace("mostrar", ""); 
-            }, 3000);
+            setTimeout(function(){ toast.className = toast.className.replace("mostrar", ""); }, 3000);
         }
 
         let carrito = [];
@@ -398,20 +396,14 @@
         }
 
         function enviarPedido() {
-            if (carrito.length === 0) {
-                alert("Tu bolsa está vacía.");
-                return;
-            }
+            if (carrito.length === 0) { alert("Tu bolsa está vacía."); return; }
 
             let nombre = document.getElementById('nombre').value;
             let telefono = document.getElementById('telefono').value;
             let direccion = document.getElementById('direccion').value;
             let peticiones = document.getElementById('peticiones').value;
 
-            if(!nombre || !telefono || !direccion) {
-                alert("Por favor, completa tus datos de entrega.");
-                return;
-            }
+            if(!nombre || !telefono || !direccion) { alert("Por favor, completa tus datos de entrega."); return; }
 
             let resumenPedido = carrito.map(item => `${item.cantidad}x ${item.nombre}`).join(' | ');
             let totalAPagar = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
