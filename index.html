@@ -47,21 +47,17 @@
             color: white;
             border-bottom: 5px solid rgba(0,0,0,0.2);
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            /* Centramos el contenido por si el logo y el texto lo necesitan */
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* --- ESTILOS PARA EL LOGO --- */
+        /* --- ESTILOS PARA EL LOGO (Limpios, sin fondos ni bordes) --- */
         .logo-img {
-            max-width: 120px; /* Tamaño del logo. Puedes cambiar este número si lo quieres más grande o pequeño */
+            max-width: 120px; /* Tamaño del logo. Ajusta si lo necesitas más grande o pequeño */
             height: auto;
             margin-bottom: 10px;
-            border-radius: 50%; /* Si tu logo es cuadrado, puedes quitar esta línea para no redondearlo */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.4); /* Sombrita para que resalte */
-            background-color: white; /* Fondo blanco por si tu logo es transparente */
-            padding: 5px; /* Espacio entre el logo y su borde */
+            /* Se eliminaron: border-radius, box-shadow, background-color y padding */
         }
 
         .boca-bolsa h1 { margin: 0; font-size: 24px; }
