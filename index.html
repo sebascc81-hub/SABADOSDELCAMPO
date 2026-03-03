@@ -47,6 +47,21 @@
             color: white;
             border-bottom: 5px solid rgba(0,0,0,0.2);
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            /* Centramos el contenido por si el logo y el texto lo necesitan */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- ESTILOS PARA EL LOGO --- */
+        .logo-img {
+            max-width: 120px; /* Tamaño del logo. Puedes cambiar este número si lo quieres más grande o pequeño */
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 50%; /* Si tu logo es cuadrado, puedes quitar esta línea para no redondearlo */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4); /* Sombrita para que resalte */
+            background-color: white; /* Fondo blanco por si tu logo es transparente */
+            padding: 5px; /* Espacio entre el logo y su borde */
         }
 
         .boca-bolsa h1 { margin: 0; font-size: 24px; }
@@ -68,7 +83,7 @@
         /* --- ESTILOS DE LAS PESTAÑAS (TABS) --- */
         .tabs-container {
             display: flex;
-            flex-wrap: wrap; /* Permite que las pestañas se acomoden en móviles si no caben */
+            flex-wrap: wrap; 
             gap: 10px;
             margin-bottom: 20px;
             border-bottom: 2px solid var(--rojo-oscuro);
@@ -87,24 +102,10 @@
             transition: all 0.3s ease;
         }
 
-        .tab-btn:hover {
-            color: var(--rojo-oscuro);
-            background-color: rgba(183, 28, 28, 0.05);
-        }
-
-        .tab-btn.active {
-            background-color: var(--rojo-oscuro);
-            color: white;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
+        .tab-btn:hover { color: var(--rojo-oscuro); background-color: rgba(183, 28, 28, 0.05); }
+        .tab-btn.active { background-color: var(--rojo-oscuro); color: white; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(5px); }
@@ -112,17 +113,9 @@
         }
 
         .select-combo {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            border: 2px solid var(--rojo-oscuro);
-            border-radius: 8px;
-            margin-bottom: 20px;
-            background-color: white;
-            color: #333;
-            cursor: pointer;
-            font-weight: bold;
-            font-family: inherit;
+            width: 100%; padding: 12px; font-size: 16px; border: 2px solid var(--rojo-oscuro);
+            border-radius: 8px; margin-bottom: 20px; background-color: white; color: #333;
+            cursor: pointer; font-weight: bold; font-family: inherit;
         }
 
         .select-combo:focus { outline: none; border-color: #ffca28; box-shadow: 0 0 5px rgba(255, 202, 40, 0.5); }
@@ -130,12 +123,8 @@
         .catalogo { display: flex; flex-direction: column; gap: 15px; }
         
         .combo-card {
-            background: white;
-            border: 1px solid #e0e0e0;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
+            background: white; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s;
         }
 
         .combo-card:hover { transform: translateY(-3px); }
@@ -160,7 +149,6 @@
         .toast { visibility: hidden; min-width: 250px; background-color: #2e7d32; color: white; text-align: center; border-radius: 8px; padding: 15px; position: fixed; z-index: 1000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 16px; font-weight: bold; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.5s, bottom 0.5s; }
         .toast.mostrar { visibility: visible; opacity: 1; bottom: 50px; }
 
-        /* Estilos específicos para recetas y textos largos */
         .receta-pasos { margin-top: 10px; padding-left: 20px; color: #444; font-size: 14px; line-height: 1.6;}
         .receta-ingredientes { font-weight: bold; color: #b71c1c; margin-top: 10px; margin-bottom: 5px;}
         .texto-justificado p { text-align: justify; margin-bottom: 12px; line-height: 1.6; }
@@ -180,8 +168,9 @@
     <div class="bolsa-mercado">
         
         <div class="boca-bolsa">
+            <img src="LOGO1.png" alt="Logo Sábados del Campo" class="logo-img">
             <h1>SABADOS DEL CAMPO</h1>
-            <p>"La frescura del campo, en la puerta de tu casa"</p>
+            <p>"La frescura de la plaza, en la puerta de tu casa"</p>
         </div>
 
         <div class="interior-bolsa">
@@ -284,11 +273,11 @@
                         <div class="combo-title">¿Cómo nació Sábados del Campo?</div>
                         <div class="combo-desc texto-justificado">
                             <p>Todo empezó un sábado en la plaza. Los tres socios —amigos de toda la vida— coincidimos en la galería de Pereira, cada uno con su lista de mercado. Entre el bullicio de los vendedores y el color de las frutas recién llegadas, nos dimos cuenta de algo: conseguir productos realmente frescos y de calidad implicaba madrugar, recorrer varios puestos y, aun así, no siempre encontrábamos lo que buscábamos.</p>
-                            <p>Conversando, descubrimos que muchos vecinos y amigos vivían la misma situación: el deseo de comer frutas y verduras como las de antes, pero sin tiempo para ir a la plaza o con dificultades para transportarlas. Ahí entendimos que había una necesidad real: acercar la frescura del campo a las mesas de la ciudad, sin que nadie tuviera que renunciar a la calidad por falta de tiempo o comodidad.</p>
+                            <p>Conversando, descubrimos que muchos vecinos y amigos vivían la misma situación: el deseo de comer frutas y verduras como las de antes, pero sin tiempo para ir a la plaza o con dificultades para transportarlas. Ahí entendimos que había una necesidad real: acercar la frescura de la plaza a las mesas de la ciudad, sin que nadie tuviera que renunciar a la calidad por falta de tiempo o comodidad.</p>
                             <p>Así nació Sábados del Campo, un proyecto hecho por tres apasionados por lo natural, que decidimos poner nuestro conocimiento y esfuerzo al servicio de la comunidad pereirana. Seleccionamos personalmente cada fruta y verdura, trabajamos con productores locales de confianza y empaquetamos todo con el mismo cuidado que si fuera para nuestra propia familia.</p>
                             <p>Hoy, nuestro equipo sigue siendo pequeño, pero nuestro corazón es enorme. Queremos que cada pedido que llegue a tu casa te recuerde esa sensación de mercado fresco, de producto recién cogido, y que con ello contribuyas también a valorar el trabajo del campo de nuestra región.</p>
                             <div style="font-weight: bold; color: var(--rojo-oscuro); text-align: center; font-size: 16px; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
-                                Porque creemos que la frescura del campo merece estar en la puerta de tu casa.
+                                Porque creemos que la frescura de la plaza merece estar en la puerta de tu casa.
                             </div>
                         </div>
                     </div>
@@ -351,7 +340,6 @@
     <div id="notificacion-toast" class="toast">¡Añadido a la bolsa! 🛒</div>
     
     <script>
-        // --- FUNCIÓN PARA CAMBIAR ENTRE PESTAÑAS ---
         function cambiarPestana(idSeccion, botonClicado) {
             let contenidos = document.querySelectorAll('.tab-content');
             contenidos.forEach(c => c.classList.remove('active'));
@@ -363,7 +351,6 @@
             botonClicado.classList.add('active');
         }
 
-        // --- BASES DE DATOS ---
         const combosBD = [
             { nombreCarrito: 'Combo Familiar', titulo: 'Combo Familiar (4-5 PERSONAS)', desc: '• Papa Nevada (3 Kilo)<br>• Tomate Árbol (3 Kilo)<br>• Tomate Chonto (1.5 Kilo)<br>• Cebolla Huevo (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Plátano Verde (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$75.000', precioValor: 75000 },
             { nombreCarrito: 'Combo Sancochero', titulo: 'Combo Sancochero (4-5 PERSONAS)', desc: '• Papa Nevada (2 Kilo)<br>• Tomate Chonto (1.5 Kilo)<br>• Cilantro (1 Manojo)<br>• Yuca (1 Libra)<br>• Mazorca (1 Bandeja)<br>• Aguacate (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Plátano Verde (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Papa Criolla (1 Kilo)<br>• Banano (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$75.000', precioValor: 75000 },
@@ -404,7 +391,6 @@
             mostrarToppingSeleccionado();
         };
 
-        // --- LÓGICA DEL CARRITO ---
         function mostrarNotificacion(mensaje) {
             let toast = document.getElementById("notificacion-toast");
             toast.innerText = mensaje;
