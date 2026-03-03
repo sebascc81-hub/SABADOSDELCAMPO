@@ -54,10 +54,9 @@
 
         /* --- ESTILOS PARA EL LOGO (Limpios, sin fondos ni bordes) --- */
         .logo-img {
-            max-width: 220px; /* Tamaño del logo. Ajusta si lo necesitas más grande o pequeño */
+            max-width: 220px;
             height: auto;
             margin-bottom: 5px;
-            /* Se eliminaron: border-radius, box-shadow, background-color y padding */
         }
 
         .boca-bolsa h1 { margin: 0; font-size: 24px; }
@@ -128,10 +127,20 @@
         .combo-desc { font-size: 14px; color: #555; margin: 5px 0 15px; line-height: 1.5; }
         .combo-price { font-size: 18px; font-weight: bold; color: #2e7d32; text-align: center; }
 
-        .btn-agregar { background-color: var(--rojo-malla); color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        .btn-agregar:hover { background-color: var(--rojo-oscuro); }
+        .btn-agregar { background-color: var(--rojo-oscuro); color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .btn-agregar:hover { background-color: #6d5b38; } /* Un tono un poco más oscuro para el hover */
 
-        .panel-carrito { background-color: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #eee; height: fit-content; position: sticky; top: 20px; }
+        /* --- COLUMNA DERECHA (Carrito + Redes Sociales) --- */
+        .columna-derecha {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: fit-content;
+            position: sticky; 
+            top: 20px;
+        }
+
+        .panel-carrito { background-color: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #eee; }
         .item-carrito { display: flex; justify-content: space-between; font-size: 14px; padding: 5px 0; border-bottom: 1px solid #eee; }
         .total-carrito { font-size: 20px; font-weight: bold; color: #2e7d32; text-align: right; margin-top: 15px; border-top: 2px solid #ddd; padding-top: 10px; }
         
@@ -141,6 +150,42 @@
         .btn-confirmar { background-color: #2e7d32; color: white; border: none; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 15px; }
         .btn-confirmar:hover { background-color: #1b5e20; }
         .btn-vaciar { background-color: #757575; color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer; font-size: 11px; width: 100%; margin-top: 10px; }
+
+        /* --- ESTILOS PANEL DE REDES --- */
+        .panel-redes {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            text-align: center;
+        }
+
+        .panel-redes h3 { margin-top: 0; color: var(--rojo-oscuro); font-size: 18px; margin-bottom: 5px;}
+        
+        .redes-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .red-btn {
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .red-btn:hover { opacity: 0.85; }
+        .btn-wa { background-color: #25D366; }
+        .btn-ig { background-color: #E1306C; }
+        .btn-fb { background-color: #1877F2; }
 
         .toast { visibility: hidden; min-width: 250px; background-color: #2e7d32; color: white; text-align: center; border-radius: 8px; padding: 15px; position: fixed; z-index: 1000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 16px; font-weight: bold; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.5s, bottom 0.5s; }
         .toast.mostrar { visibility: visible; opacity: 1; bottom: 50px; }
@@ -302,7 +347,7 @@
                             <ol class="lista-nosotros" style="margin-bottom: 0;">
                                 <li>Garantizar la entrega a domicilio en un máximo de 24 horas desde el pedido, manteniendo la cadena de frío y la calidad.</li>
                                 <li>Establecer alianzas con al menos cinco productores locales de Pereira y alrededores durante el primer año.</li>
-                                <li>Alcanzar una calificación de satisfacción del cliente superior a 4.8 estrellas en plataformas digitales.</li>
+                                <li>Alcanzar una calificación de satisfacción del cliente superior a 4.8 estrellas en platforms digitales.</li>
                                 <li>Ampliar la cobertura de entregas a tres comunas de la ciudad en los primeros seis meses.</li>
                                 <li>Crear una comunidad digital que comparta recetas, consejos de nutrición y promueva el consumo de frutas y verduras frescas.</li>
                             </ol>
@@ -312,22 +357,39 @@
 
             </div>
 
-            <div class="panel-carrito">
-                <h3 style="margin-top: 0;">🛒 Tu Pedido</h3>
-                <div id="lista-carrito">
-                    <p style="color: #999; font-size: 14px; text-align: center;">Tu bolsa está vacía</p>
-                </div>
-                <div class="total-carrito">Total: $<span id="gran-total">0</span></div>
-                <button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar Bolsa</button>
-
-                <h3 style="margin-top: 25px;">Datos de Entrega</h3>
-                <input type="text" id="nombre" placeholder="Nombre completo" required>
-                <input type="text" id="telefono" placeholder="Teléfono / WhatsApp" required>
-                <input type="text" id="direccion" placeholder="Dirección exacta" required>
+            <div class="columna-derecha">
                 
-                <textarea id="peticiones" placeholder="¿Necesitas alguna verdura extra o tienes una petición especial? Escríbela aquí." rows="3"></textarea>
+                <div class="panel-carrito">
+                    <h3 style="margin-top: 0;">🛒 Tu Pedido</h3>
+                    <div id="lista-carrito">
+                        <p style="color: #999; font-size: 14px; text-align: center;">Tu bolsa está vacía</p>
+                    </div>
+                    <div class="total-carrito">Total: $<span id="gran-total">0</span></div>
+                    <button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar Bolsa</button>
 
-                <button class="btn-confirmar" onclick="enviarPedido()">Confirmar y Enviar</button>
+                    <h3 style="margin-top: 25px;">Datos de Entrega</h3>
+                    <input type="text" id="nombre" placeholder="Nombre completo" required>
+                    <input type="text" id="telefono" placeholder="Teléfono / WhatsApp" required>
+                    <input type="text" id="direccion" placeholder="Dirección exacta" required>
+                    
+                    <textarea id="peticiones" placeholder="¿Necesitas alguna verdura extra o tienes una petición especial? Escríbela aquí." rows="3"></textarea>
+
+                    <button class="btn-confirmar" onclick="enviarPedido()">Confirmar y Enviar</button>
+                </div>
+
+                <div class="panel-redes">
+                    <h3>📱 ¡Conéctate con el Campo!</h3>
+                    <p style="font-size: 13px; color: #555; margin-top: 5px;">Entérate de nuestras promociones, recetas y productos frescos cada semana.</p>
+                    
+                    <div class="redes-links">
+                        <a href="#" target="_blank" class="red-btn btn-wa">💬 Escríbenos al WhatsApp</a>
+                        
+                        <a href="https://www.instagram.com/mrpeanut1_" target="_blank" class="red-btn btn-ig">📸 Síguenos en Instagram</a>
+                        
+                        <a href="#" target="_blank" class="red-btn btn-fb">👍 Únete en Facebook</a>
+                    </div>
+                </div>
+
             </div>
 
         </div> 
