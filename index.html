@@ -54,9 +54,10 @@
 
         /* --- ESTILOS PARA EL LOGO (Limpios, sin fondos ni bordes) --- */
         .logo-img {
-            max-width: 220px;
+            max-width: 220px; /* Tamaño del logo. Ajusta si lo necesitas más grande o pequeño */
             height: auto;
             margin-bottom: 5px;
+            /* Se eliminaron: border-radius, box-shadow, background-color y padding */
         }
 
         .boca-bolsa h1 { margin: 0; font-size: 24px; }
@@ -144,7 +145,8 @@
         .item-carrito { display: flex; justify-content: space-between; font-size: 14px; padding: 5px 0; border-bottom: 1px solid #eee; }
         .total-carrito { font-size: 20px; font-weight: bold; color: #2e7d32; text-align: right; margin-top: 15px; border-top: 2px solid #ddd; padding-top: 10px; }
         
-        input, textarea, .btn-confirmar { padding: 12px; margin-top: 8px; width: 100%; box-sizing: border-box; border-radius: 5px; border: 1px solid #ccc; font-family: inherit;}
+        /* Agregado .select-checkout para el selector de pago */
+        input, textarea, .select-checkout, .btn-confirmar { padding: 12px; margin-top: 8px; width: 100%; box-sizing: border-box; border-radius: 5px; border: 1px solid #ccc; font-family: inherit; color: #333;}
         textarea { resize: vertical; } 
         
         .btn-confirmar { background-color: #2e7d32; color: white; border: none; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 15px; }
@@ -374,6 +376,12 @@
                     
                     <textarea id="peticiones" placeholder="¿Necesitas alguna verdura extra o tienes una petición especial? Escríbela aquí." rows="3"></textarea>
 
+                    <select id="medio-pago" class="select-checkout" required>
+                        <option value="" disabled selected>Elige tu medio de pago...</option>
+                        <option value="Llave Bre-B">Llave Bre-B</option>
+                        <option value="Efectivo">Efectivo</option>
+                    </select>
+
                     <button class="btn-confirmar" onclick="enviarPedido()">Confirmar y Enviar</button>
                 </div>
 
@@ -383,9 +391,7 @@
                     
                     <div class="redes-links">
                         <a href="#" target="_blank" class="red-btn btn-wa">💬 Escríbenos al WhatsApp</a>
-                        
                         <a href="https://www.instagram.com/sabadosdelcampo" target="_blank" class="red-btn btn-ig">📸 Síguenos en Instagram</a>
-                        
                         <a href="#" target="_blank" class="red-btn btn-fb">👍 Siguenos en TikTok</a>
                     </div>
                 </div>
@@ -508,18 +514,25 @@
             let telefono = document.getElementById('telefono').value;
             let direccion = document.getElementById('direccion').value;
             let peticiones = document.getElementById('peticiones').value;
+            let medioPago = document.getElementById('medio-pago').value; // Se captura el medio de pago
 
-            if(!nombre || !telefono || !direccion) { alert("Por favor, completa tus datos de entrega."); return; }
+            // Se valida que el medio de pago no esté vacío
+            if(!nombre || !telefono || !direccion || !medioPago) { 
+                alert("Por favor, completa tus datos de entrega y selecciona un medio de pago."); 
+                return; 
+            }
 
             let resumenPedido = carrito.map(item => `${item.cantidad}x ${item.nombre}`).join(' | ');
             let totalAPagar = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
 
+            // Se incluye el medio de pago en el objeto que se envía
             let datos = {
                 nombre: nombre,
                 telefono: telefono,
                 direccion: direccion,
                 pedido: resumenPedido,
                 peticiones: peticiones || "Ninguna",
+                medioPago: medioPago, 
                 total: totalAPagar
             };
 
@@ -537,6 +550,7 @@
                 document.getElementById('telefono').value = '';
                 document.getElementById('direccion').value = '';
                 document.getElementById('peticiones').value = '';
+                document.getElementById('medio-pago').value = ''; // Resetea el selector
             }).catch(error => {
                 console.error('Error:', error);
                 alert("Hubo un problema al enviar el pedido.");
