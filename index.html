@@ -234,7 +234,7 @@
                         <option value="1">Combo Sancochero (4-5 PERSONAS)</option>
                         <option value="2">Combo Paisa (4-5 PERSONAS)</option>
                         <option value="3">Combo Apartamentero (1-2 PERSONAS)</option>
-                        
+                        <option value="4">Combo Keto (2-3 PERSONAS)</option>
                     </select>
 
                     <div class="combo-card">
@@ -250,6 +250,9 @@
                     
                     <select class="select-combo" id="selector-topping" onchange="mostrarToppingSeleccionado()">
                         <option value="0">Cubeta de Huevos Campesinos (x30)</option>
+                        <option value="1">Queso Campesino Finca (1 Libra)</option>
+                        <option value="2">Miel Pura de Abejas (500ml)</option>
+                        <option value="3">Café Artesanal Molido (500g)</option>
                     </select>
 
                     <div class="combo-card">
@@ -454,6 +457,22 @@
         }
 
         window.onload = function() {
+            // Se agregaron las opciones faltantes al HTML para que coincidan con los arrays
+            let selectCombo = document.getElementById("selector-combo");
+            if (selectCombo.options.length < combosBD.length) {
+                 let optionKeto = document.createElement("option");
+                 optionKeto.value = "4";
+                 optionKeto.text = "Combo Keto (2-3 PERSONAS)";
+                 selectCombo.add(optionKeto);
+            }
+
+            let selectTopping = document.getElementById("selector-topping");
+            if (selectTopping.options.length < toppingsBD.length) {
+                let op1 = document.createElement("option"); op1.value = "1"; op1.text = "Queso Campesino Finca (1 Libra)"; selectTopping.add(op1);
+                let op2 = document.createElement("option"); op2.value = "2"; op2.text = "Miel Pura de Abejas (500ml)"; selectTopping.add(op2);
+                let op3 = document.createElement("option"); op3.value = "3"; op3.text = "Café Artesanal Molido (500g)"; selectTopping.add(op3);
+            }
+
             mostrarComboSeleccionado();
             mostrarToppingSeleccionado();
             mostrarRecetaSeleccionada();
@@ -546,7 +565,7 @@
             fetch(urlAppsScript, {
                 method: 'POST',
                 // mode: 'no-cors',  <- Si tienes problemas de CORS en el futuro, puedes reactivar esta línea
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // <-- ESTE ES EL ÚNICO CAMBIO CLAVE
                 body: JSON.stringify(datos)
             }).then(() => {
                 alert("¡Pedido recibido! Prepararemos tu bolsa de malla roja y te contactaremos pronto.");
