@@ -264,45 +264,15 @@
                     <h2>Recetas de la Abuela</h2>
                     <p style="color: #555; margin-bottom: 20px; font-size: 15px;">Inspiración para cocinar en casa usando los ingredientes frescos de nuestros combos.</p>
 
-                    <div class="combo-card" style="margin-bottom: 15px;">
-                        <div class="combo-title">Hogao Tradicional Colombiano</div>
-                        <div class="combo-desc">
-                            <div class="receta-ingredientes">Ingredientes (De tu combo):</div>
-                            • 3 Tomates Chonto maduros<br>
-                            • 2 tallos de Cebolla Larga<br>
-                            • Sal, comino y color al gusto<br>
-                            • 2 cucharadas de aceite
-                            
-                            <div class="receta-ingredientes">Preparación:</div>
-                            <ol class="receta-pasos">
-                                <li>Pica el tomate y la cebolla finamente.</li>
-                                <li>En un sartén a fuego medio, calienta el aceite.</li>
-                                <li>Agrega la cebolla y sofríe por 3 minutos hasta que esté transparente.</li>
-                                <li>Añade el tomate, la sal, el comino y el color.</li>
-                                <li>Tapa y deja cocinar a fuego lento por 10-15 minutos revolviendo ocasionalmente.</li>
-                            </ol>
-                            <em>Ideal para acompañar papas nevadas, yuca, o arepas.</em>
-                        </div>
-                    </div>
+                    <select class="select-combo" id="selector-receta" onchange="mostrarRecetaSeleccionada()">
+                        <option value="0">Hogao Tradicional Colombiano</option>
+                        <option value="1">Sopa Rápida de Plátano y Papa</option>
+                    </select>
 
-                    <div class="combo-card">
-                        <div class="combo-title">Sopa Rápida de Plátano y Papa</div>
-                        <div class="combo-desc">
-                            <div class="receta-ingredientes">Ingredientes (De tu combo):</div>
-                            • 1 Plátano Verde pelado y picado con la mano<br>
-                            • 2 Papas Nevadas peladas y en cubos<br>
-                            • 1/2 Cebolla de Huevo finamente picada<br>
-                            • Cilantro fresco<br>
-                            
-                            <div class="receta-ingredientes">Preparación:</div>
-                            <ol class="receta-pasos">
-                                <li>En una olla, sofríe la cebolla con un poco de aceite hasta dorar.</li>
-                                <li>Agrega agua o caldo, y añade los trozos de plátano verde.</li>
-                                <li>Deja cocinar por 15 minutos y luego incorpora la papa nevada.</li>
-                                <li>Cocina hasta que la papa esté suave y la sopa espese ligeramente.</li>
-                                <li>Sirve caliente y espolvorea cilantro fresco por encima.</li>
-                            </ol>
-                        </div>
+                    <div class="combo-card" style="margin-bottom: 15px;">
+                        <div class="combo-title" id="receta-titulo">Hogao Tradicional Colombiano</div>
+                        <div class="combo-desc" id="receta-cuerpo">
+                            </div>
                     </div>
                 </div>
 
@@ -427,6 +397,21 @@
             { nombreCarrito: 'Café Artesanal', titulo: 'Café Artesanal Molido (500g)', desc: '• Café de origen, tostión media<br>• Cultivado en nuestras fincas aliadas', precioTexto: '$25.000', precioValor: 25000 }
         ];
 
+        const recetasBD = [
+            {
+                titulo: "Hogao Tradicional Colombiano",
+                ingredientes: ["3 Tomates Chonto maduros", "2 tallos de Cebolla Larga", "Sal, comino y color al gusto", "2 cucharadas de aceite"],
+                preparacion: ["Pica el tomate y la cebolla finamente.", "En un sartén a fuego medio, calienta el aceite.", "Agrega la cebolla y sofríe por 3 minutos hasta que esté transparente.", "Añade el tomate, la sal, el comino y el color.", "Tapa y deja cocinar a fuego lento por 10-15 minutos revolviendo ocasionalmente."],
+                nota: "Ideal para acompañar papas nevadas, yuca, o arepas."
+            },
+            {
+                titulo: "Sopa Rápida de Plátano y Papa",
+                ingredientes: ["1 Plátano Verde pelado y picado con la mano", "2 Papas Nevadas peladas y en cubos", "1/2 Cebolla de Huevo finamente picada", "Cilantro fresco"],
+                preparacion: ["En una olla, sofríe la cebolla con un poco de aceite hasta dorar.", "Agrega agua o caldo, y añade los trozos de plátano verde.", "Deja cocinar por 15 minutos y luego incorpora la papa nevada.", "Cocina hasta que la papa esté suave y la sopa espese ligeramente.", "Sirve caliente y espolvorea cilantro fresco por encima."],
+                nota: "Un clásico reconfortante para los días fríos."
+            }
+        ];
+
         function mostrarComboSeleccionado() {
             let indiceSeleccionado = document.getElementById("selector-combo").value;
             let combo = combosBD[indiceSeleccionado];
@@ -447,9 +432,26 @@
             btnAgregar.setAttribute("onclick", `agregarAlCarrito('${topping.nombreCarrito}', ${topping.precioValor})`);
         }
 
+        function mostrarRecetaSeleccionada() {
+            let indice = document.getElementById("selector-receta").value;
+            let receta = recetasBD[indice];
+            document.getElementById("receta-titulo").innerText = receta.titulo;
+            let htmlContenido = `
+                <div class="receta-ingredientes">Ingredientes (De tu combo):</div>
+                ${receta.ingredientes.map(ing => `• ${ing}<br>`).join('')}
+                <div class="receta-ingredientes">Preparación:</div>
+                <ol class="receta-pasos">
+                    ${receta.preparacion.map(paso => `<li>${paso}</li>`).join('')}
+                </ol>
+                <br><em>${receta.nota}</em>
+            `;
+            document.getElementById("receta-cuerpo").innerHTML = htmlContenido;
+        }
+
         window.onload = function() {
             mostrarComboSeleccionado();
             mostrarToppingSeleccionado();
+            mostrarRecetaSeleccionada();
         };
 
         function mostrarNotificacion(mensaje) {
@@ -538,7 +540,7 @@
 
             fetch(urlAppsScript, {
                 method: 'POST',
-                mode: 'no-cors', 
+                // mode: 'no-cors',  <- Si tienes problemas de CORS en el futuro, puedes reactivar esta línea
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(datos)
             }).then(() => {
