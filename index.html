@@ -54,10 +54,9 @@
 
         /* --- ESTILOS PARA EL LOGO (Limpios, sin fondos ni bordes) --- */
         .logo-img {
-            max-width: 220px; /* Tamaño del logo. Ajusta si lo necesitas más grande o pequeño */
+            max-width: 220px;
             height: auto;
             margin-bottom: 5px;
-            /* Se eliminaron: border-radius, box-shadow, background-color y padding */
         }
 
         .boca-bolsa h1 { margin: 0; font-size: 24px; }
@@ -129,7 +128,7 @@
         .combo-price { font-size: 18px; font-weight: bold; color: #2e7d32; text-align: center; }
 
         .btn-agregar { background-color: var(--rojo-oscuro); color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        .btn-agregar:hover { background-color: #6d5b38; } /* Un tono un poco más oscuro para el hover */
+        .btn-agregar:hover { background-color: #6d5b38; }
 
         /* --- COLUMNA DERECHA (Carrito + Redes Sociales) --- */
         .columna-derecha {
@@ -145,7 +144,6 @@
         .item-carrito { display: flex; justify-content: space-between; font-size: 14px; padding: 5px 0; border-bottom: 1px solid #eee; }
         .total-carrito { font-size: 20px; font-weight: bold; color: #2e7d32; text-align: right; margin-top: 15px; border-top: 2px solid #ddd; padding-top: 10px; }
         
-        /* Agregado .select-checkout para el selector de pago */
         input, textarea, .select-checkout, .btn-confirmar { padding: 12px; margin-top: 8px; width: 100%; box-sizing: border-box; border-radius: 5px; border: 1px solid #ccc; font-family: inherit; color: #333;}
         textarea { resize: vertical; } 
         
@@ -309,17 +307,17 @@
                     <select class="select-combo" id="selector-receta" onchange="mostrarRecetaSeleccionada()">
                         <option value="0">Hogao Tradicional Colombiano</option>
                         <option value="1">Sopa Rápida de Plátano y Papa</option>
-                        <option value="1">Sopa de Vegetales con Papas y Carne</option>
-                        <option value="1">Jugo de Tomate de Árbol Cremoso</option>
-                        <option value="1">Ensalada Fresca de Tomate Chonto y Limón</option>
-                        <option value="1">Patacones o Plátano Tentación</option>
-                        <option value="1">Tortilla de Papa y Cebolla (Tipo Española)</option>
+                        <option value="2">Sopa de Vegetales con Papas y Carne</option>
+                        <option value="3">Jugo de Tomate de Árbol Cremoso</option>
+                        <option value="4">Ensalada Fresca de Tomate Chonto y Limón</option>
+                        <option value="5">Patacones o Plátano Tentación</option>
+                        <option value="6">Tortilla de Papa y Cebolla (Tipo Española)</option>
                     </select>
 
                     <div class="combo-card" style="margin-bottom: 15px;">
                         <div class="combo-title" id="receta-titulo">Hogao Tradicional Colombiano</div>
                         <div class="combo-desc" id="receta-cuerpo">
-                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -434,11 +432,98 @@
             { nombreCarrito: 'Combo Sancochero', titulo: 'Combo Sancochero (4-5 PERSONAS)', desc: '• Papa Nevada (2 Kilos)<br>• Tomate Chonto (1.5 Kilos)<br>• Cilantro (1 Manojo)<br>• Yuca (1 Libra)<br>• Mazorca (1 Bandeja)<br>• Aguacate (1 Kilo)<br>• Plátano Verde (2 Kilos)<br>• Cebolla Larga (1 Libra)<br>• Limón Tahití (1 Kilo)<br>• Papa Criolla (1 Kilo)<br>• Banano (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$75.000', precioValor: 75000 },
             { nombreCarrito: 'Combo Paisa', titulo: 'Combo Paisa (4-5 PERSONAS)', desc: '• Frijol Verde (2 Libras)<br>• Plátano Verde (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Cebolla Larga (1 Kilo)<br>• Aguacate (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$65.000', precioValor: 65000 },
             { nombreCarrito: 'Combo Apartamentero', titulo: 'Combo Apartamentero (1-2 PERSONAS)', desc: '• Papa Nevada (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (1 Libra)<br>• Plátano Verde(1 Libra)<br>• Plátano Maduro (1 Libra)<br>• Zanahoria (1 Libra)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$45.000', precioValor: 45000 },
-            ];
+        ];
 
         const toppingsBD = [
-            { nombreCarrito: 'Huevos Campesinos', titulo: 'Cubeta de Huevos Campesinos AAA (x30)', desc: '• Huevos frescos de gallinas felices<br>• Tamaño AAA ideal para el desayuno', precioTexto: '$20.000', precioValor: 20000 },
-            ];
+            // Índice 0 - Cubeta de Huevos
+            { nombreCarrito: 'Huevos Campesinos', titulo: 'Cubeta de Huevos Campesinos AAA (x30)', desc: '• Huevos frescos de gallinas felices<br>• Tamaño AAA, ideales para desayunos y repostería.', precioTexto: '$20.000', precioValor: 20000 },
+            // Índice 1 - Flor de Jamaica
+            { nombreCarrito: 'Flor de Jamaica', titulo: 'Flor de Jamaica (x50 gr)', desc: '• Flor deshidratada para infusiones.<br>• Rica en antioxidantes y sabor natural.', precioTexto: '$7.000', precioValor: 7000 },
+            // Índice 2 - Uva Verde sin Semilla
+            { nombreCarrito: 'Uva Verde sin Semilla', titulo: 'Uva Verde sin Semilla (x1 Kg)', desc: '• Uvas dulces y crocantes, sin semillas.<br>• Perfectas para snacks o ensaladas.', precioTexto: '$30.000', precioValor: 30000 },
+            // Índice 3 - Aguacate
+            { nombreCarrito: 'Aguacate', titulo: 'Aguacate (x1 Kg)', desc: '• Aguacates frescos y cremosos.<br>• Ideal para guacamole o acompañamientos.', precioTexto: '$13.000', precioValor: 13000 },
+            // Índice 4 - Limón Tahití
+            { nombreCarrito: 'Limón Tahití', titulo: 'Limón Tahití (x1 Kg)', desc: '• Limones jugosos y aromáticos.<br>• Perfectos para jugos y aderezos.', precioTexto: '$4.500', precioValor: 4500 },
+            // Índice 5 - Mango Tommy
+            { nombreCarrito: 'Mango Tommy', titulo: 'Mango Tommy (x1 Kg)', desc: '• Mangos dulces y fibrosos.<br>• Ideales para jugos y postres.', precioTexto: '$7.600', precioValor: 7600 },
+            // Índice 6 - Tomate de Árbol
+            { nombreCarrito: 'Tomate de Árbol', titulo: 'Tomate de Árbol (x1 Kg)', desc: '• Tomates de árbol frescos y ligeramente ácidos.<br>• Excelentes para jugos y salsas.', precioTexto: '$7.000', precioValor: 7000 },
+            // Índice 7 - Banano
+            { nombreCarrito: 'Banano', titulo: 'Banano (x1 Kg)', desc: '• Bananos maduros y dulces.<br>• Fuente natural de energía.', precioTexto: '$3.800', precioValor: 3800 },
+            // Índice 8 - Granadilla
+            { nombreCarrito: 'Granadilla', titulo: 'Granadilla (Bandeja x6)', desc: '• Granadillas frescas, pulpa dulce.<br>• Perfectas para comer natural.', precioTexto: '$7.500', precioValor: 7500 },
+            // Índice 9 - Sandía Baby
+            { nombreCarrito: 'Sandía Baby', titulo: 'Sandía Baby (x1 Kg)', desc: '• Sandía pequeña, dulce y refrescante.<br>• Ideal para jugos.', precioTexto: '$5.800', precioValor: 5800 },
+            // Índice 10 - Curuba
+            { nombreCarrito: 'Curuba', titulo: 'Curuba (Bandeja x4)', desc: '• Curubas aromáticas, pulpa suave.<br>• Deliciosas en jugos y postres.', precioTexto: '$4.500', precioValor: 4500 },
+            // Índice 11 - Kiwi
+            { nombreCarrito: 'Kiwi', titulo: 'Kiwi (x1 Kg)', desc: '• Kivis verdes, dulces y ricos en vitamina C.<br>• Perfectos para ensaladas.', precioTexto: '$19.000', precioValor: 19000 },
+            // Índice 12 - Maracuyá
+            { nombreCarrito: 'Maracuyá', titulo: 'Maracuyá (x1 Kg)', desc: '• Maracuyá muy aromática.<br>• Ideal para jugos y cócteles.', precioTexto: '$7.000', precioValor: 7000 },
+            // Índice 13 - Fresa
+            { nombreCarrito: 'Fresa', titulo: 'Fresa (Bandeja)', desc: '• Fresas frescas, dulces y jugosas.<br>• Perfectas para postres.', precioTexto: '$5.200', precioValor: 5200 },
+            // Índice 14 - Arándanos
+            { nombreCarrito: 'Arándanos', titulo: 'Arándanos (x130 gr)', desc: '• Arándanos frescos, antioxidantes.<br>• Ideales para yogurt o batidos.', precioTexto: '$8.500', precioValor: 8500 },
+            // Índice 15 - Espinaca
+            { nombreCarrito: 'Espinaca', titulo: 'Espinaca (x1 Lb)', desc: '• Espinaca fresca, hojas tiernas.<br>• Perfecta para ensaladas o jugos verdes.', precioTexto: '$4.500', precioValor: 4500 },
+            // Índice 16 - Champiñones
+            { nombreCarrito: 'Champiñones', titulo: 'Champiñones (x1 Lb)', desc: '• Champiñones frescos, enteros.<br>• Ideales para salteados o pizzas.', precioTexto: '$15.000', precioValor: 15000 },
+            // Índice 17 - Cebolla Larga
+            { nombreCarrito: 'Cebolla Larga', titulo: 'Cebolla Larga (x1 Kg)', desc: '• Cebolla larga fresca y aromática.<br>• Indispensable para hogao y sopas.', precioTexto: '$5.847', precioValor: 5847 },
+            // Índice 18 - Tomate Chonto
+            { nombreCarrito: 'Tomate Chonto', titulo: 'Tomate Chonto (x1 Kg)', desc: '• Tomates chonto maduros.<br>• Ideales para salsas y hogao.', precioTexto: '$5.500', precioValor: 5500 },
+            // Índice 19 - Plátano Maduro
+            { nombreCarrito: 'Plátano Maduro', titulo: 'Plátano Maduro (x1 Kg)', desc: '• Plátanos maduros, dulces.<br>• Perfectos para freír o hornear.', precioTexto: '$4.500', precioValor: 4500 },
+            // Índice 20 - Plátano Verde
+            { nombreCarrito: 'Plátano Verde', titulo: 'Plátano Verde (x1 Kg)', desc: '• Plátanos verdes, ideales para patacones.<br>• Frescura garantizada.', precioTexto: '$4.500', precioValor: 4500 },
+            // Índice 21 - Papa Criolla
+            { nombreCarrito: 'Papa Criolla', titulo: 'Papa Criolla (x1 Kg)', desc: '• Papa criolla pequeña y amarilla.<br>• Perfecta para sopas o guisos.', precioTexto: '$5.300', precioValor: 5300 },
+            // Índice 22 - Papa Nevada
+            { nombreCarrito: 'Papa Nevada', titulo: 'Papa Nevada (x1 Kg)', desc: '• Papa nevada de textura harinosa.<br>• Ideal para purés y sopas.', precioTexto: '$7.000', precioValor: 7000 },
+            // Índice 23 - Cebolla Huevo
+            { nombreCarrito: 'Cebolla Huevo', titulo: 'Cebolla Huevo (x1 Kg)', desc: '• Cebolla cabezona fresca.<br>• Base de muchos guisos.', precioTexto: '$4.500', precioValor: 4500 },
+            // Índice 24 - Zanahoria
+            { nombreCarrito: 'Zanahoria', titulo: 'Zanahoria (x1 Kg)', desc: '• Zanahorias frescas y dulces.<br>• Ideales para sopas y ensaladas.', precioTexto: '$4.000', precioValor: 4000 },
+            // Índice 25 - Lechuga Crespa Hidroponia
+            { nombreCarrito: 'Lechuga Crespa', titulo: 'Lechuga Crespa Hidroponia (x1 Und)', desc: '• Lechuga hidropónica, muy limpia.<br>• Hojas tiernas y crocantes.', precioTexto: '$3.667', precioValor: 3667 },
+            // Índice 26 - Frijol Verde
+            { nombreCarrito: 'Frijol Verde', titulo: 'Frijol Verde (x1 Lb)', desc: '• Frijol verde (ejotes) tiernos.<br>• Perfectos para salteados.', precioTexto: '$12.000', precioValor: 12000 },
+            // Índice 27 - Suchini
+            { nombreCarrito: 'Suchini', titulo: 'Suchini (x1 Lb)', desc: '• Suchini (calabacín) firme.<br>• Ideal para salteados o a la plancha.', precioTexto: '$3.500', precioValor: 3500 },
+            // Índice 28 - Brócoli
+            { nombreCarrito: 'Brócoli', titulo: 'Brócoli (x1 Lb)', desc: '• Brócoli fresco en ramilletes.<br>• Rico en nutrientes.', precioTexto: '$4.000', precioValor: 4000 },
+            // Índice 29 - Pepino
+            { nombreCarrito: 'Pepino', titulo: 'Pepino (x1 Lb)', desc: '• Pepinos frescos y crujientes.<br>• Perfectos para ensaladas.', precioTexto: '$3.700', precioValor: 3700 },
+            // Índice 30 - Apio
+            { nombreCarrito: 'Apio', titulo: 'Apio (x1 Lb)', desc: '• Apio fresco, tallos crujientes.<br>• Ideal para sopas o jugos.', precioTexto: '$4.000', precioValor: 4000 },
+            // Índice 31 - Remolacha
+            { nombreCarrito: 'Remolacha', titulo: 'Remolacha (x1 Lb)', desc: '• Remolacha fresca y dulce.<br>• Perfecta para ensaladas o jugos.', precioTexto: '$3.500', precioValor: 3500 },
+            // Índice 32 - Habichuela
+            { nombreCarrito: 'Habichuela', titulo: 'Habichuela (x1 Lb)', desc: '• Habichuela (vainita) tierna.<br>• Ideal para guisos.', precioTexto: '$4.500', precioValor: 4500 },
+            // Índice 33 - Coliflor
+            { nombreCarrito: 'Coliflor', titulo: 'Coliflor (x1 Lb)', desc: '• Coliflor blanca y firme.<br>• Perfecta para gratinar.', precioTexto: '$7.000', precioValor: 7000 },
+            // Índice 34 - Cebolla Morada
+            { nombreCarrito: 'Cebolla Morada', titulo: 'Cebolla Morada (x1 Lb)', desc: '• Cebolla morada, sabor suave.<br>• Ideal para ensaladas.', precioTexto: '$5.000', precioValor: 5000 },
+            // Índice 35 - Tomate Cherry
+            { nombreCarrito: 'Tomate Cherry', titulo: 'Tomate Cherry (Canasta)', desc: '• Tomates cherry dulces.<br>• Perfectos para ensaladas.', precioTexto: '$5.500', precioValor: 5500 },
+            // Índice 36 - Mazorca Extra
+            { nombreCarrito: 'Mazorca Extra', titulo: 'Mazorca Extra (Bandeja x3 Und)', desc: '• Mazorcas tiernas y dulces.<br>• Ideales para sancochos.', precioTexto: '$5.500', precioValor: 5500 },
+            // Índice 37 - Yuca
+            { nombreCarrito: 'Yuca', titulo: 'Yuca (x1 Kg)', desc: '• Yuca fresca, blanca y sin manchas.<br>• Perfecta para freír o sancochar.', precioTexto: '$5.500', precioValor: 5500 },
+            // Índice 38 - Berenjena
+            { nombreCarrito: 'Berenjena', titulo: 'Berenjena (x1 Kg)', desc: '• Berenjenas frescas y firmes.<br>• Ideales para hornear o salteados.', precioTexto: '$6.500', precioValor: 6500 },
+            // Índice 39 - Jengibre
+            { nombreCarrito: 'Jengibre', titulo: 'Jengibre (x1 Kg)', desc: '• Raíz de jengibre fresca y aromática.<br>• Perfecta para tés y aderezos.', precioTexto: '$12.000', precioValor: 12000 },
+            // Índice 40 - Tomate Riñón
+            { nombreCarrito: 'Tomate Riñón', titulo: 'Tomate Riñón (x1 Kg)', desc: '• Tomates riñón grandes y carnosos.<br>• Ideales para ensaladas.', precioTexto: '$8.200', precioValor: 8200 },
+            // Índice 41 - Cilantro
+            { nombreCarrito: 'Cilantro', titulo: 'Cilantro (x1 Lb)', desc: '• Cilantro fresco, muy aromático.<br>• Imprescindible en sopas y guisos.', precioTexto: '$10.000', precioValor: 10000 },
+            // Índice 42 - Aloe
+            { nombreCarrito: 'Aloe', titulo: 'Aloe (x1 Lb)', desc: '• Hojas de aloe vera frescas.<br>• Para jugos o usos cosméticos.', precioTexto: '$12.000', precioValor: 12000 },
+            // Índice 43 - Durazno
+            { nombreCarrito: 'Durazno', titulo: 'Durazno (Bandeja)', desc: '• Duraznos frescos, dulces y jugosos.<br>• Perfectos para postres.', precioTexto: '$5.000', precioValor: 5000 }
+        ];
 
         const recetasBD = [
             {
@@ -452,6 +537,36 @@
                 ingredientes: ["1 Plátano Verde pelado y picado con la mano", "2 Papas Nevadas peladas y en cubos", "1/2 Cebolla de Huevo finamente picada", "Cilantro fresco"],
                 preparacion: ["En una olla, sofríe la cebolla con un poco de aceite hasta dorar.", "Agrega agua o caldo, y añade los trozos de plátano verde.", "Deja cocinar por 15 minutos y luego incorpora la papa nevada.", "Cocina hasta que la papa esté suave y la sopa espese ligeramente.", "Sirve caliente y espolvorea cilantro fresco por encima."],
                 nota: "Un clásico reconfortante para los días fríos."
+            },
+            {
+                titulo: "Sopa de Vegetales con Papas y Carne",
+                ingredientes: ["2 Papas Nevadas en cubos", "1 Zanahoria en rodajas", "1/2 Cebolla Huevo picada", "1 ramita de Apio", "250g de carne de res (opcional)", "Sal y especias al gusto"],
+                preparacion: ["En una olla con agua, cocina la carne hasta que esté blanda.", "Agrega la cebolla, zanahoria, apio y papas.", "Cocina a fuego medio por 20 minutos.", "Rectifica la sal y sirve caliente."],
+                nota: "Puedes omitir la carne para una versión vegetariana."
+            },
+            {
+                titulo: "Jugo de Tomate de Árbol Cremoso",
+                ingredientes: ["4 Tomates de Árbol maduros", "2 cucharadas de azúcar o al gusto", "1 taza de agua", "Hielo"],
+                preparacion: ["Lava y parte los tomates de árbol por la mitad.", "Extrae la pulpa con una cuchara y licúa con agua y azúcar.", "Cuela si deseas (opcional) y sirve con hielo."],
+                nota: "Puedes agregar leche para hacerlo cremoso."
+            },
+            {
+                titulo: "Ensalada Fresca de Tomate Chonto y Limón",
+                ingredientes: ["2 Tomates Chonto en rodajas", "1/2 Cebolla Morada en julianas", "Jugo de 1 Limón Tahití", "Sal y cilantro al gusto"],
+                preparacion: ["Mezcla todos los ingredientes en un bowl.", "Deja reposar 5 minutos para que los sabores se integren."],
+                nota: "Acompañante ideal para carnes asadas o pescados."
+            },
+            {
+                titulo: "Patacones o Plátano Tentación",
+                ingredientes: ["2 Plátanos Verdes", "Aceite para freír", "Sal al gusto"],
+                preparacion: ["Pela los plátanos y córtalos en trozos de 3 cm.", "FrÍe en aceite caliente hasta que estén dorados pero sin que se doren demasiado.", "Retira, aplasta cada trozo con una tabla o pataconera.", "Vuelve a freír hasta que estén crujientes.", "Espolvorea sal y sirve."],
+                nota: "Acompáñalos con hogao o queso rallado."
+            },
+            {
+                titulo: "Tortilla de Papa y Cebolla (Tipo Española)",
+                ingredientes: ["3 Papas Nevadas peladas y en rodajas finas", "1/2 Cebolla Huevo en julianas", "4 Huevos", "Sal y aceite"],
+                preparacion: ["FrÍe las papas y la cebolla en abundante aceite hasta que estén blandas.", "Escurre bien y mezcla con los huevos batidos y sal.", "Vierte en una sartén con un poco de aceite y cocina a fuego medio hasta que cuaje por un lado.", "Voltea con la ayuda de un plato y cocina por el otro lado hasta que esté dorada."],
+                nota: "Puedes servir caliente o fría."
             }
         ];
 
@@ -492,22 +607,6 @@
         }
 
         window.onload = function() {
-            // Se agregaron las opciones faltantes al HTML para que coincidan con los arrays
-            let selectCombo = document.getElementById("selector-combo");
-            if (selectCombo.options.length < combosBD.length) {
-                 let optionKeto = document.createElement("option");
-                 optionKeto.value = "4";
-                 optionKeto.text = "Combo Keto (2-3 PERSONAS)";
-                 selectCombo.add(optionKeto);
-            }
-
-            let selectTopping = document.getElementById("selector-topping");
-            if (selectTopping.options.length < toppingsBD.length) {
-                let op1 = document.createElement("option"); op1.value = "1"; op1.text = "Queso Campesino Finca (1 Libra)"; selectTopping.add(op1);
-                let op2 = document.createElement("option"); op2.value = "2"; op2.text = "Miel Pura de Abejas (500ml)"; selectTopping.add(op2);
-                let op3 = document.createElement("option"); op3.value = "3"; op3.text = "Café Artesanal Molido (500g)"; selectTopping.add(op3);
-            }
-
             mostrarComboSeleccionado();
             mostrarToppingSeleccionado();
             mostrarRecetaSeleccionada();
@@ -572,9 +671,8 @@
             let telefono = document.getElementById('telefono').value;
             let direccion = document.getElementById('direccion').value;
             let peticiones = document.getElementById('peticiones').value;
-            let medioPago = document.getElementById('medio-pago').value; // Se captura el medio de pago
+            let medioPago = document.getElementById('medio-pago').value;
 
-            // Se valida que el medio de pago no esté vacío
             if(!nombre || !telefono || !direccion || !medioPago) { 
                 alert("Por favor, completa tus datos de entrega y selecciona un medio de pago."); 
                 return; 
@@ -583,7 +681,6 @@
             let resumenPedido = carrito.map(item => `${item.cantidad}x ${item.nombre}`).join(' | ');
             let totalAPagar = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
 
-            // Se incluye el medio de pago en el objeto que se envía
             let datos = {
                 nombre: nombre,
                 telefono: telefono,
@@ -594,13 +691,11 @@
                 total: totalAPagar
             };
 
-            // URL DE TU WEB APP ACTUALIZADA
             let urlAppsScript = "https://script.google.com/macros/s/AKfycbwXv1UqYg2kp5nKgjaIeLLJthWvnPA0XSJYhXMveKDiF5128VXWs-czDKXkG3DmXTOxyQ/exec";
 
             fetch(urlAppsScript, {
                 method: 'POST',
-                // mode: 'no-cors',  <- Si tienes problemas de CORS en el futuro, puedes reactivar esta línea
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // <-- ESTE ES EL ÚNICO CAMBIO CLAVE
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(datos)
             }).then(() => {
                 alert("¡Pedido recibido! Prepararemos tu bolsa de malla roja y te contactaremos pronto.");
@@ -609,7 +704,7 @@
                 document.getElementById('telefono').value = '';
                 document.getElementById('direccion').value = '';
                 document.getElementById('peticiones').value = '';
-                document.getElementById('medio-pago').value = ''; // Resetea el selector
+                document.getElementById('medio-pago').value = '';
             }).catch(error => {
                 console.error('Error:', error);
                 alert("Hubo un problema al enviar el pedido.");
