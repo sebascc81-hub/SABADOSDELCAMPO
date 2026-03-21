@@ -607,6 +607,15 @@
         }
 
         window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const comboParam = params.get('combo');
+            if (comboParam !== null) {
+                const idx = parseInt(comboParam);
+                const selector = document.getElementById('selector-combo');
+                if (!isNaN(idx) && idx >= 0 && idx < combosBD.length) {
+                    selector.value = idx;
+                }
+            }
             mostrarComboSeleccionado();
             mostrarToppingSeleccionado();
             mostrarRecetaSeleccionada();
