@@ -125,6 +125,7 @@
         }
         @media(max-width:860px){
             .page-grid { grid-template-columns: 1fr; }
+            .right-col { position: static; top: auto; }
         }
 
         /* ── TABS ────────────────────────────────── */
@@ -631,6 +632,126 @@
             opacity: 1;
             bottom: 50px;
             transform: translateX(-50%) translateY(0);
+        }
+
+        /* ── MOBILE ──────────────────────────────── */
+        @media (max-width: 600px) {
+
+            /* Header */
+            .site-header {
+                padding: 0 16px;
+                min-height: 58px;
+            }
+            .logo-img { height: 38px; }
+            .logo-text { font-size: 17px; }
+            .logo-text span { font-size: 9px; letter-spacing: 1px; }
+
+            /* Hero */
+            .hero-band { padding: 32px 16px 28px; }
+            .hero-band h1 { font-size: 22px; }
+            .hero-band p { font-size: 13px; letter-spacing: .3px; }
+
+            /* Grid: columna única, sin padding lateral excesivo */
+            .page-grid {
+                padding: 16px 12px 80px;
+                gap: 20px;
+            }
+
+            /* Columna derecha va debajo del contenido */
+            .right-col {
+                position: static;
+                top: auto;
+            }
+
+            /* Tabs: texto más pequeño, sin overflow */
+            .tabs-bar {
+                gap: 3px;
+                padding: 4px;
+                border-radius: 12px;
+                margin-bottom: 18px;
+            }
+            .tab-btn {
+                font-size: 11px;
+                padding: 9px 4px;
+                border-radius: 8px;
+                white-space: normal;
+                line-height: 1.2;
+                text-align: center;
+            }
+
+            /* Títulos de sección */
+            .section-title { font-size: 20px; }
+            .section-subtitle { font-size: 12px; margin-bottom: 14px; }
+
+            /* Select */
+            .custom-select { font-size: 14px; padding: 11px 14px; padding-right: 38px; }
+
+            /* Cards de producto */
+            .product-card { padding: 16px 14px 14px; }
+            .card-title { font-size: 17px; }
+            .card-desc { font-size: 13px; line-height: 1.65; }
+            .card-price { font-size: 22px; }
+            .card-footer { flex-wrap: wrap; gap: 10px; }
+            .btn-add { width: 100%; padding: 13px; font-size: 14px; }
+
+            /* A la Carta: grid de 2 columnas en móvil */
+            .carta-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .carta-item { padding: 12px 10px 10px; }
+            .carta-emoji { font-size: 24px; }
+            .carta-item-name { font-size: 12px; }
+            .carta-item-qty { font-size: 10px; }
+            .carta-item-price { font-size: 14px; }
+            .qty-btn { width: 26px; height: 26px; font-size: 15px; }
+            .qty-display { font-size: 14px; }
+
+            /* Intro carta */
+            .carta-intro { padding: 14px 14px; gap: 10px; }
+            .carta-intro-icon { font-size: 26px; }
+            .carta-intro-text h3 { font-size: 15px; }
+            .carta-intro-text p { font-size: 12px; }
+
+            /* Chips de filtro */
+            .carta-filter-bar { gap: 6px; margin-bottom: 14px; }
+            .filter-chip { font-size: 11px; padding: 5px 10px; }
+
+            /* Divider */
+            .natural-divider { font-size: 12px; margin: 20px 0; }
+
+            /* Nosotros */
+            .nosotros-section { font-size: 14px; }
+            .highlight-quote { font-size: 14px; padding: 16px 16px; }
+            .subsection-title { font-size: 16px; }
+            .values-list { font-size: 13px; }
+
+            /* Cart panel */
+            .cart-panel { padding: 16px; }
+            .cart-panel h3 { font-size: 16px; }
+            .cart-item { font-size: 12px; }
+            .cart-total { font-size: 18px; }
+
+            /* Formulario de entrega */
+            .form-group h3 { font-size: 15px; }
+            .form-input { font-size: 14px; padding: 10px 12px; }
+
+            /* Botón confirmar */
+            .btn-confirm { font-size: 15px; padding: 14px; }
+
+            /* Panel social */
+            .social-panel { padding: 16px; }
+            .social-panel h3 { font-size: 15px; }
+            .social-btn { font-size: 13px; padding: 10px 12px; }
+
+            /* Toast */
+            .toast { font-size: 13px; padding: 12px 18px; white-space: normal; text-align: center; width: 90%; }
+        }
+
+        @media (max-width: 380px) {
+            .carta-grid { grid-template-columns: repeat(2, 1fr); }
+            .tab-btn { font-size: 10px; padding: 8px 3px; }
+            .logo-text { font-size: 15px; }
         }
     </style>
 </head>
