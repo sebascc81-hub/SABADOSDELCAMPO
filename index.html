@@ -1003,10 +1003,7 @@
         });
     }
 
-    // inicializar carta al cargar
-    document.addEventListener('DOMContentLoaded', () => { renderCarta(); });
-
-
+    function cambiarPestana(id, btn) {
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(id).classList.add('active');
