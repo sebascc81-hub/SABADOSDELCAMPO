@@ -296,6 +296,128 @@
             background: linear-gradient(90deg, transparent, var(--cafe-medio), transparent);
         }
 
+        /* ── A LA CARTA ──────────────────────────── */
+        .carta-intro {
+            background: linear-gradient(135deg, var(--cafe-oscuro), #6b4503);
+            border-radius: 14px;
+            padding: 18px 22px;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .carta-intro-icon { font-size: 32px; flex-shrink: 0; }
+        .carta-intro-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            color: var(--crema);
+            margin-bottom: 4px;
+        }
+        .carta-intro-text p { font-size: 13px; color: rgba(233,224,208,.75); font-style: italic; line-height: 1.4; }
+
+        .carta-filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .filter-chip {
+            background: transparent;
+            border: 1.5px solid var(--cafe-medio);
+            color: var(--cafe-medio);
+            font-family: 'Lora', serif;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all .2s;
+            letter-spacing: .3px;
+        }
+        .filter-chip:hover, .filter-chip.active {
+            background: var(--cafe-oscuro);
+            border-color: var(--cafe-oscuro);
+            color: var(--crema);
+        }
+
+        .carta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 14px;
+        }
+
+        .carta-item {
+            background: var(--blanco);
+            border: 1.5px solid rgba(137,115,90,.2);
+            border-radius: 14px;
+            padding: 16px 14px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: transform .2s, box-shadow .2s, border-color .2s;
+        }
+        .carta-item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(13,51,22,.1); border-color: var(--verde-medio); }
+        .carta-item.in-cart { border-color: var(--verde-medio); background: #f0f7f1; }
+
+        .carta-emoji { font-size: 28px; text-align: center; }
+
+        .carta-item-name {
+            font-family: 'Lora', serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--verde-oscuro);
+            text-align: center;
+            line-height: 1.3;
+        }
+        .carta-item-qty {
+            font-size: 11px;
+            color: var(--cafe-medio);
+            text-align: center;
+            font-style: italic;
+        }
+        .carta-item-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--cafe-oscuro);
+            text-align: center;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 2px;
+        }
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid var(--verde-oscuro);
+            background: transparent;
+            color: var(--verde-oscuro);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .15s;
+            line-height: 1;
+        }
+        .qty-btn:hover { background: var(--verde-oscuro); color: var(--crema); }
+        .qty-display {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--verde-oscuro);
+            min-width: 22px;
+            text-align: center;
+        }
+
+        .carta-hidden { display: none; }
+
         /* ── RECIPE CARD ─────────────────────────── */
         .recipe-ingredients {
             font-size: 11px;
@@ -538,7 +660,8 @@
     <!-- LEFT: TABS CONTENT -->
     <div>
         <div class="tabs-bar">
-            <button class="tab-btn active" onclick="cambiarPestana('mercado', this)">🛒 Tu Mercado</button>
+            <button class="tab-btn active" onclick="cambiarPestana('mercado', this)">🛒 Combos</button>
+            <button class="tab-btn" onclick="cambiarPestana('carta', this)">🧺 A la Carta</button>
             <button class="tab-btn" onclick="cambiarPestana('recetas', this)">🍲 Recetas</button>
             <button class="tab-btn" onclick="cambiarPestana('nosotros', this)">🧑‍🌾 Nosotros</button>
         </div>
@@ -567,12 +690,36 @@
                 </div>
             </div>
 
-            <div class="natural-divider">🌿 Extras de la Granja</div>
+        </div>
 
-            <p class="section-title">Agrega Productos Extra</p>
-            <p class="section-subtitle">Complementa tu pedido con productos frescos adicionales</p>
+        <!-- A LA CARTA -->
+        <div id="carta" class="tab-content">
+            <div class="carta-intro">
+                <div class="carta-intro-icon">🧺</div>
+                <div class="carta-intro-text">
+                    <h3>Arma tu propio mercado</h3>
+                    <p>Escoge los productos que quieres, en la cantidad que necesitas. Sin combos, a tu ritmo.</p>
+                </div>
+            </div>
 
-            <label class="field-label" for="selector-topping">Productos adicionales</label>
+            <div class="carta-filter-bar">
+                <button class="filter-chip active" onclick="filtrarCarta('todos', this)">🌿 Todos</button>
+                <button class="filter-chip" onclick="filtrarCarta('frutas', this)">🍓 Frutas</button>
+                <button class="filter-chip" onclick="filtrarCarta('verduras', this)">🥦 Verduras</button>
+                <button class="filter-chip" onclick="filtrarCarta('tuberculos', this)">🥔 Tubérculos</button>
+                <button class="filter-chip" onclick="filtrarCarta('otros', this)">🥚 Otros</button>
+            </div>
+
+            <div class="carta-grid" id="carta-grid">
+                <!-- generado por JS -->
+            </div>
+
+            <div class="natural-divider">🌿 También tenemos</div>
+
+            <p class="section-title">Extras especiales</p>
+            <p class="section-subtitle">Productos únicos que complementan tu mercado a la carta</p>
+
+            <label class="field-label" for="selector-topping">Selecciona un extra</label>
             <select class="custom-select" id="selector-topping" onchange="mostrarToppingSeleccionado()">
                 <option value="0">Cubeta de Huevos Campesinos (x30)</option>
                 <option value="1">Flor de Jamaica (X50 gr)</option>
@@ -739,7 +886,127 @@
 <div id="toast" class="toast"></div>
 
 <script>
-    function cambiarPestana(id, btn) {
+    // ── A LA CARTA ──────────────────────────────────
+    const catalogoCarta = [
+        // FRUTAS
+        { id:'c-uva',   nombre:'Uva Verde sin Semilla', qty:'1 Kg',  precio:30000, emoji:'🍇', cat:'frutas' },
+        { id:'c-aguac', nombre:'Aguacate',              qty:'1 Kg',  precio:13000, emoji:'🥑', cat:'frutas' },
+        { id:'c-limon', nombre:'Limón Tahití',          qty:'1 Kg',  precio:4500,  emoji:'🍋', cat:'frutas' },
+        { id:'c-mango', nombre:'Mango Tommy',           qty:'1 Kg',  precio:7600,  emoji:'🥭', cat:'frutas' },
+        { id:'c-banano',nombre:'Banano',                qty:'1 Kg',  precio:3800,  emoji:'🍌', cat:'frutas' },
+        { id:'c-gran',  nombre:'Granadilla',            qty:'Bandeja x6', precio:7500, emoji:'🟡', cat:'frutas' },
+        { id:'c-sand',  nombre:'Sandía Baby',           qty:'1 Kg',  precio:5800,  emoji:'🍉', cat:'frutas' },
+        { id:'c-curuba',nombre:'Curuba',                qty:'Bandeja x4', precio:4500, emoji:'🟠', cat:'frutas' },
+        { id:'c-kiwi',  nombre:'Kiwi',                  qty:'1 Kg',  precio:19000, emoji:'🥝', cat:'frutas' },
+        { id:'c-marac', nombre:'Maracuyá',              qty:'1 Kg',  precio:7000,  emoji:'🟤', cat:'frutas' },
+        { id:'c-fresa', nombre:'Fresa',                 qty:'Bandeja', precio:5200, emoji:'🍓', cat:'frutas' },
+        { id:'c-aran',  nombre:'Arándanos',             qty:'130 gr', precio:8500,  emoji:'🫐', cat:'frutas' },
+        { id:'c-tom-a', nombre:'Tomate de Árbol',       qty:'1 Kg',  precio:7000,  emoji:'🍅', cat:'frutas' },
+        { id:'c-dura',  nombre:'Durazno',               qty:'Bandeja', precio:5000, emoji:'🍑', cat:'frutas' },
+        // VERDURAS
+        { id:'c-espin', nombre:'Espinaca',              qty:'1 Lb',  precio:4500,  emoji:'🥬', cat:'verduras' },
+        { id:'c-champ', nombre:'Champiñones',           qty:'1 Lb',  precio:15000, emoji:'🍄', cat:'verduras' },
+        { id:'c-cebll', nombre:'Cebolla Larga',         qty:'1 Kg',  precio:5847,  emoji:'🧅', cat:'verduras' },
+        { id:'c-tochon',nombre:'Tomate Chonto',         qty:'1 Kg',  precio:5500,  emoji:'🍅', cat:'verduras' },
+        { id:'c-lechug',nombre:'Lechuga Crespa',        qty:'1 Und', precio:3667,  emoji:'🥗', cat:'verduras' },
+        { id:'c-frijol',nombre:'Frijol Verde',          qty:'1 Lb',  precio:12000, emoji:'🫘', cat:'verduras' },
+        { id:'c-suchu', nombre:'Suchini',               qty:'1 Lb',  precio:3500,  emoji:'🥒', cat:'verduras' },
+        { id:'c-broc',  nombre:'Brócoli',               qty:'1 Lb',  precio:4000,  emoji:'🥦', cat:'verduras' },
+        { id:'c-pepino',nombre:'Pepino',                qty:'1 Lb',  precio:3700,  emoji:'🥒', cat:'verduras' },
+        { id:'c-apio',  nombre:'Apio',                  qty:'1 Lb',  precio:4000,  emoji:'🌿', cat:'verduras' },
+        { id:'c-remol', nombre:'Remolacha',             qty:'1 Lb',  precio:3500,  emoji:'🟣', cat:'verduras' },
+        { id:'c-habich',nombre:'Habichuela',            qty:'1 Lb',  precio:4500,  emoji:'🫛', cat:'verduras' },
+        { id:'c-colif', nombre:'Coliflor',              qty:'1 Lb',  precio:7000,  emoji:'🥦', cat:'verduras' },
+        { id:'c-cebm',  nombre:'Cebolla Morada',        qty:'1 Lb',  precio:5000,  emoji:'🧅', cat:'verduras' },
+        { id:'c-cherry',nombre:'Tomate Cherry',         qty:'Canasta', precio:5500, emoji:'🍒', cat:'verduras' },
+        { id:'c-mazor', nombre:'Mazorca',               qty:'Bandeja x3', precio:5500, emoji:'🌽', cat:'verduras' },
+        { id:'c-beren', nombre:'Berenjena',             qty:'1 Kg',  precio:6500,  emoji:'🍆', cat:'verduras' },
+        { id:'c-cilor', nombre:'Cilantro',              qty:'1 Lb',  precio:10000, emoji:'🌱', cat:'verduras' },
+        { id:'c-cebhu', nombre:'Cebolla Huevo',         qty:'1 Kg',  precio:4500,  emoji:'🧅', cat:'verduras' },
+        { id:'c-zanar', nombre:'Zanahoria',             qty:'1 Kg',  precio:4000,  emoji:'🥕', cat:'verduras' },
+        { id:'c-platm', nombre:'Plátano Maduro',        qty:'1 Kg',  precio:4500,  emoji:'🍌', cat:'verduras' },
+        { id:'c-platv', nombre:'Plátano Verde',         qty:'1 Kg',  precio:4500,  emoji:'🍌', cat:'verduras' },
+        // TUBERCULOS
+        { id:'c-papan', nombre:'Papa Nevada',           qty:'1 Kg',  precio:7000,  emoji:'🥔', cat:'tuberculos' },
+        { id:'c-papac', nombre:'Papa Criolla',          qty:'1 Kg',  precio:5300,  emoji:'🟡', cat:'tuberculos' },
+        { id:'c-yuca',  nombre:'Yuca',                  qty:'1 Kg',  precio:5500,  emoji:'🥔', cat:'tuberculos' },
+        { id:'c-jengi', nombre:'Jengibre',              qty:'1 Kg',  precio:12000, emoji:'🫚', cat:'tuberculos' },
+        { id:'c-tomrin',nombre:'Tomate Riñón',          qty:'1 Kg',  precio:8200,  emoji:'🍅', cat:'tuberculos' },
+        // OTROS
+        { id:'c-huevos',nombre:'Huevos Campesinos',     qty:'Cubeta x30', precio:20000, emoji:'🥚', cat:'otros' },
+        { id:'c-flojam',nombre:'Flor de Jamaica',       qty:'50 gr', precio:7000,  emoji:'🌺', cat:'otros' },
+        { id:'c-aloe',  nombre:'Aloe Vera',             qty:'1 Lb',  precio:12000, emoji:'🌵', cat:'otros' },
+    ];
+
+    const cartaCantidades = {}; // id -> cantidad en carrito
+
+    function renderCarta(filtro='todos') {
+        const grid = document.getElementById('carta-grid');
+        grid.innerHTML = '';
+        catalogoCarta.forEach(p => {
+            const visible = filtro === 'todos' || p.cat === filtro;
+            const qty = cartaCantidades[p.id] || 0;
+            const inCart = qty > 0;
+            const div = document.createElement('div');
+            div.className = 'carta-item' + (inCart ? ' in-cart' : '') + (visible ? '' : ' carta-hidden');
+            div.id = 'carta-item-' + p.id;
+            div.innerHTML = `
+                <div class="carta-emoji">${p.emoji}</div>
+                <div class="carta-item-name">${p.nombre}</div>
+                <div class="carta-item-qty">${p.qty}</div>
+                <div class="carta-item-price">$${p.precio.toLocaleString('es-CO')}</div>
+                <div class="qty-control">
+                    <button class="qty-btn" onclick="cambiarCantidadCarta('${p.id}', -1)">−</button>
+                    <span class="qty-display" id="qty-${p.id}">${qty}</span>
+                    <button class="qty-btn" onclick="cambiarCantidadCarta('${p.id}', 1)">+</button>
+                </div>
+            `;
+            grid.appendChild(div);
+        });
+    }
+
+    function cambiarCantidadCarta(id, delta) {
+        const prod = catalogoCarta.find(p => p.id === id);
+        if (!prod) return;
+        cartaCantidades[id] = Math.max(0, (cartaCantidades[id] || 0) + delta);
+        const qty = cartaCantidades[id];
+        // actualizar display
+        const qtyEl = document.getElementById('qty-' + id);
+        const itemEl = document.getElementById('carta-item-' + id);
+        if (qtyEl) qtyEl.innerText = qty;
+        if (itemEl) itemEl.classList.toggle('in-cart', qty > 0);
+        // sync carrito
+        const nombre = prod.nombre + ' (' + prod.qty + ')';
+        const existente = carrito.find(i => i.nombre === nombre);
+        if (qty === 0) {
+            carrito = carrito.filter(i => i.nombre !== nombre);
+        } else if (existente) {
+            existente.cantidad = qty;
+        } else {
+            carrito.push({ nombre, precio: prod.precio, cantidad: qty });
+        }
+        actualizarUI();
+        if (delta > 0) mostrarToast(`${prod.nombre} añadido 🧺`);
+    }
+
+    function filtrarCarta(cat, btn) {
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.carta-item').forEach(el => {
+            const id = el.id.replace('carta-item-', '');
+            const prod = catalogoCarta.find(p => p.id === id);
+            if (cat === 'todos' || (prod && prod.cat === cat)) {
+                el.classList.remove('carta-hidden');
+            } else {
+                el.classList.add('carta-hidden');
+            }
+        });
+    }
+
+    // inicializar carta al cargar
+    document.addEventListener('DOMContentLoaded', () => { renderCarta(); });
+
+
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(id).classList.add('active');
@@ -854,6 +1121,7 @@
         mostrarComboSeleccionado();
         mostrarToppingSeleccionado();
         mostrarRecetaSeleccionada();
+        renderCarta();
     };
 
     let carrito = [];
