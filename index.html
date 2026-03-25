@@ -3,724 +3,924 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SABADOS DEL CAMPO</title>
+    <title>Sábados del Campo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* --- ESTILOS TEMÁTICOS DE LA BOLSA DE MALLA ROJA --- */
-        
         :root {
-            --rojo-malla: #634902;
-            --rojo-malla-claro: #00000000;
-            --rojo-oscuro: #563a02;
-            --color-fondo-sitio: #f1e4d3;
+            --crema:       #E9E0D0;
+            --cafe-medio:  #89735A;
+            --cafe-oscuro: #452C03;
+            --verde-medio: #6D9571;
+            --verde-oscuro:#0D3316;
+            --blanco:      #FDFAF6;
+            --texto:       #2A1F0E;
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: var(--color-fondo-sitio);
-            display: flex;
-            justify-content: center;
+            font-family: 'Lora', Georgia, serif;
+            background-color: var(--crema);
+            color: var(--texto);
+            min-height: 100vh;
         }
 
-        .bolsa-mercado {
-            background-color: var(--rojo-malla);
-            background-image: 
-                linear-gradient(90deg, var(--rojo-malla-claro) 1px, transparent 1px),
-                linear-gradient(var(--rojo-malla-claro) 1px, transparent 1px);
-            background-size: 15px 15px; 
-            
-            width: 100%;
-            max-width: 900px;
-            border-radius: 25px;
-            box-shadow: 10px 15px 30px rgba(0,0,0,0.3);
-            border: 10px solid var(--rojo-oscuro);
-            overflow: hidden;
+        /* ── HEADER ─────────────────────────────── */
+        .site-header {
+            background-color: var(--verde-oscuro);
+            padding: 0 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             display: flex;
-            flex-direction: column;
-        }
-
-        .boca-bolsa {
-            background-color: var(--rojo-oscuro);
-            padding: 20px;
-            text-align: center;
-            color: white;
-            border-bottom: 5px solid rgba(0,0,0,0.2);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(13,51,22,.4);
+            min-height: 68px;
         }
 
-        /* --- ESTILOS PARA EL LOGO (Limpios, sin fondos ni bordes) --- */
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
         .logo-img {
-            max-width: 220px;
-            height: auto;
-            margin-bottom: 5px;
+            height: 48px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: .92;
         }
 
-        .boca-bolsa h1 { margin: 0; font-size: 24px; }
-        .boca-bolsa p { margin: 5px 0 0; font-size: 14px; opacity: 0.9; }
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--crema);
+            letter-spacing: .5px;
+            line-height: 1.2;
+        }
+        .logo-text span {
+            display: block;
+            font-family: 'Lora', serif;
+            font-size: 11px;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--verde-medio);
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+        }
 
-        .interior-bolsa {
-            background-color: rgba(255, 255, 255, 0.92);
-            margin: 20px; 
-            padding: 25px;
-            border-radius: 15px;
+        .header-tagline {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 13px;
+            color: var(--verde-medio);
+            opacity: .85;
+            display: none;
+        }
+        @media(min-width:600px){ .header-tagline { display: block; } }
+
+        /* ── HERO BAND ───────────────────────────── */
+        .hero-band {
+            background: linear-gradient(135deg, var(--verde-oscuro) 0%, #1a5c2a 60%, var(--verde-medio) 100%);
+            padding: 56px 32px 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-band::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 20% 50%, rgba(109,149,113,.25) 0%, transparent 55%),
+                              radial-gradient(circle at 80% 30%, rgba(233,224,208,.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-band h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px,5vw,48px);
+            font-weight: 600;
+            color: var(--crema);
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .hero-band p {
+            font-size: 15px;
+            color: var(--verde-medio);
+            font-style: italic;
+            letter-spacing: .8px;
+            position: relative;
+        }
+
+        /* ── LAYOUT ──────────────────────────────── */
+        .page-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 36px 20px 60px;
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 25px;
-            min-height: 500px;
+            grid-template-columns: 1fr 340px;
+            gap: 32px;
+            align-items: start;
+        }
+        @media(max-width:860px){
+            .page-grid { grid-template-columns: 1fr; }
         }
 
-        h2, h3 { color: var(--rojo-oscuro); margin-top: 0; }
-
-        /* --- ESTILOS DE LAS PESTAÑAS (TABS) --- */
-        .tabs-container {
+        /* ── TABS ────────────────────────────────── */
+        .tabs-bar {
             display: flex;
-            flex-wrap: wrap; 
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--rojo-oscuro);
-            padding-bottom: 0;
+            gap: 4px;
+            margin-bottom: 28px;
+            background: var(--verde-oscuro);
+            border-radius: 14px;
+            padding: 5px;
         }
-
         .tab-btn {
-            background-color: transparent;
+            flex: 1;
+            background: transparent;
             border: none;
-            color: #757575;
-            font-size: 16px;
-            font-weight: bold;
+            color: rgba(233,224,208,.65);
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
-            padding: 10px 20px;
-            border-radius: 8px 8px 0 0;
-            transition: all 0.3s ease;
+            padding: 10px 8px;
+            border-radius: 10px;
+            transition: all .25s;
+            white-space: nowrap;
         }
-
-        .tab-btn:hover { color: var(--rojo-oscuro); background-color: rgba(183, 28, 28, 0.05); }
-        .tab-btn.active { background-color: var(--rojo-oscuro); color: white; }
-        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-btn:hover { color: var(--crema); background: rgba(255,255,255,.08); }
+        .tab-btn.active {
+            background: var(--verde-medio);
+            color: var(--verde-oscuro);
+            font-weight: 700;
+        }
+        .tab-content { display: none; animation: fadeUp .35s ease; }
         .tab-content.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeUp {
+            from { opacity:0; transform:translateY(8px); }
+            to   { opacity:1; transform:translateY(0); }
         }
 
-        .select-combo {
-            width: 100%; padding: 12px; font-size: 16px; border: 2px solid var(--rojo-oscuro);
-            border-radius: 8px; margin-bottom: 20px; background-color: white; color: #333;
-            cursor: pointer; font-weight: bold; font-family: inherit;
+        /* ── SECTION TITLE ───────────────────────── */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--verde-oscuro);
+            margin-bottom: 6px;
+        }
+        .section-subtitle {
+            font-size: 13px;
+            color: var(--cafe-medio);
+            font-style: italic;
+            margin-bottom: 22px;
         }
 
-        .select-combo:focus { outline: none; border-color: #ffca28; box-shadow: 0 0 5px rgba(255, 202, 40, 0.5); }
+        /* ── SELECT ──────────────────────────────── */
+        .field-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--cafe-oscuro);
+            margin-bottom: 6px;
+        }
+        .custom-select {
+            width: 100%;
+            padding: 12px 16px;
+            font-family: 'Lora', serif;
+            font-size: 15px;
+            border: 2px solid var(--cafe-medio);
+            border-radius: 10px;
+            background: var(--blanco);
+            color: var(--texto);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23452C03' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 42px;
+            transition: border-color .2s;
+            margin-bottom: 18px;
+        }
+        .custom-select:focus { outline: none; border-color: var(--verde-medio); }
 
-        .catalogo { display: flex; flex-direction: column; gap: 15px; }
-        
-        .combo-card {
-            background: white; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s;
+        /* ── PRODUCT CARD ────────────────────────── */
+        .product-card {
+            background: var(--blanco);
+            border: 1.5px solid rgba(137,115,90,.25);
+            border-radius: 16px;
+            padding: 22px 22px 18px;
+            box-shadow: 0 4px 20px rgba(13,51,22,.07);
+            transition: transform .2s, box-shadow .2s;
+            margin-bottom: 18px;
+        }
+        .product-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(13,51,22,.13); }
+
+        .card-badge {
+            display: inline-block;
+            background: var(--verde-medio);
+            color: var(--verde-oscuro);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
         }
 
-        .combo-card:hover { transform: translateY(-3px); }
-        .combo-title { font-size: 18px; font-weight: bold; color: #333; margin-bottom: 8px; border-bottom: 2px solid #ffca28; padding-bottom: 5px;}
-        .combo-desc { font-size: 14px; color: #555; margin: 5px 0 15px; line-height: 1.5; }
-        .combo-price { font-size: 18px; font-weight: bold; color: #2e7d32; text-align: center; }
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--verde-oscuro);
+            margin-bottom: 10px;
+        }
 
-        .btn-agregar { background-color: var(--rojo-oscuro); color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        .btn-agregar:hover { background-color: #6d5b38; }
+        .card-desc {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #4a3a25;
+            margin-bottom: 16px;
+        }
+        .card-desc em { color: var(--cafe-medio); }
 
-        /* --- COLUMNA DERECHA (Carrito + Redes Sociales) --- */
-        .columna-derecha {
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .card-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--verde-oscuro);
+        }
+
+        .btn-add {
+            background: var(--verde-oscuro);
+            color: var(--crema);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s, transform .15s;
+            letter-spacing: .3px;
+        }
+        .btn-add:hover { background: #1a5c2a; transform: scale(1.03); }
+
+        /* ── DIVIDER ─────────────────────────────── */
+        .natural-divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 28px 0;
+            color: var(--cafe-medio);
+            font-size: 13px;
+            font-style: italic;
+        }
+        .natural-divider::before,
+        .natural-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cafe-medio), transparent);
+        }
+
+        /* ── RECIPE CARD ─────────────────────────── */
+        .recipe-ingredients {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--cafe-oscuro);
+            margin: 12px 0 6px;
+        }
+        .recipe-steps {
+            padding-left: 20px;
+            color: #4a3a25;
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        /* ── NOSOTROS ────────────────────────────── */
+        .nosotros-section { line-height: 1.75; font-size: 15px; color: #3d2d14; }
+        .nosotros-section p { margin-bottom: 14px; text-align: justify; }
+        .values-list { padding-left: 18px; line-height: 1.8; font-size: 14px; }
+        .values-list li { margin-bottom: 6px; }
+        .highlight-quote {
+            background: linear-gradient(135deg, var(--verde-oscuro), #1a5c2a);
+            color: var(--crema);
+            border-radius: 12px;
+            padding: 20px 24px;
+            font-style: italic;
+            font-size: 16px;
+            text-align: center;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        .subsection-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: var(--verde-oscuro);
+            margin: 22px 0 8px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--verde-medio);
+        }
+
+        /* ── RIGHT COLUMN ────────────────────────── */
+        .right-col {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            height: fit-content;
-            position: sticky; 
-            top: 20px;
+            gap: 24px;
+            position: sticky;
+            top: 84px;
         }
 
-        .panel-carrito { background-color: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #eee; }
-        .item-carrito { display: flex; justify-content: space-between; font-size: 14px; padding: 5px 0; border-bottom: 1px solid #eee; }
-        .total-carrito { font-size: 20px; font-weight: bold; color: #2e7d32; text-align: right; margin-top: 15px; border-top: 2px solid #ddd; padding-top: 10px; }
-        
-        input, textarea, .select-checkout, .btn-confirmar { padding: 12px; margin-top: 8px; width: 100%; box-sizing: border-box; border-radius: 5px; border: 1px solid #ccc; font-family: inherit; color: #333;}
-        textarea { resize: vertical; } 
-        
-        .btn-confirmar { background-color: #2e7d32; color: white; border: none; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 15px; }
-        .btn-confirmar:hover { background-color: #1b5e20; }
-        .btn-vaciar { background-color: #757575; color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer; font-size: 11px; width: 100%; margin-top: 10px; }
+        /* ── CART PANEL ──────────────────────────── */
+        .cart-panel {
+            background: var(--blanco);
+            border: 1.5px solid rgba(137,115,90,.25);
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 4px 20px rgba(13,51,22,.07);
+        }
+        .cart-panel h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: var(--verde-oscuro);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 6px 0;
+            border-bottom: 1px dashed rgba(137,115,90,.3);
+            color: #4a3a25;
+        }
+        .cart-empty {
+            color: var(--cafe-medio);
+            font-style: italic;
+            font-size: 14px;
+            text-align: center;
+            padding: 12px 0;
+        }
+        .cart-total {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--verde-oscuro);
+            text-align: right;
+            margin-top: 14px;
+            padding-top: 10px;
+            border-top: 2px solid var(--verde-medio);
+        }
+        .btn-clear {
+            width: 100%;
+            background: transparent;
+            border: 1.5px solid rgba(137,115,90,.4);
+            color: var(--cafe-medio);
+            font-family: 'Lora', serif;
+            font-size: 12px;
+            padding: 6px;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all .2s;
+        }
+        .btn-clear:hover { border-color: var(--cafe-oscuro); color: var(--cafe-oscuro); }
 
-        /* --- ESTILOS PANEL DE REDES --- */
-        .panel-redes {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #eee;
+        /* ── FORM FIELDS ─────────────────────────── */
+        .form-group { margin-top: 16px; }
+        .form-group h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: var(--verde-oscuro);
+            margin-bottom: 12px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 11px 14px;
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            border: 1.5px solid rgba(137,115,90,.4);
+            border-radius: 9px;
+            background: var(--blanco);
+            color: var(--texto);
+            margin-bottom: 10px;
+            transition: border-color .2s;
+        }
+        .form-input:focus { outline: none; border-color: var(--verde-medio); }
+        .form-input::placeholder { color: #b09a82; }
+        textarea.form-input { resize: vertical; }
+
+        .btn-confirm {
+            width: 100%;
+            background: linear-gradient(135deg, var(--cafe-oscuro), #6b4503);
+            color: var(--crema);
+            border: none;
+            padding: 15px;
+            border-radius: 11px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 6px;
+            letter-spacing: .4px;
+            transition: opacity .2s, transform .15s;
+        }
+        .btn-confirm:hover { opacity: .9; transform: translateY(-1px); }
+
+        /* ── SOCIAL PANEL ────────────────────────── */
+        .social-panel {
+            background: var(--verde-oscuro);
+            border-radius: 16px;
+            padding: 22px;
             text-align: center;
         }
-
-        .panel-redes h3 { margin-top: 0; color: var(--rojo-oscuro); font-size: 18px; margin-bottom: 5px;}
-        
-        .redes-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
+        .social-panel h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            color: var(--crema);
+            margin-bottom: 6px;
         }
-
-        .red-btn {
+        .social-panel p {
+            font-size: 12px;
+            font-style: italic;
+            color: var(--verde-medio);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        .social-links { display: flex; flex-direction: column; gap: 9px; }
+        .social-btn {
             text-decoration: none;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 14px;
-            transition: opacity 0.2s;
+            color: var(--verde-oscuro);
+            padding: 11px 14px;
+            border-radius: 9px;
+            font-family: 'Lora', serif;
+            font-size: 13px;
+            font-weight: 700;
+            transition: opacity .2s, transform .15s;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
         }
+        .social-btn:hover { opacity: .88; transform: translateY(-1px); }
+        .btn-wa { background: #25D366; }
+        .btn-ig { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: white; }
+        .btn-tk { background: var(--crema); }
 
-        .red-btn:hover { opacity: 0.85; }
-        .btn-wa { background-color: #25D366; }
-        .btn-ig { background-color: #7232bd; }
-        .btn-fb { background-color: #030303; }
-
-        .toast { visibility: hidden; min-width: 250px; background-color: #2e7d32; color: white; text-align: center; border-radius: 8px; padding: 15px; position: fixed; z-index: 1000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 16px; font-weight: bold; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.5s, bottom 0.5s; }
-        .toast.mostrar { visibility: visible; opacity: 1; bottom: 50px; }
-
-        .receta-pasos { margin-top: 10px; padding-left: 20px; color: #444; font-size: 14px; line-height: 1.6;}
-        .receta-ingredientes { font-weight: bold; color: #b71c1c; margin-top: 10px; margin-bottom: 5px;}
-        .texto-justificado p { text-align: justify; margin-bottom: 12px; line-height: 1.6; }
-        .lista-nosotros { padding-left: 20px; margin-top: 8px; line-height: 1.6; }
-
-        @media (max-width: 768px) {
-            .interior-bolsa { grid-template-columns: 1fr; }
-            .bolsa-mercado { border-radius: 0; border: none; }
-            body { padding: 0; }
-            .tabs-container { justify-content: center; }
-            .tab-btn { flex: 1; text-align: center; padding: 10px 5px; font-size: 14px;}
+        /* ── TOAST ───────────────────────────────── */
+        .toast {
+            visibility: hidden;
+            background: var(--verde-oscuro);
+            color: var(--crema);
+            padding: 14px 24px;
+            border-radius: 40px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            font-family: 'Lora', serif;
+            font-size: 15px;
+            font-style: italic;
+            box-shadow: 0 8px 30px rgba(13,51,22,.3);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity .4s, transform .4s, bottom .4s;
+            white-space: nowrap;
+        }
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+            transform: translateX(-50%) translateY(0);
         }
     </style>
 </head>
 <body>
 
-    <div class="bolsa-mercado">
-        
-        <div class="boca-bolsa">
-            <img src="LOGO1.png" alt="Logo Sábados del Campo" class="logo-img">
-            <h1></h1>
-            <p></p>
+<!-- HEADER -->
+<header class="site-header">
+    <div class="header-logo">
+        <img src="LOGO1.png" alt="Sábados del Campo" class="logo-img">
+        <div class="logo-text">
+            Sábados del Campo
+            <span>La frescura del campo en tu casa</span>
+        </div>
+    </div>
+    <p class="header-tagline">Pereira · Eje Cafetero</p>
+</header>
+
+<!-- HERO -->
+<div class="hero-band">
+    <h1>Tu mercado directo del campo</h1>
+    <p>Productos frescos seleccionados cada semana · Domicilio incluido</p>
+</div>
+
+<!-- MAIN GRID -->
+<div class="page-grid">
+
+    <!-- LEFT: TABS CONTENT -->
+    <div>
+        <div class="tabs-bar">
+            <button class="tab-btn active" onclick="cambiarPestana('mercado', this)">🛒 Tu Mercado</button>
+            <button class="tab-btn" onclick="cambiarPestana('recetas', this)">🍲 Recetas</button>
+            <button class="tab-btn" onclick="cambiarPestana('nosotros', this)">🧑‍🌾 Nosotros</button>
         </div>
 
-        <div class="interior-bolsa">
-            
-            <div class="catalogo">
-                
-                <div class="tabs-container">
-                    <button class="tab-btn active" onclick="cambiarPestana('seccion-mercado', this)">🛒 Tu Mercado</button>
-                    <button class="tab-btn" onclick="cambiarPestana('seccion-recetas', this)">🍲 Recetas</button>
-                    <button class="tab-btn" onclick="cambiarPestana('seccion-nosotros', this)">🧑‍🌾 Nosotros</button>
+        <!-- MERCADO -->
+        <div id="mercado" class="tab-content active">
+            <p class="section-title">Elige tu Combo</p>
+            <p class="section-subtitle">Selecciona el combo que mejor se adapta a tu familia</p>
+
+            <label class="field-label" for="selector-combo">Combos semanales</label>
+            <select class="custom-select" id="selector-combo" onchange="mostrarComboSeleccionado()">
+                <option value="0">Combo Familiar (4-5 PERSONAS)</option>
+                <option value="1">Combo Sancochero (4-5 PERSONAS)</option>
+                <option value="2">Combo Paisa (4-5 PERSONAS)</option>
+                <option value="3">Combo Apartamentero (1-2 PERSONAS)</option>
+                <option value="4">Combo Keto (1-2 PERSONAS)</option>
+            </select>
+
+            <div class="product-card">
+                <div class="card-badge" id="combo-badge">4-5 personas</div>
+                <div class="card-title" id="combo-titulo">Combo Familiar</div>
+                <div class="card-desc" id="combo-desc"></div>
+                <div class="card-footer">
+                    <div class="card-price" id="combo-precio">$75.000</div>
+                    <button class="btn-add" id="btn-agregar-combo" onclick="agregarAlCarrito('Combo Familiar', 75000)">+ Agregar</button>
                 </div>
-
-                <div id="seccion-mercado" class="tab-content active">
-                    <h2>Elige tu Combo</h2>
-                    
-                    <select class="select-combo" id="selector-combo" onchange="mostrarComboSeleccionado()">
-                        <option value="0">Combo Familiar (4-5 PERSONAS)</option>
-                        <option value="1">Combo Sancochero (4-5 PERSONAS)</option>
-                        <option value="2">Combo Paisa (4-5 PERSONAS)</option>
-                        <option value="3">Combo Apartamentero (1-2 PERSONAS)</option>
-                        <option value="4">Combo Keto (1-2 PERSONAS)</option>                         
-                    </select>
-
-                    <div class="combo-card">
-                        <div class="combo-title" id="combo-titulo">Combo Familiar (4-5 PERSONAS)</div>
-                        <div class="combo-desc" id="combo-desc"></div>
-                        <div class="combo-price" id="combo-precio">$75.000</div>
-                        <button class="btn-agregar" id="btn-agregar-combo" onclick="agregarAlCarrito('Combo Familiar', 75000)">Agregar a la Bolsa</button>
-                    </div>
-
-                    <hr style="border: 1px dashed #ccc; width: 100%; margin: 25px 0;">
-
-                    <h2>Agrega Extras de la Granja</h2>
-                    
-                    <select class="select-combo" id="selector-topping" onchange="mostrarToppingSeleccionado()">
-                        <option value="0">Cubeta de Huevos Campesinos (x30)</option>
-                        <option value="1">Flor de Jamaica (X50 gr)</option>
-                        <option value="2">Uva Verde sin Semilla  (X1 Kg)</option>
-                        <option value="3">Aguacate (X1 Kg)</option>
-                        <option value="4">Limon Tahiti (X1 Kg)</option>
-                        <option value="5">Mango Tommy (X1 Kg)</option>
-                        <option value="6">Tomate de Arbol (X1 Kg)</option>
-                        <option value="7">Banano (X1 Kg)</option>
-                        <option value="8">Granadilla (Bandeja x6)</option>
-                        <option value="9">Sandia Baby (X1 Kg)</option>
-                        <option value="10">Curuba (Bandeja X4)</option>
-                        <option value="11">Kiwi (X1 Kg)</option>
-                        <option value="12">Maracuya (X1 Kg)</option>
-                        <option value="13">Fresa (Bandeja)</option>
-                        <option value="14">Arandanos (X130 gr)</option>
-                        <option value="15">Espinaca (X 1 Lb)</option>
-                        <option value="16">Champiñones (X1 Lb)</option>
-                        <option value="17">Cebolla Larga (X1 Kg)</option>
-                        <option value="18">Tomate Chonto (X1 Kg)</option>
-                        <option value="19">Platano Maduro (X1 Kg)</option>
-                        <option value="20">Platano Verde (X1 Kg)</option>
-                        <option value="21">Papa Criolla (X1 Kg)</option>
-                        <option value="22">Papa Nevada (X1 Kg)</option>
-                        <option value="23">Cebolla Huevo (X1 Kg)</option>
-                        <option value="24">Zanahoria (X1 Kg)</option>
-                        <option value="25">Lechuga Crespa Hidroponia (X 1 Und)</option>
-                        <option value="26">Frijol Verde (X1 Lb)</option>
-                        <option value="27">Suchini (X1 Lb)</option>
-                        <option value="28">Brocoli (X1 Lb)</option>
-                        <option value="29">Pepino (X1 Lb)</option>
-                        <option value="30">Apio (X1 Lb)</option>
-                        <option value="31">Remolacha (X1 Lb)</option>
-                        <option value="32">Habichuela (X1 Lb)</option>
-                        <option value="33">Coliflor (X1 Lb)</option>
-                        <option value="34">Cebolla Morada (X1 Lb))</option>
-                        <option value="35">Tomate Cherry (Canasta)</option>
-                        <option value="36">Mazorca Extra (Bandeja x3 Und)</option>
-                        <option value="37">Yuca (X1 Kg)</option>
-                        <option value="38">Berenjena (X1 Kg)</option>
-                        <option value="39">Jengibre (X1 Kg)</option>
-                        <option value="40">Tomate Riñon (X1 Kg)</option>
-                        <option value="41">Cilantro (X1 Lb)</option>
-                        <option value="42">Aloe (X1 Lb)</option>
-                        <option value="43">Durazno (Bandeja)</option>
-                    </select>
-
-                    <div class="combo-card">
-                        <div class="combo-title" id="topping-titulo">Cubeta de Huevos Campesinos (x30)</div>
-                        <div class="combo-desc" id="topping-desc"></div>
-                        <div class="combo-price" id="topping-precio">$20.000</div>
-                        <button class="btn-agregar" id="btn-agregar-topping" onclick="agregarAlCarrito('Huevos Campesinos', 20000)">Añadir Extra</button>
-                    </div>
-                </div>
-
-                <div id="seccion-recetas" class="tab-content">
-                    <h2>Recetas de la Abuela</h2>
-                    <p style="color: #555; margin-bottom: 20px; font-size: 15px;">Inspiración para cocinar en casa usando los ingredientes frescos de nuestros combos.</p>
-
-                    <select class="select-combo" id="selector-receta" onchange="mostrarRecetaSeleccionada()">
-                        <option value="0">Hogao Tradicional Colombiano</option>
-                        <option value="1">Sopa Rápida de Plátano y Papa</option>
-                        <option value="2">Sopa de Vegetales con Papas y Carne</option>
-                        <option value="3">Jugo de Tomate de Árbol Cremoso</option>
-                        <option value="4">Ensalada Fresca de Tomate Chonto y Limón</option>
-                        <option value="5">Patacones o Plátano Tentación</option>
-                        <option value="6">Tortilla de Papa y Cebolla (Tipo Española)</option>
-                    </select>
-
-                    <div class="combo-card" style="margin-bottom: 15px;">
-                        <div class="combo-title" id="receta-titulo">Hogao Tradicional Colombiano</div>
-                        <div class="combo-desc" id="receta-cuerpo">
-                        </div>
-                    </div>
-                </div>
-
-                <div id="seccion-nosotros" class="tab-content">
-                    <h2>Nuestra Historia</h2>
-                    
-                    <div class="combo-card" style="margin-bottom: 20px;">
-                        <div class="combo-title">¿Cómo nació Sábados del Campo?</div>
-                        <div class="combo-desc texto-justificado">
-                            <p>Todo empezó un sábado en la plaza. Los tres socios —amigos de toda la vida— coincidimos en la galería de Pereira, cada uno con su lista de mercado. Entre el bullicio de los vendedores y el color de las frutas recién llegadas, nos dimos cuenta de algo: conseguir productos realmente frescos y de calidad implicaba madrugar, recorrer varios puestos y, aun así, no siempre encontrábamos lo que buscábamos.</p>
-                            <p>Conversando, descubrimos que muchos vecinos y amigos vivían la misma situación: el deseo de comer frutas y verduras como las de antes, pero sin tiempo para ir a la plaza o con dificultades para transportarlas. Ahí entendimos que había una necesidad real: acercar la frescura de la plaza a las mesas de la ciudad, sin que nadie tuviera que renunciar a la calidad por falta de tiempo o comodidad.</p>
-                            <p>Así nació Sábados del Campo, un proyecto hecho por tres apasionados por lo natural, que decidimos poner nuestro conocimiento y esfuerzo al servicio de la comunidad pereirana. Seleccionamos personalmente cada fruta y verdura, trabajamos con productores locales de confianza y empaquetamos todo con el mismo cuidado que si fuera para nuestra propia familia.</p>
-                            <p>Hoy, nuestro equipo sigue siendo pequeño, pero nuestro corazón es enorme. Queremos que cada pedido que llegue a tu casa te recuerde esa sensación de mercado fresco, de producto recién cogido, y que con ello contribuyas también a valorar el trabajo del campo de nuestra región.</p>
-                            <div style="font-weight: bold; color: var(--rojo-oscuro); text-align: center; font-size: 16px; margin-top: 20px; padding: 10px; border-top: 1px solid #eee;">
-                                Porque creemos que la frescura de la plaza merece estar en la puerta de tu casa.
-                            </div>
-                        </div>
-                    </div>
-
-                    <h2>Nuestra Esencia</h2>
-                    
-                    <div class="combo-card">
-                        <div class="combo-title" style="border-bottom: none; padding-bottom: 0; color: var(--rojo-oscuro);">Visión</div>
-                        <div class="combo-desc" style="margin-bottom: 20px;">
-                            Ser en los próximos tres años la tienda virtual de referencia en el Eje Cafetero por nuestra frescura garantizada, el trato personalizado y el apoyo a los pequeños productores locales, consolidando una comunidad que valora lo natural y lo auténtico.
-                        </div>
-
-                        <div class="combo-title" style="border-bottom: none; padding-bottom: 0; color: var(--rojo-oscuro);">Valores</div>
-                        <div class="combo-desc" style="margin-bottom: 20px;">
-                            <ul class="lista-nosotros">
-                                <li><strong>Frescura como promesa:</strong> cada producto se elige con el mismo cuidado que si fuera para nuestra propia casa.</li>
-                                <li><strong>Confianza y transparencia:</strong> cumplimos con lo que ofrecemos, en calidad, peso y tiempo de entrega.</li>
-                                <li><strong>Cercanía con el campo:</strong> apoyamos a los agricultores de la región y fomentamos el consumo de productos locales.</li>
-                                <li><strong>Compromiso con el cliente:</strong> escuchamos, recomendamos y nos esforzamos por superar las expectativas.</li>
-                                <li><strong>Trabajo en equipo:</strong> los tres fundadores remamos juntos, con pasión y responsabilidad, para hacer crecer este sueño.</li>
-                            </ul>
-                        </div>
-
-                        <div class="combo-title" style="border-bottom: none; padding-bottom: 0; color: var(--rojo-oscuro);">Objetivos</div>
-                        <div class="combo-desc">
-                            <ol class="lista-nosotros" style="margin-bottom: 0;">
-                                <li>Garantizar la entrega a domicilio en un máximo de 24 horas desde el pedido, manteniendo la cadena de frío y la calidad.</li>
-                                <li>Establecer alianzas con al menos cinco productores locales de Pereira y alrededores durante el primer año.</li>
-                                <li>Alcanzar una calificación de satisfacción del cliente superior a 4.8 estrellas en platforms digitales.</li>
-                                <li>Ampliar la cobertura de entregas a tres comunas de la ciudad en los primeros seis meses.</li>
-                                <li>Crear una comunidad digital que comparta recetas, consejos de nutrición y promueva el consumo de frutas y verduras frescas.</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
-            <div class="columna-derecha">
-                
-                <div class="panel-carrito">
-                    <h3 style="margin-top: 0;">🛒 Tu Pedido</h3>
-                    <div id="lista-carrito">
-                        <p style="color: #999; font-size: 14px; text-align: center;">Tu bolsa está vacía</p>
-                    </div>
-                    <div class="total-carrito">Total: $<span id="gran-total">0</span></div>
-                    <button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar Bolsa</button>
+            <div class="natural-divider">🌿 Extras de la Granja</div>
 
-                    <h3 style="margin-top: 25px;">Datos de Entrega</h3>
-                    <input type="text" id="nombre" placeholder="Nombre completo" required>
-                    <input type="text" id="telefono" placeholder="Teléfono / WhatsApp" required>
-                    <input type="text" id="direccion" placeholder="Dirección exacta" required>
-                    
-                    <textarea id="peticiones" placeholder="¿Necesitas alguna verdura extra o tienes una petición especial? Escríbela aquí." rows="3"></textarea>
+            <p class="section-title">Agrega Productos Extra</p>
+            <p class="section-subtitle">Complementa tu pedido con productos frescos adicionales</p>
 
-                    <select id="medio-pago" class="select-checkout" required>
-                        <option value="" disabled selected>Elige tu medio de pago...</option>
-                        <option value="Llave Bre-B">Llave Bre-B</option>
-                        <option value="Efectivo">Efectivo</option>
-                    </select>
+            <label class="field-label" for="selector-topping">Productos adicionales</label>
+            <select class="custom-select" id="selector-topping" onchange="mostrarToppingSeleccionado()">
+                <option value="0">Cubeta de Huevos Campesinos (x30)</option>
+                <option value="1">Flor de Jamaica (X50 gr)</option>
+                <option value="2">Uva Verde sin Semilla (X1 Kg)</option>
+                <option value="3">Aguacate (X1 Kg)</option>
+                <option value="4">Limon Tahiti (X1 Kg)</option>
+                <option value="5">Mango Tommy (X1 Kg)</option>
+                <option value="6">Tomate de Arbol (X1 Kg)</option>
+                <option value="7">Banano (X1 Kg)</option>
+                <option value="8">Granadilla (Bandeja x6)</option>
+                <option value="9">Sandia Baby (X1 Kg)</option>
+                <option value="10">Curuba (Bandeja X4)</option>
+                <option value="11">Kiwi (X1 Kg)</option>
+                <option value="12">Maracuya (X1 Kg)</option>
+                <option value="13">Fresa (Bandeja)</option>
+                <option value="14">Arandanos (X130 gr)</option>
+                <option value="15">Espinaca (X 1 Lb)</option>
+                <option value="16">Champiñones (X1 Lb)</option>
+                <option value="17">Cebolla Larga (X1 Kg)</option>
+                <option value="18">Tomate Chonto (X1 Kg)</option>
+                <option value="19">Platano Maduro (X1 Kg)</option>
+                <option value="20">Platano Verde (X1 Kg)</option>
+                <option value="21">Papa Criolla (X1 Kg)</option>
+                <option value="22">Papa Nevada (X1 Kg)</option>
+                <option value="23">Cebolla Huevo (X1 Kg)</option>
+                <option value="24">Zanahoria (X1 Kg)</option>
+                <option value="25">Lechuga Crespa Hidroponia (X 1 Und)</option>
+                <option value="26">Frijol Verde (X1 Lb)</option>
+                <option value="27">Suchini (X1 Lb)</option>
+                <option value="28">Brocoli (X1 Lb)</option>
+                <option value="29">Pepino (X1 Lb)</option>
+                <option value="30">Apio (X1 Lb)</option>
+                <option value="31">Remolacha (X1 Lb)</option>
+                <option value="32">Habichuela (X1 Lb)</option>
+                <option value="33">Coliflor (X1 Lb)</option>
+                <option value="34">Cebolla Morada (X1 Lb)</option>
+                <option value="35">Tomate Cherry (Canasta)</option>
+                <option value="36">Mazorca Extra (Bandeja x3 Und)</option>
+                <option value="37">Yuca (X1 Kg)</option>
+                <option value="38">Berenjena (X1 Kg)</option>
+                <option value="39">Jengibre (X1 Kg)</option>
+                <option value="40">Tomate Riñon (X1 Kg)</option>
+                <option value="41">Cilantro (X1 Lb)</option>
+                <option value="42">Aloe (X1 Lb)</option>
+                <option value="43">Durazno (Bandeja)</option>
+            </select>
 
-                    <button class="btn-confirmar" onclick="enviarPedido()">Confirmar y Enviar</button>
+            <div class="product-card">
+                <div class="card-badge">Extra de la granja</div>
+                <div class="card-title" id="topping-titulo">Cubeta de Huevos Campesinos (x30)</div>
+                <div class="card-desc" id="topping-desc"></div>
+                <div class="card-footer">
+                    <div class="card-price" id="topping-precio">$20.000</div>
+                    <button class="btn-add" id="btn-agregar-topping" onclick="agregarAlCarrito('Huevos Campesinos', 20000)">+ Añadir</button>
                 </div>
+            </div>
+        </div>
 
-                <div class="panel-redes">
-                    <h3>📱 ¡Conéctate con el Campo!</h3>
-                    <p style="font-size: 13px; color: #555; margin-top: 5px;">Entérate de nuestras promociones, recetas y productos frescos cada semana.</p>
-                    
-                    <div class="redes-links">
-                        <a href="https://wa.link/0p60cq" target="_blank" class="red-btn btn-wa">💬 Escríbenos al WhatsApp</a>
-                        <a href="https://www.instagram.com/sabadosdelcampo" target="_blank" class="red-btn btn-ig">📸 Síguenos en Instagram</a>
-                        <a href="https://www.tiktok.com/@sabadosdelcampo?is_from_webapp=1&sender_device=pc" target="_blank" class="red-btn btn-fb">👍 Siguenos en TikTok</a>
-                    </div>
+        <!-- RECETAS -->
+        <div id="recetas" class="tab-content">
+            <p class="section-title">Recetas de la Abuela</p>
+            <p class="section-subtitle">Inspiración para cocinar con los ingredientes de tus combos</p>
+
+            <label class="field-label" for="selector-receta">Selecciona una receta</label>
+            <select class="custom-select" id="selector-receta" onchange="mostrarRecetaSeleccionada()">
+                <option value="0">Hogao Tradicional Colombiano</option>
+                <option value="1">Sopa Rápida de Plátano y Papa</option>
+                <option value="2">Sopa de Vegetales con Papas y Carne</option>
+                <option value="3">Jugo de Tomate de Árbol Cremoso</option>
+                <option value="4">Ensalada Fresca de Tomate Chonto y Limón</option>
+                <option value="5">Patacones o Plátano Tentación</option>
+                <option value="6">Tortilla de Papa y Cebolla (Tipo Española)</option>
+            </select>
+
+            <div class="product-card">
+                <div class="card-badge">Receta del campo</div>
+                <div class="card-title" id="receta-titulo">Hogao Tradicional Colombiano</div>
+                <div id="receta-cuerpo" class="card-desc"></div>
+            </div>
+        </div>
+
+        <!-- NOSOTROS -->
+        <div id="nosotros" class="tab-content">
+            <p class="section-title">¿Cómo nació Sábados del Campo?</p>
+
+            <div class="product-card nosotros-section">
+                <p>Todo empezó un sábado en la plaza. Los tres socios —amigos de toda la vida— coincidimos en la galería de Pereira, cada uno con su lista de mercado. Entre el bullicio de los vendedores y el color de las frutas recién llegadas, nos dimos cuenta de algo: conseguir productos realmente frescos y de calidad implicaba madrugar, recorrer varios puestos y, aun así, no siempre encontrábamos lo que buscábamos.</p>
+                <p>Conversando, descubrimos que muchos vecinos y amigos vivían la misma situación: el deseo de comer frutas y verduras como las de antes, pero sin tiempo para ir a la plaza. Ahí entendimos que había una necesidad real: acercar la frescura de la plaza a las mesas de la ciudad.</p>
+                <p>Así nació Sábados del Campo, un proyecto hecho por tres apasionados por lo natural, que decidimos poner nuestro conocimiento y esfuerzo al servicio de la comunidad pereirana. Seleccionamos personalmente cada fruta y verdura, trabajamos con productores locales de confianza y empaquetamos todo con el mismo cuidado que si fuera para nuestra propia familia.</p>
+
+                <div class="highlight-quote">
+                    "Porque creemos que la frescura de la plaza merece estar en la puerta de tu casa."
                 </div>
-
             </div>
 
-        </div> 
-    </div> 
+            <div class="product-card">
+                <p class="subsection-title">🌿 Visión</p>
+                <div class="nosotros-section">
+                    <p>Ser en los próximos tres años la tienda virtual de referencia en el Eje Cafetero por nuestra frescura garantizada, el trato personalizado y el apoyo a los pequeños productores locales.</p>
+                </div>
 
-    <div id="notificacion-toast" class="toast">¡Añadido a la bolsa! 🛒</div>
-    
-    <script>
-        function cambiarPestana(idSeccion, botonClicado) {
-            let contenidos = document.querySelectorAll('.tab-content');
-            contenidos.forEach(c => c.classList.remove('active'));
+                <p class="subsection-title">✦ Valores</p>
+                <ul class="values-list">
+                    <li><strong>Frescura como promesa:</strong> cada producto se elige con el mismo cuidado que si fuera para nuestra propia casa.</li>
+                    <li><strong>Confianza y transparencia:</strong> cumplimos con lo que ofrecemos, en calidad, peso y tiempo de entrega.</li>
+                    <li><strong>Cercanía con el campo:</strong> apoyamos a los agricultores de la región y fomentamos el consumo local.</li>
+                    <li><strong>Compromiso con el cliente:</strong> escuchamos, recomendamos y nos esforzamos por superar las expectativas.</li>
+                    <li><strong>Trabajo en equipo:</strong> los tres fundadores remamos juntos, con pasión y responsabilidad.</li>
+                </ul>
 
-            let botones = document.querySelectorAll('.tab-btn');
-            botones.forEach(b => b.classList.remove('active'));
-
-            document.getElementById(idSeccion).classList.add('active');
-            botonClicado.classList.add('active');
-        }
-
-        const combosBD = [
-            { nombreCarrito: 'Combo Familiar', titulo: 'Combo Familiar (4-5 PERSONAS)', desc: '• Papa Nevada (3 Kilos)<br>• Tomate Árbol (1 Kilo)<br>• Tomate Chonto (1.5 Kilos)<br>• Cebolla Huevo (1 Kilo)<br>• Cebolla Larga (1 Libra)<br>• Plátano Maduro (1 Kilo)<br>• Plátano Verde (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Banano (2 Kilos)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$75.000', precioValor: 75000 },
-            { nombreCarrito: 'Combo Sancochero', titulo: 'Combo Sancochero (4-5 PERSONAS)', desc: '• Papa Nevada (2 Kilos)<br>• Tomate Chonto (1.5 Kilos)<br>• Cilantro (1 Manojo)<br>• Yuca (1 Libra)<br>• Mazorca (1 Bandeja)<br>• Aguacate (1 Kilo)<br>• Plátano Verde (2 Kilos)<br>• Cebolla Larga (1 Libra)<br>• Limón Tahití (1 Kilo)<br>• Papa Criolla (1 Kilo)<br>• Banano (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$75.000', precioValor: 75000 },
-            { nombreCarrito: 'Combo Paisa', titulo: 'Combo Paisa (4-5 PERSONAS)', desc: '• Frijol Verde (2 Libras)<br>• Plátano Verde (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Cebolla Larga (1 Libra)<br>• Aguacate (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$65.000', precioValor: 65000 },
-            { nombreCarrito: 'Combo Apartamentero', titulo: 'Combo Apartamentero (1-2 PERSONAS)', desc: '• Papa Nevada (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (1 Libra)<br>• Plátano Verde(1 Libra)<br>• Plátano Maduro (1 Libra)<br>• Zanahoria (1 Libra)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$45.000', precioValor: 45000 },
-            { nombreCarrito: 'Combo Keto', titulo: 'Combo Keto (1-2 PERSONAS)', desc: '• Zucchini (1 Libra)<br>• Espinaca (1 Libra)<br>• Champiñones (1 Libra)<br>• Brocoli (1 Libra)<br>• Pepino (1 Libra)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Morada (1 Libra)<br>• Apio (1 Libra)<br>• Zanahoria (1 Kilo)<br>• Papa Criolla (1 Kilo)<br>• Remolacha (1 Libra)<br>• Habichuela (1 Libra)<br><br><em>* Incluye Domicilio/Empaque (1 Und)</em>', precioTexto: '$75.000', precioValor: 75000 },
-        ];
-
-        const toppingsBD = [
-            // Índice 0 - Cubeta de Huevos
-            { nombreCarrito: 'Huevos Campesinos', titulo: 'Cubeta de Huevos Campesinos AAA (x30)', desc: '• Huevos frescos de gallinas felices<br>• Tamaño AAA, ideales para desayunos y repostería.', precioTexto: '$20.000', precioValor: 20000 },
-            // Índice 1 - Flor de Jamaica
-            { nombreCarrito: 'Flor de Jamaica', titulo: 'Flor de Jamaica (x50 gr)', desc: '• Flor deshidratada para infusiones.<br>• Rica en antioxidantes y sabor natural.', precioTexto: '$7.000', precioValor: 7000 },
-            // Índice 2 - Uva Verde sin Semilla
-            { nombreCarrito: 'Uva Verde sin Semilla', titulo: 'Uva Verde sin Semilla (x1 Kg)', desc: '• Uvas dulces y crocantes, sin semillas.<br>• Perfectas para snacks o ensaladas.', precioTexto: '$30.000', precioValor: 30000 },
-            // Índice 3 - Aguacate
-            { nombreCarrito: 'Aguacate', titulo: 'Aguacate (x1 Kg)', desc: '• Aguacates frescos y cremosos.<br>• Ideal para guacamole o acompañamientos.', precioTexto: '$13.000', precioValor: 13000 },
-            // Índice 4 - Limón Tahití
-            { nombreCarrito: 'Limón Tahití', titulo: 'Limón Tahití (x1 Kg)', desc: '• Limones jugosos y aromáticos.<br>• Perfectos para jugos y aderezos.', precioTexto: '$4.500', precioValor: 4500 },
-            // Índice 5 - Mango Tommy
-            { nombreCarrito: 'Mango Tommy', titulo: 'Mango Tommy (x1 Kg)', desc: '• Mangos dulces y fibrosos.<br>• Ideales para jugos y postres.', precioTexto: '$7.600', precioValor: 7600 },
-            // Índice 6 - Tomate de Árbol
-            { nombreCarrito: 'Tomate de Árbol', titulo: 'Tomate de Árbol (x1 Kg)', desc: '• Tomates de árbol frescos y ligeramente ácidos.<br>• Excelentes para jugos y salsas.', precioTexto: '$7.000', precioValor: 7000 },
-            // Índice 7 - Banano
-            { nombreCarrito: 'Banano', titulo: 'Banano (x1 Kg)', desc: '• Bananos maduros y dulces.<br>• Fuente natural de energía.', precioTexto: '$3.800', precioValor: 3800 },
-            // Índice 8 - Granadilla
-            { nombreCarrito: 'Granadilla', titulo: 'Granadilla (Bandeja x6)', desc: '• Granadillas frescas, pulpa dulce.<br>• Perfectas para comer natural.', precioTexto: '$7.500', precioValor: 7500 },
-            // Índice 9 - Sandía Baby
-            { nombreCarrito: 'Sandía Baby', titulo: 'Sandía Baby (x1 Kg)', desc: '• Sandía pequeña, dulce y refrescante.<br>• Ideal para jugos.', precioTexto: '$5.800', precioValor: 5800 },
-            // Índice 10 - Curuba
-            { nombreCarrito: 'Curuba', titulo: 'Curuba (Bandeja x4)', desc: '• Curubas aromáticas, pulpa suave.<br>• Deliciosas en jugos y postres.', precioTexto: '$4.500', precioValor: 4500 },
-            // Índice 11 - Kiwi
-            { nombreCarrito: 'Kiwi', titulo: 'Kiwi (x1 Kg)', desc: '• Kivis verdes, dulces y ricos en vitamina C.<br>• Perfectos para ensaladas.', precioTexto: '$19.000', precioValor: 19000 },
-            // Índice 12 - Maracuyá
-            { nombreCarrito: 'Maracuyá', titulo: 'Maracuyá (x1 Kg)', desc: '• Maracuyá muy aromática.<br>• Ideal para jugos y cócteles.', precioTexto: '$7.000', precioValor: 7000 },
-            // Índice 13 - Fresa
-            { nombreCarrito: 'Fresa', titulo: 'Fresa (Bandeja)', desc: '• Fresas frescas, dulces y jugosas.<br>• Perfectas para postres.', precioTexto: '$5.200', precioValor: 5200 },
-            // Índice 14 - Arándanos
-            { nombreCarrito: 'Arándanos', titulo: 'Arándanos (x130 gr)', desc: '• Arándanos frescos, antioxidantes.<br>• Ideales para yogurt o batidos.', precioTexto: '$8.500', precioValor: 8500 },
-            // Índice 15 - Espinaca
-            { nombreCarrito: 'Espinaca', titulo: 'Espinaca (x1 Lb)', desc: '• Espinaca fresca, hojas tiernas.<br>• Perfecta para ensaladas o jugos verdes.', precioTexto: '$4.500', precioValor: 4500 },
-            // Índice 16 - Champiñones
-            { nombreCarrito: 'Champiñones', titulo: 'Champiñones (x1 Lb)', desc: '• Champiñones frescos, enteros.<br>• Ideales para salteados o pizzas.', precioTexto: '$15.000', precioValor: 15000 },
-            // Índice 17 - Cebolla Larga
-            { nombreCarrito: 'Cebolla Larga', titulo: 'Cebolla Larga (x1 Kg)', desc: '• Cebolla larga fresca y aromática.<br>• Indispensable para hogao y sopas.', precioTexto: '$5.847', precioValor: 5847 },
-            // Índice 18 - Tomate Chonto
-            { nombreCarrito: 'Tomate Chonto', titulo: 'Tomate Chonto (x1 Kg)', desc: '• Tomates chonto maduros.<br>• Ideales para salsas y hogao.', precioTexto: '$5.500', precioValor: 5500 },
-            // Índice 19 - Plátano Maduro
-            { nombreCarrito: 'Plátano Maduro', titulo: 'Plátano Maduro (x1 Kg)', desc: '• Plátanos maduros, dulces.<br>• Perfectos para freír o hornear.', precioTexto: '$4.500', precioValor: 4500 },
-            // Índice 20 - Plátano Verde
-            { nombreCarrito: 'Plátano Verde', titulo: 'Plátano Verde (x1 Kg)', desc: '• Plátanos verdes, ideales para patacones.<br>• Frescura garantizada.', precioTexto: '$4.500', precioValor: 4500 },
-            // Índice 21 - Papa Criolla
-            { nombreCarrito: 'Papa Criolla', titulo: 'Papa Criolla (x1 Kg)', desc: '• Papa criolla pequeña y amarilla.<br>• Perfecta para sopas o guisos.', precioTexto: '$5.300', precioValor: 5300 },
-            // Índice 22 - Papa Nevada
-            { nombreCarrito: 'Papa Nevada', titulo: 'Papa Nevada (x1 Kg)', desc: '• Papa nevada de textura harinosa.<br>• Ideal para purés y sopas.', precioTexto: '$7.000', precioValor: 7000 },
-            // Índice 23 - Cebolla Huevo
-            { nombreCarrito: 'Cebolla Huevo', titulo: 'Cebolla Huevo (x1 Kg)', desc: '• Cebolla cabezona fresca.<br>• Base de muchos guisos.', precioTexto: '$4.500', precioValor: 4500 },
-            // Índice 24 - Zanahoria
-            { nombreCarrito: 'Zanahoria', titulo: 'Zanahoria (x1 Kg)', desc: '• Zanahorias frescas y dulces.<br>• Ideales para sopas y ensaladas.', precioTexto: '$4.000', precioValor: 4000 },
-            // Índice 25 - Lechuga Crespa Hidroponia
-            { nombreCarrito: 'Lechuga Crespa', titulo: 'Lechuga Crespa Hidroponia (x1 Und)', desc: '• Lechuga hidropónica, muy limpia.<br>• Hojas tiernas y crocantes.', precioTexto: '$3.667', precioValor: 3667 },
-            // Índice 26 - Frijol Verde
-            { nombreCarrito: 'Frijol Verde', titulo: 'Frijol Verde (x1 Lb)', desc: '• Frijol verde (ejotes) tiernos.<br>• Perfectos para salteados.', precioTexto: '$12.000', precioValor: 12000 },
-            // Índice 27 - Suchini
-            { nombreCarrito: 'Suchini', titulo: 'Suchini (x1 Lb)', desc: '• Suchini (calabacín) firme.<br>• Ideal para salteados o a la plancha.', precioTexto: '$3.500', precioValor: 3500 },
-            // Índice 28 - Brócoli
-            { nombreCarrito: 'Brócoli', titulo: 'Brócoli (x1 Lb)', desc: '• Brócoli fresco en ramilletes.<br>• Rico en nutrientes.', precioTexto: '$4.000', precioValor: 4000 },
-            // Índice 29 - Pepino
-            { nombreCarrito: 'Pepino', titulo: 'Pepino (x1 Lb)', desc: '• Pepinos frescos y crujientes.<br>• Perfectos para ensaladas.', precioTexto: '$3.700', precioValor: 3700 },
-            // Índice 30 - Apio
-            { nombreCarrito: 'Apio', titulo: 'Apio (x1 Lb)', desc: '• Apio fresco, tallos crujientes.<br>• Ideal para sopas o jugos.', precioTexto: '$4.000', precioValor: 4000 },
-            // Índice 31 - Remolacha
-            { nombreCarrito: 'Remolacha', titulo: 'Remolacha (x1 Lb)', desc: '• Remolacha fresca y dulce.<br>• Perfecta para ensaladas o jugos.', precioTexto: '$3.500', precioValor: 3500 },
-            // Índice 32 - Habichuela
-            { nombreCarrito: 'Habichuela', titulo: 'Habichuela (x1 Lb)', desc: '• Habichuela (vainita) tierna.<br>• Ideal para guisos.', precioTexto: '$4.500', precioValor: 4500 },
-            // Índice 33 - Coliflor
-            { nombreCarrito: 'Coliflor', titulo: 'Coliflor (x1 Lb)', desc: '• Coliflor blanca y firme.<br>• Perfecta para gratinar.', precioTexto: '$7.000', precioValor: 7000 },
-            // Índice 34 - Cebolla Morada
-            { nombreCarrito: 'Cebolla Morada', titulo: 'Cebolla Morada (x1 Lb)', desc: '• Cebolla morada, sabor suave.<br>• Ideal para ensaladas.', precioTexto: '$5.000', precioValor: 5000 },
-            // Índice 35 - Tomate Cherry
-            { nombreCarrito: 'Tomate Cherry', titulo: 'Tomate Cherry (Canasta)', desc: '• Tomates cherry dulces.<br>• Perfectos para ensaladas.', precioTexto: '$5.500', precioValor: 5500 },
-            // Índice 36 - Mazorca Extra
-            { nombreCarrito: 'Mazorca Extra', titulo: 'Mazorca Extra (Bandeja x3 Und)', desc: '• Mazorcas tiernas y dulces.<br>• Ideales para sancochos.', precioTexto: '$5.500', precioValor: 5500 },
-            // Índice 37 - Yuca
-            { nombreCarrito: 'Yuca', titulo: 'Yuca (x1 Kg)', desc: '• Yuca fresca, blanca y sin manchas.<br>• Perfecta para freír o sancochar.', precioTexto: '$5.500', precioValor: 5500 },
-            // Índice 38 - Berenjena
-            { nombreCarrito: 'Berenjena', titulo: 'Berenjena (x1 Kg)', desc: '• Berenjenas frescas y firmes.<br>• Ideales para hornear o salteados.', precioTexto: '$6.500', precioValor: 6500 },
-            // Índice 39 - Jengibre
-            { nombreCarrito: 'Jengibre', titulo: 'Jengibre (x1 Kg)', desc: '• Raíz de jengibre fresca y aromática.<br>• Perfecta para tés y aderezos.', precioTexto: '$12.000', precioValor: 12000 },
-            // Índice 40 - Tomate Riñón
-            { nombreCarrito: 'Tomate Riñón', titulo: 'Tomate Riñón (x1 Kg)', desc: '• Tomates riñón grandes y carnosos.<br>• Ideales para ensaladas.', precioTexto: '$8.200', precioValor: 8200 },
-            // Índice 41 - Cilantro
-            { nombreCarrito: 'Cilantro', titulo: 'Cilantro (x1 Lb)', desc: '• Cilantro fresco, muy aromático.<br>• Imprescindible en sopas y guisos.', precioTexto: '$10.000', precioValor: 10000 },
-            // Índice 42 - Aloe
-            { nombreCarrito: 'Aloe', titulo: 'Aloe (x1 Lb)', desc: '• Hojas de aloe vera frescas.<br>• Para jugos o usos cosméticos.', precioTexto: '$12.000', precioValor: 12000 },
-            // Índice 43 - Durazno
-            { nombreCarrito: 'Durazno', titulo: 'Durazno (Bandeja)', desc: '• Duraznos frescos, dulces y jugosos.<br>• Perfectos para postres.', precioTexto: '$5.000', precioValor: 5000 }
-        ];
-
-        const recetasBD = [
-            {
-                titulo: "Hogao Tradicional Colombiano",
-                ingredientes: ["3 Tomates Chonto maduros", "2 tallos de Cebolla Larga", "Sal, comino y color al gusto", "2 cucharadas de aceite"],
-                preparacion: ["Pica el tomate y la cebolla finamente.", "En un sartén a fuego medio, calienta el aceite.", "Agrega la cebolla y sofríe por 3 minutos hasta que esté transparente.", "Añade el tomate, la sal, el comino y el color.", "Tapa y deja cocinar a fuego lento por 10-15 minutos revolviendo ocasionalmente."],
-                nota: "Ideal para acompañar papas nevadas, yuca, o arepas."
-            },
-            {
-                titulo: "Sopa Rápida de Plátano y Papa",
-                ingredientes: ["1 Plátano Verde pelado y picado con la mano", "2 Papas Nevadas peladas y en cubos", "1/2 Cebolla de Huevo finamente picada", "Cilantro fresco"],
-                preparacion: ["En una olla, sofríe la cebolla con un poco de aceite hasta dorar.", "Agrega agua o caldo, y añade los trozos de plátano verde.", "Deja cocinar por 15 minutos y luego incorpora la papa nevada.", "Cocina hasta que la papa esté suave y la sopa espese ligeramente.", "Sirve caliente y espolvorea cilantro fresco por encima."],
-                nota: "Un clásico reconfortante para los días fríos."
-            },
-            {
-                titulo: "Sopa de Vegetales con Papas y Carne",
-                ingredientes: ["2 Papas Nevadas en cubos", "1 Zanahoria en rodajas", "1/2 Cebolla Huevo picada", "1 ramita de Apio", "250g de carne de res (opcional)", "Sal y especias al gusto"],
-                preparacion: ["En una olla con agua, cocina la carne hasta que esté blanda.", "Agrega la cebolla, zanahoria, apio y papas.", "Cocina a fuego medio por 20 minutos.", "Rectifica la sal y sirve caliente."],
-                nota: "Puedes omitir la carne para una versión vegetariana."
-            },
-            {
-                titulo: "Jugo de Tomate de Árbol Cremoso",
-                ingredientes: ["4 Tomates de Árbol maduros", "2 cucharadas de azúcar o al gusto", "1 taza de agua", "Hielo"],
-                preparacion: ["Lava y parte los tomates de árbol por la mitad.", "Extrae la pulpa con una cuchara y licúa con agua y azúcar.", "Cuela si deseas (opcional) y sirve con hielo."],
-                nota: "Puedes agregar leche para hacerlo cremoso."
-            },
-            {
-                titulo: "Ensalada Fresca de Tomate Chonto y Limón",
-                ingredientes: ["2 Tomates Chonto en rodajas", "1/2 Cebolla Morada en julianas", "Jugo de 1 Limón Tahití", "Sal y cilantro al gusto"],
-                preparacion: ["Mezcla todos los ingredientes en un bowl.", "Deja reposar 5 minutos para que los sabores se integren."],
-                nota: "Acompañante ideal para carnes asadas o pescados."
-            },
-            {
-                titulo: "Patacones o Plátano Tentación",
-                ingredientes: ["2 Plátanos Verdes", "Aceite para freír", "Sal al gusto"],
-                preparacion: ["Pela los plátanos y córtalos en trozos de 3 cm.", "FrÍe en aceite caliente hasta que estén dorados pero sin que se doren demasiado.", "Retira, aplasta cada trozo con una tabla o pataconera.", "Vuelve a freír hasta que estén crujientes.", "Espolvorea sal y sirve."],
-                nota: "Acompáñalos con hogao o queso rallado."
-            },
-            {
-                titulo: "Tortilla de Papa y Cebolla (Tipo Española)",
-                ingredientes: ["3 Papas Nevadas peladas y en rodajas finas", "1/2 Cebolla Huevo en julianas", "4 Huevos", "Sal y aceite"],
-                preparacion: ["FrÍe las papas y la cebolla en abundante aceite hasta que estén blandas.", "Escurre bien y mezcla con los huevos batidos y sal.", "Vierte en una sartén con un poco de aceite y cocina a fuego medio hasta que cuaje por un lado.", "Voltea con la ayuda de un plato y cocina por el otro lado hasta que esté dorada."],
-                nota: "Puedes servir caliente o fría."
-            }
-        ];
-
-        function mostrarComboSeleccionado() {
-            let indiceSeleccionado = document.getElementById("selector-combo").value;
-            let combo = combosBD[indiceSeleccionado];
-            document.getElementById("combo-titulo").innerText = combo.titulo;
-            document.getElementById("combo-desc").innerHTML = combo.desc;
-            document.getElementById("combo-precio").innerText = combo.precioTexto;
-            let btnAgregar = document.getElementById("btn-agregar-combo");
-            btnAgregar.setAttribute("onclick", `agregarAlCarrito('${combo.nombreCarrito}', ${combo.precioValor})`);
-        }
-
-        function mostrarToppingSeleccionado() {
-            let indiceSeleccionado = document.getElementById("selector-topping").value;
-            let topping = toppingsBD[indiceSeleccionado];
-            document.getElementById("topping-titulo").innerText = topping.titulo;
-            document.getElementById("topping-desc").innerHTML = topping.desc;
-            document.getElementById("topping-precio").innerText = topping.precioTexto;
-            let btnAgregar = document.getElementById("btn-agregar-topping");
-            btnAgregar.setAttribute("onclick", `agregarAlCarrito('${topping.nombreCarrito}', ${topping.precioValor})`);
-        }
-
-        function mostrarRecetaSeleccionada() {
-            let indice = document.getElementById("selector-receta").value;
-            let receta = recetasBD[indice];
-            document.getElementById("receta-titulo").innerText = receta.titulo;
-            let htmlContenido = `
-                <div class="receta-ingredientes">Ingredientes (De tu combo):</div>
-                ${receta.ingredientes.map(ing => `• ${ing}<br>`).join('')}
-                <div class="receta-ingredientes">Preparación:</div>
-                <ol class="receta-pasos">
-                    ${receta.preparacion.map(paso => `<li>${paso}</li>`).join('')}
+                <p class="subsection-title">🎯 Objetivos</p>
+                <ol class="values-list">
+                    <li>Garantizar entrega a domicilio en máximo 24 horas desde el pedido.</li>
+                    <li>Establecer alianzas con al menos cinco productores locales durante el primer año.</li>
+                    <li>Alcanzar calificación de satisfacción superior a 4.8 estrellas en plataformas digitales.</li>
+                    <li>Ampliar cobertura de entregas a tres comunas de la ciudad en los primeros seis meses.</li>
+                    <li>Crear una comunidad digital que comparta recetas y promueva el consumo de frutas y verduras frescas.</li>
                 </ol>
-                <br><em>${receta.nota}</em>
-            `;
-            document.getElementById("receta-cuerpo").innerHTML = htmlContenido;
-        }
+            </div>
+        </div>
+    </div>
 
-        window.onload = function() {
-            const params = new URLSearchParams(window.location.search);
-            const comboParam = params.get('combo');
-            if (comboParam !== null) {
-                const idx = parseInt(comboParam);
-                const selector = document.getElementById('selector-combo');
-                if (!isNaN(idx) && idx >= 0 && idx < combosBD.length) {
-                    selector.value = idx;
-                }
-            }
-            mostrarComboSeleccionado();
-            mostrarToppingSeleccionado();
-            mostrarRecetaSeleccionada();
+    <!-- RIGHT COLUMN -->
+    <div class="right-col">
+
+        <!-- CART -->
+        <div class="cart-panel">
+            <h3>🛒 Tu Pedido</h3>
+            <div id="lista-carrito">
+                <p class="cart-empty">Tu bolsa está vacía</p>
+            </div>
+            <div class="cart-total">Total: $<span id="gran-total">0</span></div>
+            <button class="btn-clear" onclick="vaciarCarrito()">Vaciar bolsa</button>
+
+            <div class="form-group">
+                <h3>Datos de Entrega</h3>
+                <input class="form-input" type="text" id="nombre" placeholder="Nombre completo">
+                <input class="form-input" type="text" id="telefono" placeholder="Teléfono / WhatsApp">
+                <input class="form-input" type="text" id="direccion" placeholder="Dirección exacta">
+                <textarea class="form-input" id="peticiones" rows="3" placeholder="¿Alguna petición especial?"></textarea>
+                <select class="form-input custom-select" id="medio-pago" style="margin-bottom:0">
+                    <option value="" disabled selected>Medio de pago...</option>
+                    <option value="Llave Bre-B">Llave Bre-B</option>
+                    <option value="Efectivo">Efectivo</option>
+                </select>
+                <button class="btn-confirm" onclick="enviarPedido()">Confirmar Pedido →</button>
+            </div>
+        </div>
+
+        <!-- SOCIAL -->
+        <div class="social-panel">
+            <h3>📱 Conéctate con el Campo</h3>
+            <p>Entérate de promociones, recetas y productos frescos cada semana.</p>
+            <div class="social-links">
+                <a href="https://wa.link/0p60cq" target="_blank" class="social-btn btn-wa">💬 WhatsApp</a>
+                <a href="https://www.instagram.com/sabadosdelcampo" target="_blank" class="social-btn btn-ig">📸 Instagram</a>
+                <a href="https://www.tiktok.com/@sabadosdelcampo" target="_blank" class="social-btn btn-tk">🎵 TikTok</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+    function cambiarPestana(id, btn) {
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    const combosBD = [
+        { nombreCarrito:'Combo Familiar', titulo:'Combo Familiar', badge:'4-5 personas', desc:'• Papa Nevada (3 Kilos)<br>• Tomate Árbol (1 Kilo)<br>• Tomate Chonto (1.5 Kilos)<br>• Cebolla Huevo (1 Kilo)<br>• Cebolla Larga (1 Libra)<br>• Plátano Maduro (1 Kilo)<br>• Plátano Verde (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Banano (2 Kilos)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye domicilio y empaque</em>', precioTexto:'$75.000', precioValor:75000 },
+        { nombreCarrito:'Combo Sancochero', titulo:'Combo Sancochero', badge:'4-5 personas', desc:'• Papa Nevada (2 Kilos)<br>• Tomate Chonto (1.5 Kilos)<br>• Cilantro (1 Manojo)<br>• Yuca (1 Libra)<br>• Mazorca (1 Bandeja)<br>• Aguacate (1 Kilo)<br>• Plátano Verde (2 Kilos)<br>• Cebolla Larga (1 Libra)<br>• Limón Tahití (1 Kilo)<br>• Papa Criolla (1 Kilo)<br>• Banano (1 Kilo)<br><br><em>* Incluye domicilio y empaque</em>', precioTexto:'$75.000', precioValor:75000 },
+        { nombreCarrito:'Combo Paisa', titulo:'Combo Paisa', badge:'4-5 personas', desc:'• Frijol Verde (2 Libras)<br>• Plátano Verde (1 Kilo)<br>• Plátano Maduro (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (1 Kilo)<br>• Zanahoria (1 Kilo)<br>• Cebolla Larga (1 Libra)<br>• Aguacate (1 Kilo)<br><br><em>* Incluye domicilio y empaque</em>', precioTexto:'$65.000', precioValor:65000 },
+        { nombreCarrito:'Combo Apartamentero', titulo:'Combo Apartamentero', badge:'1-2 personas', desc:'• Papa Nevada (1 Kilo)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Huevo (1 Libra)<br>• Plátano Verde (1 Libra)<br>• Plátano Maduro (1 Libra)<br>• Zanahoria (1 Libra)<br>• Banano (1 Kilo)<br>• Limón Tahití (1 Kilo)<br>• Lechuga Crespa (1 Und)<br>• Papa Criolla (1 Kilo)<br><br><em>* Incluye domicilio y empaque</em>', precioTexto:'$45.000', precioValor:45000 },
+        { nombreCarrito:'Combo Keto', titulo:'Combo Keto', badge:'1-2 personas', desc:'• Zucchini (1 Libra)<br>• Espinaca (1 Libra)<br>• Champiñones (1 Libra)<br>• Brócoli (1 Libra)<br>• Pepino (1 Libra)<br>• Tomate Chonto (1 Kilo)<br>• Cebolla Morada (1 Libra)<br>• Apio (1 Libra)<br>• Zanahoria (1 Kilo)<br>• Papa Criolla (1 Kilo)<br>• Remolacha (1 Libra)<br>• Habichuela (1 Libra)<br><br><em>* Incluye domicilio y empaque</em>', precioTexto:'$75.000', precioValor:75000 },
+    ];
+
+    const toppingsBD = [
+        { nombreCarrito:'Huevos Campesinos', titulo:'Cubeta de Huevos Campesinos AAA (x30)', desc:'Huevos frescos de gallinas campesinas, tamaño AAA. Ideales para desayunos y repostería.', precioTexto:'$20.000', precioValor:20000 },
+        { nombreCarrito:'Flor de Jamaica', titulo:'Flor de Jamaica (x50 gr)', desc:'Flor deshidratada para infusiones. Rica en antioxidantes y sabor natural.', precioTexto:'$7.000', precioValor:7000 },
+        { nombreCarrito:'Uva Verde sin Semilla', titulo:'Uva Verde sin Semilla (x1 Kg)', desc:'Uvas dulces y crocantes, sin semillas. Perfectas para snacks o ensaladas.', precioTexto:'$30.000', precioValor:30000 },
+        { nombreCarrito:'Aguacate', titulo:'Aguacate (x1 Kg)', desc:'Aguacates frescos y cremosos. Ideal para guacamole o acompañamientos.', precioTexto:'$13.000', precioValor:13000 },
+        { nombreCarrito:'Limón Tahití', titulo:'Limón Tahití (x1 Kg)', desc:'Limones jugosos y aromáticos. Perfectos para jugos y aderezos.', precioTexto:'$4.500', precioValor:4500 },
+        { nombreCarrito:'Mango Tommy', titulo:'Mango Tommy (x1 Kg)', desc:'Mangos dulces y fibrosos. Ideales para jugos y postres.', precioTexto:'$7.600', precioValor:7600 },
+        { nombreCarrito:'Tomate de Árbol', titulo:'Tomate de Árbol (x1 Kg)', desc:'Frescos y ligeramente ácidos. Excelentes para jugos y salsas.', precioTexto:'$7.000', precioValor:7000 },
+        { nombreCarrito:'Banano', titulo:'Banano (x1 Kg)', desc:'Bananos maduros y dulces. Fuente natural de energía.', precioTexto:'$3.800', precioValor:3800 },
+        { nombreCarrito:'Granadilla', titulo:'Granadilla (Bandeja x6)', desc:'Granadillas frescas, pulpa dulce y aromática. Perfectas para comer natural.', precioTexto:'$7.500', precioValor:7500 },
+        { nombreCarrito:'Sandía Baby', titulo:'Sandía Baby (x1 Kg)', desc:'Sandía pequeña, dulce y refrescante. Ideal para jugos.', precioTexto:'$5.800', precioValor:5800 },
+        { nombreCarrito:'Curuba', titulo:'Curuba (Bandeja x4)', desc:'Curubas aromáticas, pulpa suave. Deliciosas en jugos y postres.', precioTexto:'$4.500', precioValor:4500 },
+        { nombreCarrito:'Kiwi', titulo:'Kiwi (x1 Kg)', desc:'Kiwis verdes, dulces y ricos en vitamina C. Perfectos para ensaladas.', precioTexto:'$19.000', precioValor:19000 },
+        { nombreCarrito:'Maracuyá', titulo:'Maracuyá (x1 Kg)', desc:'Maracuyá muy aromática. Ideal para jugos y cócteles.', precioTexto:'$7.000', precioValor:7000 },
+        { nombreCarrito:'Fresa', titulo:'Fresa (Bandeja)', desc:'Fresas frescas, dulces y jugosas. Perfectas para postres.', precioTexto:'$5.200', precioValor:5200 },
+        { nombreCarrito:'Arándanos', titulo:'Arándanos (x130 gr)', desc:'Arándanos frescos y antioxidantes. Ideales para yogurt o batidos.', precioTexto:'$8.500', precioValor:8500 },
+        { nombreCarrito:'Espinaca', titulo:'Espinaca (x1 Lb)', desc:'Espinaca fresca, hojas tiernas. Perfecta para ensaladas o jugos verdes.', precioTexto:'$4.500', precioValor:4500 },
+        { nombreCarrito:'Champiñones', titulo:'Champiñones (x1 Lb)', desc:'Champiñones frescos y enteros. Ideales para salteados o pizzas.', precioTexto:'$15.000', precioValor:15000 },
+        { nombreCarrito:'Cebolla Larga', titulo:'Cebolla Larga (x1 Kg)', desc:'Cebolla larga fresca y aromática. Indispensable para hogao y sopas.', precioTexto:'$5.847', precioValor:5847 },
+        { nombreCarrito:'Tomate Chonto', titulo:'Tomate Chonto (x1 Kg)', desc:'Tomates chonto maduros. Ideales para salsas y hogao.', precioTexto:'$5.500', precioValor:5500 },
+        { nombreCarrito:'Plátano Maduro', titulo:'Plátano Maduro (x1 Kg)', desc:'Plátanos maduros y dulces. Perfectos para freír o hornear.', precioTexto:'$4.500', precioValor:4500 },
+        { nombreCarrito:'Plátano Verde', titulo:'Plátano Verde (x1 Kg)', desc:'Plátanos verdes, ideales para patacones.', precioTexto:'$4.500', precioValor:4500 },
+        { nombreCarrito:'Papa Criolla', titulo:'Papa Criolla (x1 Kg)', desc:'Papa criolla pequeña y amarilla. Perfecta para sopas o guisos.', precioTexto:'$5.300', precioValor:5300 },
+        { nombreCarrito:'Papa Nevada', titulo:'Papa Nevada (x1 Kg)', desc:'Papa nevada de textura harinosa. Ideal para purés y sopas.', precioTexto:'$7.000', precioValor:7000 },
+        { nombreCarrito:'Cebolla Huevo', titulo:'Cebolla Huevo (x1 Kg)', desc:'Cebolla cabezona fresca. Base de muchos guisos.', precioTexto:'$4.500', precioValor:4500 },
+        { nombreCarrito:'Zanahoria', titulo:'Zanahoria (x1 Kg)', desc:'Zanahorias frescas y dulces. Ideales para sopas y ensaladas.', precioTexto:'$4.000', precioValor:4000 },
+        { nombreCarrito:'Lechuga Crespa', titulo:'Lechuga Crespa Hidroponia (x1 Und)', desc:'Lechuga hidropónica muy limpia, hojas tiernas y crocantes.', precioTexto:'$3.667', precioValor:3667 },
+        { nombreCarrito:'Frijol Verde', titulo:'Frijol Verde (x1 Lb)', desc:'Frijol verde tierno. Perfecto para salteados.', precioTexto:'$12.000', precioValor:12000 },
+        { nombreCarrito:'Suchini', titulo:'Suchini (x1 Lb)', desc:'Suchini (calabacín) firme. Ideal para salteados o a la plancha.', precioTexto:'$3.500', precioValor:3500 },
+        { nombreCarrito:'Brócoli', titulo:'Brócoli (x1 Lb)', desc:'Brócoli fresco en ramilletes. Rico en nutrientes.', precioTexto:'$4.000', precioValor:4000 },
+        { nombreCarrito:'Pepino', titulo:'Pepino (x1 Lb)', desc:'Pepinos frescos y crujientes. Perfectos para ensaladas.', precioTexto:'$3.700', precioValor:3700 },
+        { nombreCarrito:'Apio', titulo:'Apio (x1 Lb)', desc:'Apio fresco, tallos crujientes. Ideal para sopas o jugos.', precioTexto:'$4.000', precioValor:4000 },
+        { nombreCarrito:'Remolacha', titulo:'Remolacha (x1 Lb)', desc:'Remolacha fresca y dulce. Perfecta para ensaladas o jugos.', precioTexto:'$3.500', precioValor:3500 },
+        { nombreCarrito:'Habichuela', titulo:'Habichuela (x1 Lb)', desc:'Habichuela tierna. Ideal para guisos.', precioTexto:'$4.500', precioValor:4500 },
+        { nombreCarrito:'Coliflor', titulo:'Coliflor (x1 Lb)', desc:'Coliflor blanca y firme. Perfecta para gratinar.', precioTexto:'$7.000', precioValor:7000 },
+        { nombreCarrito:'Cebolla Morada', titulo:'Cebolla Morada (x1 Lb)', desc:'Cebolla morada, sabor suave. Ideal para ensaladas.', precioTexto:'$5.000', precioValor:5000 },
+        { nombreCarrito:'Tomate Cherry', titulo:'Tomate Cherry (Canasta)', desc:'Tomates cherry dulces. Perfectos para ensaladas.', precioTexto:'$5.500', precioValor:5500 },
+        { nombreCarrito:'Mazorca Extra', titulo:'Mazorca Extra (Bandeja x3 Und)', desc:'Mazorcas tiernas y dulces. Ideales para sancochos.', precioTexto:'$5.500', precioValor:5500 },
+        { nombreCarrito:'Yuca', titulo:'Yuca (x1 Kg)', desc:'Yuca fresca, blanca y sin manchas. Perfecta para freír o sancochar.', precioTexto:'$5.500', precioValor:5500 },
+        { nombreCarrito:'Berenjena', titulo:'Berenjena (x1 Kg)', desc:'Berenjenas frescas y firmes. Ideales para hornear o salteados.', precioTexto:'$6.500', precioValor:6500 },
+        { nombreCarrito:'Jengibre', titulo:'Jengibre (x1 Kg)', desc:'Raíz de jengibre fresca y aromática. Perfecta para tés y aderezos.', precioTexto:'$12.000', precioValor:12000 },
+        { nombreCarrito:'Tomate Riñón', titulo:'Tomate Riñón (x1 Kg)', desc:'Tomates riñón grandes y carnosos. Ideales para ensaladas.', precioTexto:'$8.200', precioValor:8200 },
+        { nombreCarrito:'Cilantro', titulo:'Cilantro (x1 Lb)', desc:'Cilantro fresco y muy aromático. Imprescindible en sopas y guisos.', precioTexto:'$10.000', precioValor:10000 },
+        { nombreCarrito:'Aloe', titulo:'Aloe (x1 Lb)', desc:'Hojas de aloe vera frescas. Para jugos o usos cosméticos.', precioTexto:'$12.000', precioValor:12000 },
+        { nombreCarrito:'Durazno', titulo:'Durazno (Bandeja)', desc:'Duraznos frescos, dulces y jugosos. Perfectos para postres.', precioTexto:'$5.000', precioValor:5000 }
+    ];
+
+    const recetasBD = [
+        { titulo:"Hogao Tradicional Colombiano", ingredientes:["3 Tomates Chonto maduros","2 tallos de Cebolla Larga","Sal, comino y color al gusto","2 cucharadas de aceite"], preparacion:["Pica el tomate y la cebolla finamente.","En un sartén a fuego medio, calienta el aceite.","Agrega la cebolla y sofríe por 3 minutos.","Añade el tomate, la sal, el comino y el color.","Tapa y cocina a fuego lento por 10-15 minutos."], nota:"Ideal para acompañar papas nevadas, yuca, o arepas." },
+        { titulo:"Sopa Rápida de Plátano y Papa", ingredientes:["1 Plátano Verde pelado y picado","2 Papas Nevadas en cubos","1/2 Cebolla Huevo picada","Cilantro fresco"], preparacion:["Sofríe la cebolla con un poco de aceite.","Agrega agua o caldo, y añade los trozos de plátano verde.","Deja cocinar 15 minutos y agrega la papa nevada.","Cocina hasta que la papa esté suave.","Sirve caliente con cilantro fresco."], nota:"Un clásico reconfortante para los días fríos." },
+        { titulo:"Sopa de Vegetales con Papas y Carne", ingredientes:["2 Papas Nevadas en cubos","1 Zanahoria en rodajas","1/2 Cebolla Huevo picada","1 ramita de Apio","250g de carne de res (opcional)","Sal y especias al gusto"], preparacion:["Cocina la carne en agua hasta que esté blanda.","Agrega la cebolla, zanahoria, apio y papas.","Cocina a fuego medio por 20 minutos.","Rectifica la sal y sirve caliente."], nota:"Puedes omitir la carne para una versión vegetariana." },
+        { titulo:"Jugo de Tomate de Árbol Cremoso", ingredientes:["4 Tomates de Árbol maduros","2 cucharadas de azúcar","1 taza de agua","Hielo"], preparacion:["Lava y parte los tomates de árbol por la mitad.","Extrae la pulpa con una cuchara.","Licúa con agua y azúcar. Cuela si deseas.","Sirve con hielo."], nota:"Puedes agregar leche para hacerlo cremoso." },
+        { titulo:"Ensalada Fresca de Tomate Chonto y Limón", ingredientes:["2 Tomates Chonto en rodajas","1/2 Cebolla Morada en julianas","Jugo de 1 Limón Tahití","Sal y cilantro al gusto"], preparacion:["Mezcla todos los ingredientes en un bowl.","Deja reposar 5 minutos para que los sabores se integren."], nota:"Acompañante ideal para carnes asadas o pescados." },
+        { titulo:"Patacones Crocantes", ingredientes:["2 Plátanos Verdes","Aceite para freír","Sal al gusto"], preparacion:["Pela los plátanos y córtalos en trozos de 3 cm.","Fríe en aceite caliente hasta que estén dorados.","Retira y aplana cada trozo.","Vuelve a freír hasta que estén crocantes.","Espolvorea sal y sirve."], nota:"Acompáñalos con hogao o queso rallado." },
+        { titulo:"Tortilla de Papa y Cebolla (Tipo Española)", ingredientes:["3 Papas Nevadas en rodajas finas","1/2 Cebolla Huevo en julianas","4 Huevos","Sal y aceite"], preparacion:["Fríe las papas y la cebolla hasta que estén blandas.","Escurre y mezcla con huevos batidos y sal.","Vierte en sartén con poco aceite y cuaja por un lado.","Voltea con un plato y dora por el otro lado."], nota:"Puedes servir caliente o fría." }
+    ];
+
+    function mostrarComboSeleccionado() {
+        const i = document.getElementById('selector-combo').value;
+        const c = combosBD[i];
+        document.getElementById('combo-badge').innerText = c.badge;
+        document.getElementById('combo-titulo').innerText = c.titulo;
+        document.getElementById('combo-desc').innerHTML = c.desc;
+        document.getElementById('combo-precio').innerText = c.precioTexto;
+        document.getElementById('btn-agregar-combo').setAttribute('onclick', `agregarAlCarrito('${c.nombreCarrito}', ${c.precioValor})`);
+    }
+
+    function mostrarToppingSeleccionado() {
+        const i = document.getElementById('selector-topping').value;
+        const t = toppingsBD[i];
+        document.getElementById('topping-titulo').innerText = t.titulo;
+        document.getElementById('topping-desc').innerHTML = t.desc;
+        document.getElementById('topping-precio').innerText = t.precioTexto;
+        document.getElementById('btn-agregar-topping').setAttribute('onclick', `agregarAlCarrito('${t.nombreCarrito}', ${t.precioValor})`);
+    }
+
+    function mostrarRecetaSeleccionada() {
+        const i = document.getElementById('selector-receta').value;
+        const r = recetasBD[i];
+        document.getElementById('receta-titulo').innerText = r.titulo;
+        document.getElementById('receta-cuerpo').innerHTML = `
+            <div class="recipe-ingredients">Ingredientes:</div>
+            ${r.ingredientes.map(ing => `• ${ing}<br>`).join('')}
+            <div class="recipe-ingredients" style="margin-top:12px">Preparación:</div>
+            <ol class="recipe-steps">${r.preparacion.map(p => `<li>${p}</li>`).join('')}</ol>
+            <br><em style="color:var(--cafe-medio)">${r.nota}</em>
+        `;
+    }
+
+    window.onload = function() {
+        const params = new URLSearchParams(window.location.search);
+        const comboParam = params.get('combo');
+        if (comboParam !== null) {
+            const idx = parseInt(comboParam);
+            const sel = document.getElementById('selector-combo');
+            if (!isNaN(idx) && idx >= 0 && idx < combosBD.length) sel.value = idx;
+        }
+        mostrarComboSeleccionado();
+        mostrarToppingSeleccionado();
+        mostrarRecetaSeleccionada();
+    };
+
+    let carrito = [];
+
+    function agregarAlCarrito(nombre, precio) {
+        const ex = carrito.find(i => i.nombre === nombre);
+        if (ex) ex.cantidad++;
+        else carrito.push({ nombre, precio, cantidad: 1 });
+        actualizarUI();
+        mostrarToast(`¡${nombre} añadido a la bolsa! 🛒`);
+    }
+
+    function vaciarCarrito() { carrito = []; actualizarUI(); }
+
+    function actualizarUI() {
+        const lista = document.getElementById('lista-carrito');
+        const totalEl = document.getElementById('gran-total');
+        if (carrito.length === 0) {
+            lista.innerHTML = '<p class="cart-empty">Tu bolsa está vacía</p>';
+            totalEl.innerText = '0';
+            return;
+        }
+        let html = '', total = 0;
+        carrito.forEach(item => {
+            const sub = item.precio * item.cantidad;
+            total += sub;
+            html += `<div class="cart-item"><span>${item.cantidad}× ${item.nombre}</span><span>$${sub.toLocaleString('es-CO')}</span></div>`;
+        });
+        lista.innerHTML = html;
+        totalEl.innerText = total.toLocaleString('es-CO');
+    }
+
+    function mostrarToast(msg) {
+        const t = document.getElementById('toast');
+        t.innerText = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    function enviarPedido() {
+        if (carrito.length === 0) { alert('Tu bolsa está vacía.'); return; }
+        const nombre = document.getElementById('nombre').value;
+        const telefono = document.getElementById('telefono').value;
+        const direccion = document.getElementById('direccion').value;
+        const peticiones = document.getElementById('peticiones').value;
+        const medioPago = document.getElementById('medio-pago').value;
+        if (!nombre || !telefono || !direccion || !medioPago) { alert('Por favor completa todos los datos de entrega.'); return; }
+
+        const datos = {
+            nombre, telefono, direccion,
+            pedido: carrito.map(i => `${i.cantidad}x ${i.nombre}`).join(' | '),
+            peticiones: peticiones || 'Ninguna',
+            medioPago,
+            total: carrito.reduce((s, i) => s + i.precio * i.cantidad, 0)
         };
 
-        function mostrarNotificacion(mensaje) {
-            let toast = document.getElementById("notificacion-toast");
-            toast.innerText = mensaje;
-            toast.className = "toast mostrar";
-            setTimeout(function(){ toast.className = toast.className.replace("mostrar", ""); }, 3000);
-        }
-
-        let carrito = [];
-
-        function agregarAlCarrito(nombre, precio) {
-            let productoExistente = carrito.find(item => item.nombre === nombre);
-            if (productoExistente) {
-                productoExistente.cantidad++;
-            } else {
-                carrito.push({ nombre: nombre, precio: precio, cantidad: 1 });
-            }
-            actualizarUI();
-            mostrarNotificacion(`¡${nombre} añadido a la bolsa! 🛒`);
-        }
-
-        function vaciarCarrito() {
-            carrito = [];
-            actualizarUI();
-        }
-
-        function actualizarUI() {
-            let listaHTML = document.getElementById('lista-carrito');
-            let totalVisual = document.getElementById('gran-total');
-            let html = '';
-            let total = 0;
-
-            if (carrito.length === 0) {
-                listaHTML.innerHTML = '<p style="color: #999; font-size: 14px; text-align: center;">Tu bolsa está vacía</p>';
-                totalVisual.innerText = '0';
-                return;
-            }
-
-            carrito.forEach((item) => {
-                let subtotal = item.precio * item.cantidad;
-                total += subtotal;
-                html += `
-                    <div class="item-carrito">
-                        <span>${item.cantidad}x ${item.nombre}</span>
-                        <span>$${subtotal.toLocaleString('es-CO')}</span>
-                    </div>
-                `;
-            });
-
-            listaHTML.innerHTML = html;
-            totalVisual.innerText = total.toLocaleString('es-CO');
-        }
-
-        function enviarPedido() {
-            if (carrito.length === 0) { alert("Tu bolsa está vacía."); return; }
-
-            let nombre = document.getElementById('nombre').value;
-            let telefono = document.getElementById('telefono').value;
-            let direccion = document.getElementById('direccion').value;
-            let peticiones = document.getElementById('peticiones').value;
-            let medioPago = document.getElementById('medio-pago').value;
-
-            if(!nombre || !telefono || !direccion || !medioPago) { 
-                alert("Por favor, completa tus datos de entrega y selecciona un medio de pago."); 
-                return; 
-            }
-
-            let resumenPedido = carrito.map(item => `${item.cantidad}x ${item.nombre}`).join(' | ');
-            let totalAPagar = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-
-            let datos = {
-                nombre: nombre,
-                telefono: telefono,
-                direccion: direccion,
-                pedido: resumenPedido,
-                peticiones: peticiones || "Ninguna",
-                medioPago: medioPago, 
-                total: totalAPagar
-            };
-
-            let urlAppsScript = "https://script.google.com/macros/s/AKfycbwXv1UqYg2kp5nKgjaIeLLJthWvnPA0XSJYhXMveKDiF5128VXWs-czDKXkG3DmXTOxyQ/exec";
-
-            fetch(urlAppsScript, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify(datos)
-            }).then(() => {
-                alert("¡Pedido recibido! Prepararemos tu combo y te contactaremos pronto.");
-                vaciarCarrito();
-                document.getElementById('nombre').value = '';
-                document.getElementById('telefono').value = '';
-                document.getElementById('direccion').value = '';
-                document.getElementById('peticiones').value = '';
-                document.getElementById('medio-pago').value = '';
-            }).catch(error => {
-                console.error('Error:', error);
-                alert("Hubo un problema al enviar el pedido.");
-            });
-        }
-    </script>
+        fetch('https://script.google.com/macros/s/AKfycbwXv1UqYg2kp5nKgjaIeLLJthWvnPA0XSJYhXMveKDiF5128VXWs-czDKXkG3DmXTOxyQ/exec', {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(datos)
+        }).then(() => {
+            alert('¡Pedido recibido! Prepararemos tu combo y te contactaremos pronto.');
+            vaciarCarrito();
+            ['nombre','telefono','direccion','peticiones'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('medio-pago').value = '';
+        }).catch(() => alert('Hubo un problema al enviar el pedido.'));
+    }
+</script>
 </body>
 </html>
