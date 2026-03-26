@@ -835,68 +835,6 @@
                 <!-- generado por JS -->
             </div>
 
-            <div class="natural-divider">🌿 También tenemos</div>
-
-            <p class="section-title">Extras especiales</p>
-            <p class="section-subtitle">Productos únicos que complementan tu mercado a la carta</p>
-
-            <label class="field-label" for="selector-topping">Selecciona un extra</label>
-            <select class="custom-select" id="selector-topping" onchange="mostrarToppingSeleccionado()">
-                <option value="0">Cubeta de Huevos Campesinos (x30)</option>
-                <option value="1">Flor de Jamaica (X50 gr)</option>
-                <option value="2">Uva Verde sin Semilla (X1 Kg)</option>
-                <option value="3">Aguacate (X1 Kg)</option>
-                <option value="4">Limon Tahiti (X1 Kg)</option>
-                <option value="5">Mango Tommy (X1 Kg)</option>
-                <option value="6">Tomate de Arbol (X1 Kg)</option>
-                <option value="7">Banano (X1 Kg)</option>
-                <option value="8">Granadilla (Bandeja x6)</option>
-                <option value="9">Sandia Baby (X1 Kg)</option>
-                <option value="10">Curuba (Bandeja X4)</option>
-                <option value="11">Kiwi (X1 Kg)</option>
-                <option value="12">Maracuya (X1 Kg)</option>
-                <option value="13">Fresa (Bandeja)</option>
-                <option value="14">Arandanos (X130 gr)</option>
-                <option value="15">Espinaca (X 1 Lb)</option>
-                <option value="16">Champiñones (X1 Lb)</option>
-                <option value="17">Cebolla Larga (X1 Kg)</option>
-                <option value="18">Tomate Chonto (X1 Kg)</option>
-                <option value="19">Platano Maduro (X1 Kg)</option>
-                <option value="20">Platano Verde (X1 Kg)</option>
-                <option value="21">Papa Criolla (X1 Kg)</option>
-                <option value="22">Papa Nevada (X1 Kg)</option>
-                <option value="23">Cebolla Huevo (X1 Kg)</option>
-                <option value="24">Zanahoria (X1 Kg)</option>
-                <option value="25">Lechuga Crespa Hidroponia (X 1 Und)</option>
-                <option value="26">Frijol Verde (X1 Lb)</option>
-                <option value="27">Suchini (X1 Lb)</option>
-                <option value="28">Brocoli (X1 Lb)</option>
-                <option value="29">Pepino (X1 Lb)</option>
-                <option value="30">Apio (X1 Lb)</option>
-                <option value="31">Remolacha (X1 Lb)</option>
-                <option value="32">Habichuela (X1 Lb)</option>
-                <option value="33">Coliflor (X1 Lb)</option>
-                <option value="34">Cebolla Morada (X1 Lb)</option>
-                <option value="35">Tomate Cherry (Canasta)</option>
-                <option value="36">Mazorca Extra (Bandeja x3 Und)</option>
-                <option value="37">Yuca (X1 Kg)</option>
-                <option value="38">Berenjena (X1 Kg)</option>
-                <option value="39">Jengibre (X1 Kg)</option>
-                <option value="40">Tomate Riñon (X1 Kg)</option>
-                <option value="41">Cilantro (X1 Lb)</option>
-                <option value="42">Aloe (X1 Lb)</option>
-                <option value="43">Durazno (Bandeja)</option>
-            </select>
-
-            <div class="product-card">
-                <div class="card-badge">Extra de la granja</div>
-                <div class="card-title" id="topping-titulo">Cubeta de Huevos Campesinos (x30)</div>
-                <div class="card-desc" id="topping-desc"></div>
-                <div class="card-footer">
-                    <div class="card-price" id="topping-precio">$20.000</div>
-                    <button class="btn-add" id="btn-agregar-topping" onclick="agregarAlCarrito('Huevos Campesinos', 20000)">+ Añadir</button>
-                </div>
-            </div>
         </div>
 
         <!-- RECETAS -->
@@ -1237,7 +1175,6 @@
             if (!isNaN(idx) && idx >= 0 && idx < combosBD.length) sel.value = idx;
         }
         mostrarComboSeleccionado();
-        mostrarToppingSeleccionado();
         mostrarRecetaSeleccionada();
         renderCarta();
     };
