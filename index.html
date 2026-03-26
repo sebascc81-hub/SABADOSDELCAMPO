@@ -323,21 +323,71 @@
             margin-bottom: 20px;
         }
         .filter-chip {
-            background: transparent;
-            border: 1.5px solid var(--cafe-medio);
-            color: var(--cafe-medio);
+            background: var(--blanco);
+            border: 2px solid transparent;
             font-family: 'Lora', serif;
             font-size: 12px;
-            font-weight: 600;
-            padding: 6px 14px;
+            font-weight: 700;
+            padding: 7px 16px;
             border-radius: 20px;
             cursor: pointer;
             transition: all .2s;
             letter-spacing: .3px;
         }
-        .filter-chip:hover, .filter-chip.active {
+        .filter-chip[onclick*="todos"] {
+            color: var(--verde-oscuro);
+            border-color: var(--verde-oscuro);
+            background: var(--blanco);
+        }
+        .filter-chip[onclick*="frutas"] {
+            color: #8B2020;
+            border-color: #C0392B;
+            background: #FFF5F5;
+        }
+        .filter-chip[onclick*="verduras"] {
+            color: var(--verde-oscuro);
+            border-color: var(--verde-medio);
+            background: #F0F7F1;
+        }
+        .filter-chip[onclick*="tuberculos"] {
+            color: #6B4200;
+            border-color: var(--cafe-oscuro);
+            background: #FDF6EC;
+        }
+        .filter-chip[onclick*="otros"] {
+            color: #5A4500;
+            border-color: var(--cafe-medio);
+            background: #FAF4E8;
+        }
+
+        .filter-chip[onclick*="todos"].active,
+        .filter-chip[onclick*="todos"]:hover {
+            background: var(--verde-oscuro);
+            border-color: var(--verde-oscuro);
+            color: var(--crema);
+        }
+        .filter-chip[onclick*="frutas"].active,
+        .filter-chip[onclick*="frutas"]:hover {
+            background: #C0392B;
+            border-color: #C0392B;
+            color: white;
+        }
+        .filter-chip[onclick*="verduras"].active,
+        .filter-chip[onclick*="verduras"]:hover {
+            background: var(--verde-medio);
+            border-color: var(--verde-medio);
+            color: var(--verde-oscuro);
+        }
+        .filter-chip[onclick*="tuberculos"].active,
+        .filter-chip[onclick*="tuberculos"]:hover {
             background: var(--cafe-oscuro);
             border-color: var(--cafe-oscuro);
+            color: var(--crema);
+        }
+        .filter-chip[onclick*="otros"].active,
+        .filter-chip[onclick*="otros"]:hover {
+            background: var(--cafe-medio);
+            border-color: var(--cafe-medio);
             color: var(--crema);
         }
 
